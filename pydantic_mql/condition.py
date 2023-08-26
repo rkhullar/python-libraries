@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from typing import Union
+from typing import Union, Self
 
-from pydantic import BaseModel, RootModel, conlist
+from pydantic import BaseModel, RootModel, conlist, model_validator
 
 from .operator import (ComparisonOperator, LogicalOperator,
                        comparison_operations, logical_operations)
@@ -15,6 +15,12 @@ class ComparisonCondition(BaseModel):
     operator: ComparisonOperator
     field: str
     value: PrimitiveValue | list[PrimitiveValue]
+
+    @model_validator(mode='after')
+    def check_value_type(self) -> Self:
+        if isinstance(self.value, list):  # and operator is meant for collections
+            raise ValueError
+        return self
 
     def eval(self, data: dict) -> bool:
         handler = comparison_operations[self.operator]
