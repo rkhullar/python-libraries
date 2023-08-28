@@ -1,18 +1,17 @@
 from __future__ import annotations
 
-from typing import Union, Self
+from typing import Self, Union
 
 from pydantic import BaseModel, RootModel, conlist, model_validator
 
-from .operator import (ComparisonOperator, LogicalOperator,
-                       comparison_operations, logical_operations)
+from .eval.operator import ComparisonOperator, LogicalOperator
 
 primitive_types = bool, int, float, str
 PrimitiveValue = Union[primitive_types]
 
 
 class ComparisonCondition(BaseModel):
-    operator: ComparisonOperator
+    operator: ComparisonOperator.type
     field: str
     value: PrimitiveValue | list[PrimitiveValue]
 
@@ -23,16 +22,16 @@ class ComparisonCondition(BaseModel):
         return self
 
     def eval(self, data: dict) -> bool:
-        handler = comparison_operations[self.operator]
+        handler = ComparisonOperator.data[self.operator]
         return handler(data.get(self.field), self.value)
 
 
 class LogicalCondition(BaseModel):
-    operator: LogicalOperator
+    operator: LogicalOperator.type
     conditions: conlist(item_type=Condition, min_length=1)
 
     def eval(self, data: dict) -> bool:
-        handler = logical_operations[self.operator]
+        handler = LogicalOperator.data[self.operator]
         nested_stream = (condition.eval(data) for condition in self.conditions)
         return handler(nested_stream)
 

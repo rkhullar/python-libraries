@@ -1,4 +1,4 @@
-from .util import to_literal
+from ..util import to_literal
 
 equality_operations = {
     '$eq': lambda a, b: a == b,
