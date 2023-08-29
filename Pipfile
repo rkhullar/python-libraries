@@ -6,8 +6,9 @@ name = "pypi"
 [packages]
 
 [dev-packages]
-pydantic = "*"
-isort = "*"
+pydantic = "~=2.3.0"
+isort = "~=5.12.0"
+mypy = "~=1.5.0"
 
 [requires]
 python_version = "3.11"
