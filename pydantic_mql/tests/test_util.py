@@ -1,5 +1,6 @@
-from ..util import to_literal
 from unittest import TestCase
+
+from ..util import to_literal
 
 
 class UtilTest(TestCase):
