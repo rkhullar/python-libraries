@@ -18,7 +18,7 @@ def read_python_version() -> str:
 
 
 setup(
-    name='hello-world',
+    name='pydantic-mql',
     version=read_file('version.txt'),
     url='https://github.com/rkhullar/python-libraries/tree/main/pydantic-mql',
     author='Rajan Khullar',

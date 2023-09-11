@@ -5,6 +5,13 @@
 - pearsonr
 - pydantic-mql
 
+## Building
+```shell
+cd pydantic-mql
+python setup.py sdist bdist_wheel
+rm -rf build pydantic_mql.egg-info
+```
+
 ## Useful Links
 - [non-ai-licenses]
 
