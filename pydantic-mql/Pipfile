@@ -4,10 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+pydantic = "~=2.3.0"
 
 [dev-packages]
-pydantic = "~=2.3.0"
+pipfile = "~=0.0.0"
 isort = "~=5.12.0"
+wheel = "~=0.41.0"
+twine = "~=4.0.0"
 mypy = "~=1.5.0"
 
 [requires]
