@@ -25,7 +25,7 @@ def patch_wheel_darwin():
         lib_file, ext_file = f'lib{lib_name}.so', 'extension.abi3.so'
         ext_path = Path(pkg_name) / 'lib' / ext_file
         commands = [
-            ['unzip', str(wheel_path), ext_file],
+            ['unzip', str(wheel_path), str(ext_path)],
             ['install_name_tool', '-change', lib_file, f'@loader_path/{pkg_name}/lib/{lib_file}', str(ext_path)],
             ['otool', '-L', str(ext_path)],
             ['zip', '-d', str(wheel_path), str(ext_path)],
