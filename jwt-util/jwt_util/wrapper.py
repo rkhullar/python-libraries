@@ -1,4 +1,4 @@
-from _jwt_util import ffi, lib
+from .lib.extension import ffi, lib
 from dataclasses import dataclass
 
 
