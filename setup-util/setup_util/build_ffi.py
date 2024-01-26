@@ -1,5 +1,5 @@
 from cffi import FFI
-from .config import Config
+from setup_util.config import Config
 
 config = Config.load()
 header_path, shared_object_path = config.header_path, config.shared_object_path
