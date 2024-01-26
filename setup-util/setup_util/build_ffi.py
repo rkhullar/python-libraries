@@ -1,19 +1,14 @@
-import sys
-from pathlib import Path
-
 from cffi import FFI
+from .config import Config
 
-pkg_name, lib_name = 'jwt_util', 'jwtutil'
-full_lib_name = f'lib{lib_name}'
-
-path = Path(__file__).parent.absolute() / pkg_name / 'lib'
-header_path, shared_object_path = path / f'{full_lib_name}.h', path / f'{full_lib_name}.so'
+config = Config.load()
+header_path, shared_object_path = config.header_path, config.shared_object_path
 
 
 def build_extra_set_source_args() -> dict[str, list[str]]:
-    match sys.platform:
+    match config.platform:
         case 'linux':
-            set_rpath = [f'-Wl,-rpath=$ORIGIN/{pkg_name}/lib']
+            set_rpath = [f'-Wl,-rpath=$ORIGIN/{config.package}/lib']
             return dict(extra_link_args=set_rpath)
         case 'darwin':
             return dict()
@@ -23,18 +18,21 @@ def build_extra_set_source_args() -> dict[str, list[str]]:
 
 builder = FFI()
 
+'''
+# attempt to build extension within package
+module_name=f'{pkg_name}.lib.extension'
+'''
+
 builder.set_source(
-    module_name=f'{pkg_name}.lib.extension',
+    module_name=config.extension,
     source=f'#include "{header_path}"',
-    libraries=[lib_name],
-    library_dirs=[str(shared_object_path.parent)],
+    libraries=[config.library],
+    library_dirs=[str(config.library_path)],
     **build_extra_set_source_args()
 )
 
-builder.cdef('''
-    char* BuildSignature();
-''')
+builder.cdef('\n'.join(config.signatures))
 
 
-if __name__ == '__main__':
+def main():
     builder.compile(verbose=True, tmpdir='out')
