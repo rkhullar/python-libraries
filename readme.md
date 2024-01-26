@@ -5,6 +5,10 @@
 - pearsonr
 - pydantic-mql
 
+### TBD
+- setup-util: helper for building python libraries with go module extensions
+- jwt-util: example python go library
+
 ## Building
 ```shell
 cd pydantic-mql
@@ -18,7 +22,6 @@ cd pydantic-mql
 twine upload -r testpypi dist/*
 twine upload dist/*
 ```
-
 
 ## Useful Links
 - [non-ai-licenses]

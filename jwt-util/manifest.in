@@ -1,0 +1,3 @@
+include jwt_util/go/*.go
+include jwt_util/go/go.mod
+include jwt_util/lib/*.so
