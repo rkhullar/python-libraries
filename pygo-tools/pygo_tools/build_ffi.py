@@ -1,5 +1,6 @@
 from cffi import FFI
-from setup_util.config import Config
+
+from pygo_tools.config import Config
 
 config = Config.load()
 header_path, shared_object_path = config.header_path, config.shared_object_path

@@ -1,6 +1,5 @@
+from pygo_tools import setup
 from setuptools import find_packages
-from setup_util import setup
-
 
 setup(
     name='jwt-util',
