@@ -2,8 +2,8 @@
 
 This project aims to bridge the gap between Python and Golang, enabling developers to easily create high performance Python
 libraries with precompiled Go extensions. `pygo-tools` wraps the `setup` function from `setuptools` and handles the process
-of compiling your library's golang source before building the wheel file. `pygo-tools` also patches the resulting wheel file,
-removing the need to manually configure `LD_LIBRARY_PATH` or `DYLD_LIBRARY_PATH`.
+of compiling your library's golang source before building the wheel file. `pygo-tools` also patches the resulting extension,
+removing the need to manually configure `LD_LIBRARY_PATH` or `DYLD_LIBRARY_PATH` before runtime.
 
 ### Installation
 ```shell
@@ -36,7 +36,7 @@ golang library, python extension, and `C` functon signatures for the underlying 
   "extension": "_example",
   "library": "hello",
   "signatures": [
-    "char* Hello(char* name);"
+    "char* Hello(char* message, int count);"
   ]
 }
 ```
@@ -146,7 +146,7 @@ post_build:
 The `Makefile` at the project level runs `setup.py bdist_wheel` in order to create the wheel file under the `dist` folder.
 The binary distribution should include your python and golang source code, along with the compiled library and extension.
 ```text
-- example/lib/libexample.so
+- example/lib/libhello.so
 - _example.abi3.so
 ```
 
@@ -159,18 +159,20 @@ can be used for this. However, you can also create a `Dockerfile` and `docker-co
 and `linux/amd64`:
 
 ```dockerfile
+# Dockerfile
 ARG PYTHON_VERSION=3.12
 FROM public.ecr.aws/sam/build-python${PYTHON_VERSION}
 RUN dnf install -y golang make
 RUN pip install -U pip setuptools
 RUN pip install pygo-tools
 COPY example example/
-COPY setup.py MANIFEST.in ./
+COPY setup.py config.json MANIFEST.in ./
 RUN python setup.py bdist_wheel
 ENTRYPOINT ["/bin/sh"]
 ```
 
 ```yaml
+# docker-compose.yaml
 version: '3'
 services:
   builder:
