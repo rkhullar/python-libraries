@@ -146,7 +146,7 @@ post_build:
 The `Makefile` at the project level runs `setup.py bdist_wheel` in order to create the wheel file under the `dist` folder.
 The binary distribution should include your python and golang source code, along with the compiled library and extension.
 ```text
-- example/lib/libexample.so
+- example/lib/libhello.so
 - _example.abi3.so
 ```
 
