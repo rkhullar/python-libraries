@@ -108,7 +108,7 @@ print(adapter.hello(message='world', count=4))
 ```
 
 ```python
-# test.py
+# setup.py
 
 from pygo_tools import setup
 from setuptools import find_packages
