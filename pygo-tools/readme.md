@@ -159,6 +159,7 @@ can be used for this. However, you can also create a `Dockerfile` and `docker-co
 and `linux/amd64`:
 
 ```dockerfile
+# Dockerfile
 ARG PYTHON_VERSION=3.12
 FROM public.ecr.aws/sam/build-python${PYTHON_VERSION}
 RUN dnf install -y golang make
@@ -171,6 +172,7 @@ ENTRYPOINT ["/bin/sh"]
 ```
 
 ```yaml
+# docker-compose.yaml
 version: '3'
 services:
   builder:

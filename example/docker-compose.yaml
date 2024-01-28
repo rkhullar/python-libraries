@@ -1,0 +1,9 @@
+version: '3'
+services:
+  builder:
+    build: .
+    platform: linux/arm64
+    volumes:
+      - ./out:/var/task/out:rw
+    entrypoint: ["/bin/sh", "-c"]
+    command: ["cp dist/* out/"]
