@@ -1,8 +1,8 @@
-from pathlib import Path
-from dataclasses import dataclass
 import json
-from typing import Self
 import sys
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Self
 
 
 def _read_config() -> tuple[Path, dict]:

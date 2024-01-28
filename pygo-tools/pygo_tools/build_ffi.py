@@ -1,4 +1,5 @@
 from cffi import FFI
+
 from pygo_tools.config import Config
 
 config = Config.load()
