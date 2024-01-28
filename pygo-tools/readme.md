@@ -36,7 +36,7 @@ golang library, python extension, and `C` functon signatures for the underlying 
   "extension": "_example",
   "library": "hello",
   "signatures": [
-    "char* Hello(char* name);"
+    "char* Hello(char* message, int count);"
   ]
 }
 ```
