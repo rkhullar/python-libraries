@@ -152,8 +152,39 @@ The binary distribution should include your python and golang source code, along
 
 #### Testing
 Install the wheel file in your virtual environment and run `python test.py` to check that things are working end to end locally.
-You can further test using with Docker or AWS Lambda. Note that the wheel file should be built for each platform (operating system
-and architecture) that you want to support on runtime.
+
+#### Distributing
+Binary distributions with compiled code should be built for each platform that you want to support during runtime. [`cibuildwheel`]
+can be used for this. However, you can also create a `Dockerfile` and `docker-compose.yaml` to build wheels for `linux/arm64`
+and `linux/amd64`:
+
+```dockerfile
+ARG PYTHON_VERSION=3.12
+FROM public.ecr.aws/sam/build-python${PYTHON_VERSION}
+RUN dnf install -y golang make
+RUN pip install -U pip setuptools
+RUN pip install pygo-tools
+COPY example example/
+COPY setup.py MANIFEST.in ./
+RUN python setup.py bdist_wheel
+ENTRYPOINT ["/bin/sh"]
+```
+
+```yaml
+version: '3'
+services:
+  builder:
+    build: .
+    platform: linux/arm64
+    volumes:
+      - ./out:/var/task/out:rw
+    entrypoint: ["/bin/sh", "-c"]
+    command: ["cp dist/* out/"]
+```
 
 ### Related Links
-- https://cffi.readthedocs.io
+- [cffi]
+- [cibuildwheel]
+
+[cffi]: https://cffi.readthedocs.io
+[cibuildwheel]: https://cibuildwheel.readthedocs.io
