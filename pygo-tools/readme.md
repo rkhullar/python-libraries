@@ -2,8 +2,8 @@
 
 This project aims to bridge the gap between Python and Golang, enabling developers to easily create high performance Python
 libraries with precompiled Go extensions. `pygo-tools` wraps the `setup` function from `setuptools` and handles the process
-of compiling your library's golang source before building the wheel file. `pygo-tools` also patches the resulting wheel file,
-removing the need to manually configure `LD_LIBRARY_PATH` or `DYLD_LIBRARY_PATH`.
+of compiling your library's golang source before building the wheel file. `pygo-tools` also patches the resulting extension,
+removing the need to manually configure `LD_LIBRARY_PATH` or `DYLD_LIBRARY_PATH` before runtime.
 
 ### Installation
 ```shell
