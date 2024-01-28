@@ -1,5 +1,5 @@
 from setuptools import find_packages
-from setup_util import setup
+from pygo_tools import setup
 
 
 setup(
