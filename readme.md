@@ -4,9 +4,9 @@
 - terraform-utils
 - pearsonr
 - pydantic-mql
+- pygo-tools
 
 ### TBD
-- setup-util: helper for building python libraries with go module extensions
 - jwt-util: example python go library
 
 ## Building
