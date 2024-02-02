@@ -1,0 +1,7 @@
+[build-system]
+requires = ["pygo-tools-v2"]
+build-backend = "pygo_tools.x"
+
+[project]
+name = "pygo-tools-example-v2"
+version = "0.1.0"
