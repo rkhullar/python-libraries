@@ -1,0 +1,23 @@
+[project]
+name = "fastapi-mongodb"
+dynamic = ["version"]
+readme = "readme.md"
+license = {text = "MIT NON-AI License"}
+authors = [
+    {name = "Rajan Khullar", email = "rkhullar03@gmail.com"}
+]
+requires-python = ">= 3.8"
+dependencies = [
+    "httpx",
+    "fastapi",
+    "pydantic-settings",
+    "pymongo[aws,srv]"
+]
+
+[project.optional-dependencies]
+server = ["uvicorn"]
+lambda = ["mangum"]
+
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
