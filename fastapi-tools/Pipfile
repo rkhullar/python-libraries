@@ -15,6 +15,7 @@ mangum = "*"
 isort = "*"
 wheel = "*"
 build = "*"
+twine = "*"
 
 [requires]
 python_version = "3.12"
