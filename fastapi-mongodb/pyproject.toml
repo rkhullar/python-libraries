@@ -10,13 +10,13 @@ requires-python = ">= 3.8"
 dependencies = [
     "httpx",
     "fastapi",
-    "pydantic-settings",
-    "pymongo[aws,srv]"
+    "pydantic-settings"
 ]
 
 [project.optional-dependencies]
 server = ["uvicorn"]
 lambda = ["mangum"]
+mongodb = ["pymongo[aws,srv]"]
 
 [build-system]
 requires = ["setuptools >= 61.0"]
