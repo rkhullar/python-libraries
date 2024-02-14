@@ -1,0 +1,12 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi-mongodb = {file = "../fastapi-mongodb/dist/fastapi_mongodb-0.0.0-py3-none-any.whl", extras=["server", "lambda"]}
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"
