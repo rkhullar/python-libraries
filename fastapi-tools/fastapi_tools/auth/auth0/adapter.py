@@ -1,10 +1,11 @@
-from typing import Annotated
-from fastapi import Security, Request, APIRouter
-from ...util import decode_jwt
-from .bearer import Auth0CodeBearer
-from typing import Type
+from typing import Annotated, Type
+
+from fastapi import APIRouter, Request, Security
 from pydantic import BaseModel
+
+from ...util import decode_jwt
 from ..adapter import DynamicAuthDepends
+from .bearer import Auth0CodeBearer
 
 
 def build_depends(auth_scheme: Auth0CodeBearer, identity_token_type: Type[BaseModel]) -> DynamicAuthDepends:

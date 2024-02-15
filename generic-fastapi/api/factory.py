@@ -1,8 +1,9 @@
 from fastapi import FastAPI
+from fastapi_tools.metrics import add_process_time_header
+
 from .config import Settings
 # from .model.adapter import MongoAdapterCache
 from .router import router as api_router
-from fastapi_tools.metrics import add_process_time_header
 
 
 def create_app(settings: Settings, test: bool = False) -> FastAPI:

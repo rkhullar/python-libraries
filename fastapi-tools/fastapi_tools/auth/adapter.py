@@ -1,4 +1,4 @@
-from typing import NamedTuple, Callable, Type
+from typing import Callable, NamedTuple, Type
 
 
 class DynamicAuthDepends(NamedTuple):

@@ -1,6 +1,8 @@
-from .config import Settings
+from fastapi_tools.auth.auth0 import (Auth0CodeBearer, Auth0IdentityToken,
+                                      build_depends)
 from fastapi_tools.depends import load_extra, read_request_state
-from fastapi_tools.auth.auth0 import Auth0CodeBearer, build_depends, Auth0IdentityToken
+
+from .config import Settings
 
 LoadSettings = load_extra(key='settings', _type=Settings)
 ReadAuthData = read_request_state(key='auth_data', _type=dict)

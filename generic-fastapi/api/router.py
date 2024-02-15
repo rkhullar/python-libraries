@@ -1,10 +1,11 @@
 from fastapi import APIRouter, status
 from fastapi.responses import RedirectResponse
 
+from .routes import debug
+
 # from .routes import debug, generic_data, generic_shared_data, profile
 # from .routes.admin import router as admin
 
-from .routes import debug
 
 router = APIRouter()
 router.include_router(debug.router, prefix='/debug', tags=['debug'])

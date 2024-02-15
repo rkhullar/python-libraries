@@ -1,5 +1,6 @@
-from fastapi import Request, Depends
-from typing import Type, Annotated
+from typing import Annotated, Type
+
+from fastapi import Depends, Request
 
 
 def read_request_state(key: str, _type: Type):

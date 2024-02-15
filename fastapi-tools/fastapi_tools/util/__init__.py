@@ -1,2 +1,2 @@
-from .httpx_util import async_httpx, BearerAuth
+from .httpx_util import BearerAuth, async_httpx
 from .jwt_util import decode_jwt

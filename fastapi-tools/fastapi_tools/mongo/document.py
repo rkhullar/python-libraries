@@ -7,8 +7,8 @@ from fastapi import HTTPException, status
 from pydantic import BaseModel, RootModel
 from pymongo.database import Collection
 
-from .util import is_valid_object_id
 from .object_id import PydanticObjectId
+from .util import is_valid_object_id
 
 
 class Document(BaseModel):
