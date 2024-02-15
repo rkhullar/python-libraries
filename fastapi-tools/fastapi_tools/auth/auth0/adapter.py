@@ -4,9 +4,10 @@ from ...util import decode_jwt
 from .bearer import Auth0CodeBearer
 from typing import Type
 from pydantic import BaseModel
+from ..adapter import DynamicAuthDepends
 
 
-def build_depends(auth_scheme: Auth0CodeBearer, identity_token_type: Type[BaseModel]) -> dict:
+def build_depends(auth_scheme: Auth0CodeBearer, identity_token_type: Type[BaseModel]) -> DynamicAuthDepends:
 
     ReadAccessToken = Annotated[str, Security(auth_scheme)]
 
@@ -25,9 +26,9 @@ def build_depends(auth_scheme: Auth0CodeBearer, identity_token_type: Type[BaseMo
 
     ReadIdentityToken = Annotated[identity_token_type, Security(read_identity_token)]
 
-    return dict(
-        ReadAccessToken=ReadAccessToken,
-        ReadIdentityToken=ReadIdentityToken,
+    return DynamicAuthDepends(
         require_auth=require_auth,
-        create_router=create_router
+        create_router=create_router,
+        ReadAccessToken=ReadAccessToken,
+        ReadIdentityToken=ReadIdentityToken
     )
