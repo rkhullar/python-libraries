@@ -1,6 +1,5 @@
-# from ..depends import ReadAuth0IdentityToken, ReadAuthData, create_router
-from ..depends import ReadAuthData
-# from ..schema.login import Auth0IdentityToken
+from ..depends import create_router, ReadAuthData, ReadIdentityToken
+from fastapi_tools.auth.auth0 import Auth0IdentityToken
 
 router = create_router()
 
@@ -10,17 +9,6 @@ def debug_auth_state(auth_data: ReadAuthData):
     return {'auth_data': auth_data}
 
 
-# @router.get('/user-info', response_model=Auth0IdentityToken)
-# def debug_user_info(token: ReadAuth0IdentityToken):
-#     return token
-
-'''
-from fastapi import APIRouter
-
-router = APIRouter()
-
-
-@router.get('/auth-state')
-def debug_auth_state():
-    return 'tbd'
-'''
+@router.get('/user-info', response_model=Auth0IdentityToken)
+def debug_user_info(token: ReadIdentityToken):
+    return token
