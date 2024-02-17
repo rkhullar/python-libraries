@@ -4,8 +4,8 @@ from fastapi import APIRouter, Request, Security
 from pydantic import BaseModel
 
 from ...util import decode_jwt
-from .types import DynamicAuthDepends
 from .bearer import AbstractAuthCodeBearer
+from .types import DynamicAuthDepends
 
 
 def build_auth_depends(auth_scheme: AbstractAuthCodeBearer, identity_token_type: Type[BaseModel]) -> DynamicAuthDepends:

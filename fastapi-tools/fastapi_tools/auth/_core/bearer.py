@@ -1,10 +1,10 @@
+from abc import abstractmethod
 from functools import cached_property
 
 import httpx
 from fastapi.security import OAuth2AuthorizationCodeBearer
 
 from ...util import BearerAuth, async_httpx
-from abc import abstractmethod
 
 
 class AbstractAuthCodeBearer(OAuth2AuthorizationCodeBearer):

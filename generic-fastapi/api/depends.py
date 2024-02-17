@@ -1,4 +1,4 @@
-from fastapi_tools.auth import build_depends
+from fastapi_tools.auth import build_auth_depends
 from fastapi_tools.auth.auth0 import Auth0CodeBearer, Auth0IdentityToken
 from fastapi_tools.depends import load_extra, read_request_state
 
@@ -9,5 +9,5 @@ ReadAuthData = read_request_state(key='auth_data', _type=dict)
 
 settings = Settings()
 auth_scheme = Auth0CodeBearer(domain=settings.auth0_host)
-auth_depends = build_depends(auth_scheme=auth_scheme, identity_token_type=Auth0IdentityToken)
+auth_depends = build_auth_depends(auth_scheme=auth_scheme, identity_token_type=Auth0IdentityToken)
 require_auth, create_router, ReadAccessToken, ReadIdentityToken = auth_depends
