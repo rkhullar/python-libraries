@@ -4,11 +4,11 @@ from fastapi import APIRouter, Request, Security
 from pydantic import BaseModel
 
 from ...util import decode_jwt
-from ..adapter import DynamicAuthDepends
-from .bearer import Auth0CodeBearer
+from .types import DynamicAuthDepends
+from .bearer import AbstractAuthCodeBearer
 
 
-def build_depends(auth_scheme: Auth0CodeBearer, identity_token_type: Type[BaseModel]) -> DynamicAuthDepends:
+def build_depends(auth_scheme: AbstractAuthCodeBearer, identity_token_type: Type[BaseModel]) -> DynamicAuthDepends:
 
     ReadAccessToken = Annotated[str, Security(auth_scheme)]
 

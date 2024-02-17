@@ -1,5 +1,5 @@
-from fastapi_tools.auth.auth0 import (Auth0CodeBearer, Auth0IdentityToken,
-                                      build_depends)
+from fastapi_tools.auth import build_depends
+from fastapi_tools.auth.auth0 import Auth0CodeBearer, Auth0IdentityToken
 from fastapi_tools.depends import load_extra, read_request_state
 
 from .config import Settings
