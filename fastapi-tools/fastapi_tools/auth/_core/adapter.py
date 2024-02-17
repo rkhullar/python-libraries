@@ -8,7 +8,7 @@ from .types import DynamicAuthDepends
 from .bearer import AbstractAuthCodeBearer
 
 
-def build_depends(auth_scheme: AbstractAuthCodeBearer, identity_token_type: Type[BaseModel]) -> DynamicAuthDepends:
+def build_auth_depends(auth_scheme: AbstractAuthCodeBearer, identity_token_type: Type[BaseModel]) -> DynamicAuthDepends:
 
     ReadAccessToken = Annotated[str, Security(auth_scheme)]
 
