@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi_tools.metrics import add_process_time_header
-from fastapi_tools.mongo import build_atlas_client, MongoAdapterCache
+from fastapi_tools.mongo import MongoAdapterCache, build_atlas_client
 
 from .config import Settings
 from .router import router as api_router

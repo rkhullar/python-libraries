@@ -3,7 +3,7 @@ from fastapi_tools.auth.auth0 import Auth0CodeBearer, Auth0IdentityToken
 from fastapi_tools.depends import load_extra, read_request_state
 from fastapi_tools.mongo import build_atlas_depends
 
-from .config import Settings, Auth0Settings
+from .config import Auth0Settings, Settings
 from .schema.user import User
 
 LoadSettings = load_extra(key='settings', _type=Settings)

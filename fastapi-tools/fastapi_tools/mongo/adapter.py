@@ -2,8 +2,10 @@ from collections.abc import Iterator
 from dataclasses import dataclass
 from functools import cache, cached_property
 from typing import Generic, Type
+
 from pymongo import MongoClient
 from pymongo.database import Collection, Database
+
 from .document import DocumentType
 
 

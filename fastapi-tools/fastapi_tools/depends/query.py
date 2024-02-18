@@ -1,6 +1,7 @@
-from typing import TypeVar, Annotated
-from fastapi import Query, HTTPException, status, Depends
 import re
+from typing import Annotated, TypeVar
+
+from fastapi import Depends, HTTPException, Query, status
 
 T = TypeVar('T')
 

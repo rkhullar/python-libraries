@@ -1,8 +1,10 @@
-from fastapi import Request, Depends
-from typing import Type, Annotated
-from .document import DocumentType
+from typing import Annotated, Type
+
+from fastapi import Depends, Request
 from pymongo.database import Collection
-from .adapter import MongoAdapterCache, MongoAdapter
+
+from .adapter import MongoAdapter, MongoAdapterCache
+from .document import DocumentType
 
 
 def build_atlas_depends(mongo_adapter_key: str = 'atlas'):

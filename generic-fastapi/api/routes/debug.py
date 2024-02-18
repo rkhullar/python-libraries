@@ -1,7 +1,6 @@
 from fastapi_tools.auth.auth0 import Auth0IdentityToken
 
-from ..depends import ReadAuthData, ReadIdentityToken
-from ..depends import create_router
+from ..depends import ReadAuthData, ReadIdentityToken, create_router
 
 router = create_router()
 

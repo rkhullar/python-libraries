@@ -1,5 +1,6 @@
 import os
 from contextlib import contextmanager
+
 from bson.errors import InvalidId
 from bson.objectid import ObjectId
 from pymongo import MongoClient

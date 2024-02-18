@@ -1,9 +1,11 @@
 import datetime as dt
 from typing import Optional, Self
+
 from bson import ObjectId
-from pydantic import BaseModel, model_validator
-from ..model.generic_data import PrimitiveOrCollection
 from fastapi_tools.schema import NonBlankStr, ensure_update
+from pydantic import BaseModel, model_validator
+
+from ..model.generic_data import PrimitiveOrCollection
 
 
 class GenericDataCreate(BaseModel):

@@ -1,6 +1,7 @@
 from fastapi import APIRouter, status
 from fastapi.responses import RedirectResponse
-from .routes import debug, profile, generic_data, generic_shared_data
+
+from .routes import debug, generic_data, generic_shared_data, profile
 
 # from .routes import debug, generic_data, generic_shared_data, profile
 # from .routes.admin import router as admin

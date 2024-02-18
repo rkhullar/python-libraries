@@ -1,14 +1,16 @@
-from ..depends import create_router, atlas
-from ..depends import GetUser
-from fastapi_tools.schema.crud import UpdateResponse, PaginationResponse, PaginationMetadata, DeleteResponse
-from ..model.generic_data import GenericData
-from fastapi import status, HTTPException
 import json
+
 import pymongo
-from ..util import build_filter_params
-from ..schema.generic_data import GenericDataCreate, GenericDataUpdate
-from fastapi_tools.mongo import get_or_404
+from fastapi import HTTPException, status
 from fastapi_tools.depends import int_query, read_query_param
+from fastapi_tools.mongo import get_or_404
+from fastapi_tools.schema.crud import (DeleteResponse, PaginationMetadata,
+                                       PaginationResponse, UpdateResponse)
+
+from ..depends import GetUser, atlas, create_router
+from ..model.generic_data import GenericData
+from ..schema.generic_data import GenericDataCreate, GenericDataUpdate
+from ..util import build_filter_params
 
 router = create_router()
 GenericDataAdapter = atlas(name='generic_data', model=GenericData)

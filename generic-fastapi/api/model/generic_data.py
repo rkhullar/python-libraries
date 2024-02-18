@@ -1,8 +1,10 @@
 from __future__ import annotations
+
 import datetime as dt
 from typing import Union
+
+from fastapi_tools.mongo import Document, PydanticObjectId
 from pydantic import Field, RootModel
-from fastapi_tools.mongo import PydanticObjectId, Document
 
 primitive_types = None, bool, int, float, str, dt.date, dt.datetime
 PrimitiveValue = Union[primitive_types]
