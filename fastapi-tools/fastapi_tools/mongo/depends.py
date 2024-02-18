@@ -7,9 +7,11 @@ from .adapter import MongoAdapter, MongoAdapterCache
 from .document import DocumentType
 
 
-def build_atlas_depends(mongo_adapter_key: str = 'atlas'):
-    def atlas(name: str, database: str = 'default', model: Type[DocumentType] = None):
+def build_atlas_depends(mongo_adapter_key: str = 'atlas', default_database: str = 'default'):
+    def atlas(name: str, database: str = None, model: Type[DocumentType] = None):
         # TODO: rename and split into helpers for loading adapter and collection?
+        database = database or default_database
+
         def dependency(request: Request) -> MongoAdapter[DocumentType] | Collection:
             mongo_adapter_cache: MongoAdapterCache = request.app.extra[mongo_adapter_key]
             if model:

@@ -39,13 +39,13 @@ class MongoAdapterCache:
     default_database: str = 'default'
 
     @cache
-    def database(self, name: str = default_database) -> Database:
-        return self.mongo_client.get_database(name)
+    def database(self, name: str = None) -> Database:
+        return self.mongo_client.get_database(name or self.default_database)
 
     @cache
-    def collection(self, collection: str, database: str = default_database) -> Collection:
-        return self.database(name=database).get_collection(collection)
+    def collection(self, collection: str, database: str = None) -> Collection:
+        return self.database(name=database or self.default_database).get_collection(collection)
 
     @cache
-    def adapter(self, collection: str, database: str = default_database, model_type: Type[DocumentType] = None) -> MongoAdapter[DocumentType]:
-        return MongoAdapter(model_type=model_type, mongo_client=self.mongo_client, collection_name=collection, database_name=database)
+    def adapter(self, collection: str, database: str = None, model_type: Type[DocumentType] = None) -> MongoAdapter[DocumentType]:
+        return MongoAdapter(model_type=model_type, mongo_client=self.mongo_client, collection_name=collection, database_name=database or self.default_database)

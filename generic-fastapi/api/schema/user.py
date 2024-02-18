@@ -11,9 +11,9 @@ class User(AbstractUser):
     @classmethod
     async def load(cls, auth_data: dict, identity_token: Auth0IdentityToken, context: dict) -> Self:
         # TODO: rename to from_auth?
-        users = context['user']
+        users = context['users']
         if doc := users.find_one({'email': identity_token.email}):
-            # NOTE: update user attributes?
+            # TODO: check user attributes for updates?
             return cls.model_validate(doc.model_dump())
         else:
             to_insert = {
