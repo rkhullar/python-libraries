@@ -13,3 +13,8 @@
   - [ ] scopes
   - [ ] auto_error
 - decide if scopes should be excluded setup if undefined, or defaulted
+- move logic for building `require_scopes`, `allowed_scopes` outside of `build_auth_depends`?
+- use case for different auth types?
+  - more than one type of JWT access token
+  - api key auth type
+
