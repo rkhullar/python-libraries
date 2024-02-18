@@ -18,3 +18,10 @@
   - more than one type of JWT access token
   - api key auth type
 
+### Revisit MongoDB Helper
+- [ ] rename package from `mongo` to `mongodb`?
+- [ ] rename `build_atlas_client` to specify aws integration
+- [ ] create other helpers for gcp and azure?
+- [ ] reorganize utils?
+- [ ] move package under parent `db` or `database`?
+- [ ] support integration with `pymongo` or `motor`?

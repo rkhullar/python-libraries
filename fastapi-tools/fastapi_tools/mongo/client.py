@@ -1,6 +1,5 @@
 import os
 from contextlib import contextmanager
-
 from bson.errors import InvalidId
 from bson.objectid import ObjectId
 from pymongo import MongoClient
@@ -28,13 +27,3 @@ def start_atlas_transaction(mongo_client: MongoClient):
     with mongo_client.start_session() as session:
         with session.start_transaction():
             yield session
-
-
-def build_filter_params(filter_parts: list[dict]) -> dict:
-    match len(filter_parts):
-        case 0:
-            return dict()
-        case 1:
-            return filter_parts[0]
-        case _:
-            return {'$and': filter_parts}

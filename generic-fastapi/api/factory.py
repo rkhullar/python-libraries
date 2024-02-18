@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi_tools.metrics import add_process_time_header
+from fastapi_tools.mongo import build_atlas_client, MongoAdapterCache
 
 from .config import Settings
-# from .model.adapter import MongoAdapterCache
 from .router import router as api_router
 
 
@@ -17,10 +17,9 @@ def create_app(settings: Settings, test: bool = False) -> FastAPI:
         }
     )
     app.include_router(api_router)  # prefix='/api'
-    # mongo_client = build_atlas_client(atlas_host=settings.atlas_host, local_mode=settings.local_mode)
-    # app.extra['atlas'] = MongoAdapterCache(mongo_client=mongo_client)
-
-    #app.add_middleware(add_process_time_header)
+    mongo_client = build_atlas_client(atlas_host=settings.atlas_host, local_mode=settings.local_mode)
+    app.extra['atlas2'] = MongoAdapterCache(mongo_client=mongo_client)
+    # app.add_middleware(add_process_time_header)
     app.middleware('http')(add_process_time_header)
 
     return app

@@ -1,10 +1,3 @@
-from typing import Annotated
-
-from pydantic import StringConstraints
-
-NonBlankStr = Annotated[str, StringConstraints(strip_whitespace=True, min_length=3)]
-
-
 def ensure_update(update_object: object, fields: list[str], error_message: str = 'nothing to update'):
     update: bool = False
     for field in fields:

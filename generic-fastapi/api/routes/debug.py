@@ -1,7 +1,7 @@
 from fastapi_tools.auth.auth0 import Auth0IdentityToken
 
-from ..depends import (GetUser, ReadAuthData, ReadIdentityToken, User,
-                       create_router)
+from ..depends import ReadAuthData, ReadIdentityToken
+from ..depends import create_router
 
 router = create_router()
 
@@ -14,8 +14,3 @@ async def debug_auth_state(auth_data: ReadAuthData):
 @router.get('/user-info', response_model=Auth0IdentityToken)
 async def debug_user_info(token: ReadIdentityToken):
     return token
-
-
-@router.get('/test-user', response_model=User)
-async def test_user(user: GetUser):
-    return user
