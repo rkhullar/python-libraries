@@ -4,6 +4,7 @@ import pymongo
 from fastapi import HTTPException, status
 from fastapi_tools.depends import int_query, read_query_param
 from fastapi_tools.schema.crud import PaginationMetadata, PaginationResponse
+from fastapi_tools.mongo import get_or_404
 
 from ..depends import atlas, create_router
 from ..model.generic_data import GenericSharedData
