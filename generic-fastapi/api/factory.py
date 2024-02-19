@@ -3,8 +3,8 @@ from fastapi_tools.metrics import add_process_time_header
 from fastapi_tools.mongo import MongoAdapterCache, build_atlas_client
 
 from .config import Settings
-from .router import router as api_router
 from .model.user import User
+from .router import router as api_router
 
 
 def create_app(settings: Settings, test: bool = False) -> FastAPI:

@@ -1,4 +1,5 @@
 from typing import Self
+
 from fastapi_tools.auth import AbstractUser
 from fastapi_tools.auth.auth0 import Auth0IdentityToken
 
