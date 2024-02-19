@@ -13,7 +13,7 @@ from ..schema.generic_data import GenericDataCreate, GenericDataUpdate
 from ..util import build_filter_params
 
 router = create_router()
-GenericDataAdapter = atlas(name='generic_data', model=GenericData, database='test')
+GenericDataAdapter = atlas(name='generic_data', model=GenericData)
 
 
 @router.post('', response_model=GenericData)

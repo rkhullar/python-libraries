@@ -25,3 +25,8 @@
 - [ ] reorganize utils?
 - [ ] move package under parent `db` or `database`?
 - [ ] support integration with `pymongo` or `motor`?
+
+### Revisit Middleware
+- [ ] improve process time header flow:
+  - `# app.add_middleware(add_process_time_header)`
+  - `app.middleware('http')(add_process_time_header)`

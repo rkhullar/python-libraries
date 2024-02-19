@@ -19,9 +19,7 @@ def create_app(settings: Settings, test: bool = False) -> FastAPI:
     )
     app.include_router(api_router)  # prefix='/api'
     mongo_client = build_atlas_client(atlas_host=settings.atlas_host, local_mode=settings.local_mode)
-    app.extra['atlas'] = mongo_adapter_cache = MongoAdapterCache(mongo_client=mongo_client, default_database='test')
+    app.extra['atlas'] = mongo_adapter_cache = MongoAdapterCache(mongo_client=mongo_client)
     app.extra['users'] = mongo_adapter_cache.adapter(collection='user', model_type=User)
-    # app.add_middleware(add_process_time_header)
     app.middleware('http')(add_process_time_header)
-
     return app
