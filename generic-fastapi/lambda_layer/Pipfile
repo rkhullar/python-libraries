@@ -1,0 +1,13 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+nydev-fastapi-tools = {file = "../fastapi-tools", extras=["server", "lambda", "mongodb"], editable = true}
+
+[dev-packages]
+isort = "*"
+
+[requires]
+python_version = "3.12"
