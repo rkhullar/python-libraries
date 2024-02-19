@@ -1,6 +1,8 @@
 [project]
 name = "nydev-fastapi-tools"
 dynamic = ["version"]
+keywords = ["fastapi", "mongodb", "atlas", "auth0", "okta", "cognito", "aws"]
+description = "FastAPI integrations for Auth0, Okta, and MongoDB Atlas"
 readme = "readme.md"
 license = {text = "MIT NON-AI License"}
 authors = [

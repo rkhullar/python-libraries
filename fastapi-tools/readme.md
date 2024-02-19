@@ -13,9 +13,10 @@ pip install nydev-fastapi-tools
 - https://github.com/rkhullar/generic-fastapi
 
 ### Example Topics
-- [access-control](docs/examples/access-control.md)
+- [access-control][example-access-control]
 
 ### Related Links
 - [FastAPI on AWS with MongoDB Atlas and Okta][medium-tutorial]
 
 [medium-tutorial]: https://medium.com/@rajan-khullar/fastapi-on-aws-with-mongodb-atlas-and-okta-6e37c1d9069 
+[example-access-control]: https://github.com/rkhullar/python-libraries/blob/main/fastapi-tools/docs/examples/access-control.md
