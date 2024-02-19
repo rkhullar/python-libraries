@@ -2,11 +2,7 @@ from fastapi import APIRouter as DefaultRouter
 
 
 class APIRouter(DefaultRouter):
-    """
-    custom base api router for allowing route handlers to be decorated
-    could be useful for roles and permissions
-    TODO: confirm if still needed and add example or test
-    """
+    """custom base api router for allowing route handlers to be decorated"""
 
     def api_route(self, *args, **kwargs):
         parent_decorator = super().api_route(*args, **kwargs)
