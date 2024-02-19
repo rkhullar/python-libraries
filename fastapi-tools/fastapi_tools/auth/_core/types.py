@@ -9,7 +9,7 @@ class AbstractUser(BaseModel):
 
     @classmethod
     @abstractmethod
-    async def load(cls, auth_data: dict, identity_token: BaseModel, context: dict) -> Self:
+    async def from_auth(cls, auth_data: dict, identity_token: BaseModel, context: dict) -> Self:
         # NOTE: context is from request.app.extra
         pass
 

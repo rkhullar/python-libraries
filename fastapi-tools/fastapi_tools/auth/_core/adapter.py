@@ -33,7 +33,7 @@ def build_auth_depends(auth_scheme: AbstractAuthCodeBearer, identity_token_type:
     ReadIdentityToken = Annotated[identity_token_type, Security(read_identity_token)]
 
     async def load_user(request: Request, auth_data: ReadAuthData, identity_token: ReadIdentityToken) -> user_type:
-        return await user_type.load(auth_data=auth_data, identity_token=identity_token, context=request.app.extra)
+        return await user_type.from_auth(auth_data=auth_data, identity_token=identity_token, context=request.app.extra)
 
     GetUser = Annotated[user_type, Depends(load_user)]
 
