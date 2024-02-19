@@ -19,7 +19,7 @@ lambda = ["mangum"]
 mongodb = ["pymongo[aws,srv]"]
 
 [project.urls]
-Repository = "https://github.com/rkhullar/python-libraries/tree/main/fastapi-tbd"
+Repository = "https://github.com/rkhullar/python-libraries/tree/main/fastapi-tools"
 
 [build-system]
 requires = ["setuptools >= 61.0"]
