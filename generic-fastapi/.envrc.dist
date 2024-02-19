@@ -1,3 +1,0 @@
-source_up
-source_env local.env
-source_env local-dev.env
