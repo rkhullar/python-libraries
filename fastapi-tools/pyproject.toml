@@ -1,0 +1,31 @@
+[project]
+name = "nydev-fastapi-tools"
+dynamic = ["version"]
+keywords = ["fastapi", "mongodb", "atlas", "auth0", "okta", "cognito", "aws"]
+description = "FastAPI integrations for Auth0, Okta, and MongoDB Atlas"
+readme = "readme.md"
+license = {text = "MIT NON-AI License"}
+authors = [
+    {name = "Rajan Khullar", email = "rkhullar03@gmail.com"}
+]
+requires-python = ">= 3.10"
+dependencies = [
+    "httpx",
+    "fastapi",
+    "pydantic-settings"
+]
+
+[project.optional-dependencies]
+server = ["uvicorn"]
+lambda = ["mangum"]
+mongodb = ["pymongo[aws,srv]"]
+
+[project.urls]
+Repository = "https://github.com/rkhullar/python-libraries/tree/main/fastapi-tools"
+
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = {attr = "fastapi_tools.__version__"}
