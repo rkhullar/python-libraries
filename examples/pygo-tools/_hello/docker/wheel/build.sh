@@ -16,7 +16,7 @@ cd "$here" || exit
 tar --append --file "$docker_context" Dockerfile
 tar -tvf "$docker_context"
 docker build -t pygo-hello-build - < "$docker_context"
-rm -rf "$here/local"
+rm -rf "$here/local" "$here/out"
 docker compose up
 
 ## other
