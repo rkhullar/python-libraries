@@ -10,12 +10,13 @@ docker_context="$here/local/docker-context.tar"
 
 cd "$target_path" || exit
 make clean
-tar --exclude='local' --exclude='venv' -cvf "$docker_context" ./*
+tar --exclude='local' --exclude='venv' --exclude='docker' -hcvf "$docker_context" ./*
 
-cd "$here" ||
+cd "$here" || exit
 tar --append --file "$docker_context" Dockerfile
 docker build -t pygo-hello-build - < "$docker_context"
 # docker compose up
 
 ## other
 # tar --exclude='local' --exclude='venv' -cvh ./* | docker build -t pygo-hello-build -
+# tar -tvf
