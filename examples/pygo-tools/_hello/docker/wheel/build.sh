@@ -14,9 +14,10 @@ tar --exclude='local' --exclude='venv' --exclude='docker' -hcvf "$docker_context
 
 cd "$here" || exit
 tar --append --file "$docker_context" Dockerfile
+tar -tvf "$docker_context"
 docker build -t pygo-hello-build - < "$docker_context"
-# docker compose up
+rm -rf "$here/local"
+docker compose up
 
 ## other
 # tar --exclude='local' --exclude='venv' -cvh ./* | docker build -t pygo-hello-build -
-# tar -tvf
