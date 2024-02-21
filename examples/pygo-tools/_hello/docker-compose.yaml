@@ -1,7 +1,7 @@
 version: '3'
 services:
   builder:
-    build: .
+    image: pygo-hello-build
     # platform: linux/arm64
     platform: linux/amd64
     volumes:
