@@ -17,7 +17,7 @@ def precompile():
 
 def find_wheel() -> Path | None:
     dist_path = config.project_path / 'dist'
-    for path in dist_path.glob('*.whl'):
+    for path in dist_path.rglob('*.whl'):
         return path
 
 

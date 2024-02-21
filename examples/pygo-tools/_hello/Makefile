@@ -1,7 +1,9 @@
 all: clean build post_build
 
 build:
-	python setup.py bdist_wheel
+	# python setup.py bdist_wheel
+	# python -m build -n --sdist
+	python  -m build -n --wheel
 	unzip -l dist/*.whl
 
 clean:

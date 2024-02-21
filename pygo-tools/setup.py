@@ -15,7 +15,7 @@ setup(
     include_package_data=True,
     entry_points={'console_scripts': ['build-ffi=setup_util.build_ffi:main']},
     python_requires='~=3.12',
-    install_requires=['setuptools', 'cffi', 'wheel'],
+    install_requires=['build', 'setuptools', 'wheel', 'cffi'],
     author='Rajan Khullar',
     author_email='rkhullar03@gmail.com',
     url='https://github.com/rkhullar/python-libraries/tree/main/pygo-tools',
