@@ -1,7 +1,10 @@
 [build-system]
 requires = ["pygo-tools"]
-build-backend = "pygo_tools.x"
+build-backend = "pygo_tools.backend"
 
 [project]
 name = "pygo-tools-example"
-version = "0.1.0"
+dynamic = ["version"]
+
+[tool.setuptools.dynamic]
+version = {attr = "fastapi_tools.__version__"}

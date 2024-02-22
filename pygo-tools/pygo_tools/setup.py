@@ -7,22 +7,20 @@ from wheel.bdist_wheel import bdist_wheel as _bdist_wheel
 
 from .config import Config
 
-config = Config.load()
 
-
-def precompile():
+def precompile(config: Config):
     path = config.project_path / config.package / 'go'
     subprocess.run('make', cwd=path)
 
 
-def find_wheel() -> Path | None:
+def find_wheel(config: Config) -> Path | None:
     dist_path = config.project_path / 'dist'
     for path in dist_path.rglob('*.whl'):
         return path
 
 
-def patch_wheel_darwin():
-    if wheel_path := find_wheel():
+def patch_wheel_darwin(config: Config):
+    if wheel_path := find_wheel(config):
         dist_path = wheel_path.parent
         lib_file, ext_file = f'lib{config.library}.so', f'{config.extension}.abi3.so'
         commands = [
@@ -39,10 +37,11 @@ def patch_wheel_darwin():
 
 class BuildGoWheel(_bdist_wheel):
     def run(self):
-        precompile()
+        config = Config.load()
+        precompile(config)
         _bdist_wheel.run(self)
         if sys.platform == 'darwin':
-            patch_wheel_darwin()
+            patch_wheel_darwin(config)
 
 
 def setup(cffi: str = 'cffi', **kwargs):
