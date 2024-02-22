@@ -6,5 +6,11 @@ build-backend = "pygo_tools.backend"
 name = "pygo-tools-example"
 dynamic = ["version"]
 
+[tool.setuptools]
+packages = ["example"]
+
 [tool.setuptools.dynamic]
-version = {attr = "fastapi_tools.__version__"}
+version = {attr = "example.__version__"}
+
+[tool.pygo-tools]
+x = "1"
