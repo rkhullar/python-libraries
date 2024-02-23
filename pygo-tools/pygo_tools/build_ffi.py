@@ -31,17 +31,17 @@ def dynamic_builder(config: Config):
 
 def build_parser() -> ArgumentParser:
     parser = ArgumentParser()
-    parser.add_argument('--config-mode', choices=['json', 'toml'], required=False)
-    parser.add_argument('--temp-dir', default='out')
+    parser.add_argument('--mode', choices=['json', 'toml'], required=False)
+    parser.add_argument('--target', default='out')
     return parser
 
 
 def main():
     parser: ArgumentParser = build_parser()
     args: Namespace = parser.parse_args()
-    config = Config.load(mode=args.config_mode)
+    config = Config.load(mode=args.mode)
     builder = dynamic_builder(config)
-    builder.compile(verbose=True, tmpdir=args.temp_dir)
+    builder.compile(verbose=True, tmpdir=args.target)
 
 
 if __name__ == '__cffi__':

@@ -18,6 +18,31 @@ def find_wheel(config: Config) -> Path | None:
         return path
 
 
+def build_ffi(config: Config, target: str = None, rename: bool = True) -> Path | None:
+    command = ['build-ffi']
+    if target:
+        command.extend(['--target', target])
+    subprocess.run(command, cwd=config.project_path)
+    search_path = Path(target) if target else Path()
+    for path in search_path.rglob('*.so'):
+        if rename:
+            path = path.rename(search_path / config.extension_path)
+        return path
+
+
+def inject_file(config: Config, path: Path):
+    """helper needed for newer build format with toml"""
+    if wheel_path := find_wheel(config):
+        dist_path = wheel_path.parent
+        commands = [
+            ['zip', '-j', str(wheel_path), str(path)],
+        ]
+        for command in commands:
+            print('='*100)
+            subprocess.run(command, cwd=dist_path)
+            print('='*100)
+
+
 def patch_wheel_darwin(config: Config):
     if wheel_path := find_wheel(config):
         dist_path = wheel_path.parent

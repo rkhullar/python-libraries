@@ -38,6 +38,10 @@ class Config:
     def shared_object_path(self) -> Path:
         return self.library_path / f'lib{self.library}.so'
 
+    @property
+    def extension_path(self) -> Path:
+        return self.project_path / self.package / f'{self.extension}.abi3.so'
+
     @classmethod
     def from_json(cls) -> Self:
         setup_path = cls.get_path('setup.py')

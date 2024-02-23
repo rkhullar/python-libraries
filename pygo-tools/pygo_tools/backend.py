@@ -1,7 +1,7 @@
 from setuptools import build_meta as _build_meta
-
 from .config import Config
-from .setup import patch_wheel_darwin, precompile
+from .setup import patch_wheel_darwin, precompile, build_ffi, inject_file
+import tempfile
 
 
 def get_requires_for_build_wheel(config_settings=None):
@@ -12,9 +12,13 @@ def get_requires_for_build_wheel(config_settings=None):
 
 
 def build_wheel(wheel_directory, config_settings=None, metadata_directory=None):
-    config = Config.from_toml()
-    precompile(config)
-    result = _build_meta.build_wheel(wheel_directory, config_settings, metadata_directory)
-    # if config.platform == 'darwin':
-    #     patch_wheel_darwin(config)
+    with tempfile.TemporaryDirectory() as temp_dir:
+        config = Config.from_toml()
+        precompile(config)
+        source_ffi_path = build_ffi(config, target=temp_dir)
+        print(source_ffi_path)
+        result = _build_meta.build_wheel(wheel_directory, config_settings, metadata_directory)
+        inject_file(config, path=source_ffi_path)
+        # if config.platform == 'darwin':
+        #     patch_wheel_darwin(config)
     return result
