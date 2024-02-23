@@ -1,5 +1,5 @@
 from setuptools import build_meta as _build_meta
-from .setup import precompile, patch_wheel_darwin, find_wheel
+from .setup import precompile, patch_wheel_darwin
 from .config import Config
 
 
