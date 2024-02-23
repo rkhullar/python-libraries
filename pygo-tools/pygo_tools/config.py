@@ -14,6 +14,29 @@ class Config:
     signatures: list[str]
     project_path: Path
 
+    @property
+    def platform(self) -> str:
+        return sys.platform
+
+    @staticmethod
+    def get_path(child: str = None) -> Path:
+        path = Path().absolute()
+        if child:
+            path = path / child
+        return path
+
+    @property
+    def library_path(self) -> Path:
+        return self.project_path / self.package / 'lib'
+
+    @property
+    def header_path(self) -> Path:
+        return self.library_path / f'lib{self.library}.h'
+
+    @property
+    def shared_object_path(self) -> Path:
+        return self.library_path / f'lib{self.library}.so'
+
     @classmethod
     def from_json(cls) -> Self:
         setup_path = cls.get_path('setup.py')
@@ -37,29 +60,19 @@ class Config:
                 data['project_path'] = toml_path.parent
                 # TODO: validate data?
                 return cls(**data)
-
         else:
             raise EnvironmentError
 
-    @property
-    def platform(self) -> str:
-        return sys.platform
-
-    @staticmethod
-    def get_path(child: str = None) -> Path:
-        path = Path().absolute()
-        if child:
-            path = path / child
-        return path
-
-    @property
-    def library_path(self) -> Path:
-        return self.project_path / self.package / 'lib'
-
-    @property
-    def header_path(self) -> Path:
-        return self.library_path / f'lib{self.library}.h'
-
-    @property
-    def shared_object_path(self) -> Path:
-        return self.library_path / f'lib{self.library}.so'
+    @classmethod
+    def load(cls, mode: str = None) -> Self:
+        mapping = {'json': cls.from_json, 'toml': cls.from_toml}
+        if mode:
+            return mapping[mode]()
+        else:
+            for mode in mapping:
+                try:
+                    return mapping[mode]()
+                except EnvironmentError:
+                    pass
+            else:
+                raise EnvironmentError

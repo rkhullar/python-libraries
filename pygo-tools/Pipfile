@@ -9,6 +9,7 @@ name = "pypi"
 wheel = "*"
 twine = "*"
 build = "*"
+toml = "*"
 isort = "*"
 
 [requires]
