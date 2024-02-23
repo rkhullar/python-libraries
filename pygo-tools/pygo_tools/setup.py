@@ -1,5 +1,4 @@
 import subprocess
-import sys
 from pathlib import Path
 
 from setuptools import setup as _setup
@@ -37,10 +36,10 @@ def patch_wheel_darwin(config: Config):
 
 class BuildGoWheel(_bdist_wheel):
     def run(self):
-        config = Config.load()
+        config = Config.from_json()
         precompile(config)
         _bdist_wheel.run(self)
-        if sys.platform == 'darwin':
+        if config.platform == 'darwin':
             patch_wheel_darwin(config)
 
 

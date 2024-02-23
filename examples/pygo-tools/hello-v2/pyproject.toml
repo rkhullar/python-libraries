@@ -13,9 +13,9 @@ packages = ["example"]
 version = {attr = "example.__version__"}
 
 [tool.pygo-tools]
-package = "example"
-extension = "_example"
-library = "hello"
+package    = "example"
+extension  = "_example"
+library    = "hello"
 signatures = [
     "char* Hello(char* message, int count);"
 ]

@@ -3,16 +3,7 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Self
-
-
-def _read_config() -> tuple[Path, dict]:
-    project_path = Path().absolute()
-    setup_path, config_path = project_path / 'setup.py', project_path / 'config.json'
-    if setup_path.exists() and config_path.exists():
-        with config_path.open('r') as f:
-            return project_path, json.load(f)
-    else:
-        raise EnvironmentError
+import toml
 
 
 @dataclass
@@ -24,14 +15,42 @@ class Config:
     project_path: Path
 
     @classmethod
-    def load(cls) -> Self:
-        # NOTE: could be done with pydantic model validate
-        project_path, data = _read_config()
-        return cls(project_path=project_path, **data)
+    def from_json(cls) -> Self:
+        setup_path = cls.get_path('setup.py')
+        config_path = cls.get_path('config.json')
+        if setup_path.exists() and config_path.exists():
+            with config_path.open('r') as f:
+                data = json.load(f)
+                data['project_path'] = setup_path.parent
+                # TODO: validate data?
+                return cls(**data)
+        else:
+            raise EnvironmentError
+
+    @classmethod
+    def from_toml(cls) -> Self:
+        toml_path = cls.get_path('pyproject.toml')
+        if toml_path.exists():
+            with toml_path.open('r') as f:
+                data = toml.load(f)
+                data = data.get('tool', {}).get('pygo-tools', {})
+                data['project_path'] = toml_path.parent
+                # TODO: validate data?
+                return cls(**data)
+
+        else:
+            raise EnvironmentError
 
     @property
     def platform(self) -> str:
         return sys.platform
+
+    @staticmethod
+    def get_path(child: str = None) -> Path:
+        path = Path().absolute()
+        if child:
+            path = path / child
+        return path
 
     @property
     def library_path(self) -> Path:
