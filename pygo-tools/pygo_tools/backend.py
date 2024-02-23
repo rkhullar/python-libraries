@@ -1,6 +1,7 @@
 from setuptools import build_meta as _build_meta
-from .setup import precompile, patch_wheel_darwin
+
 from .config import Config
+from .setup import patch_wheel_darwin, precompile
 
 
 def get_requires_for_build_wheel(config_settings=None):
