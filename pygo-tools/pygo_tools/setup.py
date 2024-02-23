@@ -50,5 +50,5 @@ def setup(cffi: str = 'cffi', **kwargs):
     if cffi not in install_requires:
         install_requires.append(cffi)
     build_ffi_path = Path(__file__).parent / 'build_ffi.py'
-    cffi_module = f'{build_ffi_path}:builder'
+    cffi_module = f'{build_ffi_path}:default_builder'
     _setup(**kwargs, cmdclass=cmdclass, install_requires=install_requires, cffi_modules=[cffi_module])
