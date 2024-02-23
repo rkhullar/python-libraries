@@ -15,3 +15,11 @@ def build_wheel(wheel_directory, config_settings=None, metadata_directory=None):
         if config.platform == 'darwin':
             patch_wheel_darwin(config)
     return result
+
+
+''' TODO
+- [ ] add cffi to install_requires
+- [ ] mark wheel file as non-pure python
+- [ ] fix sha256sum hashes for so files?
+- [ ] add extension to top level record?
+'''
