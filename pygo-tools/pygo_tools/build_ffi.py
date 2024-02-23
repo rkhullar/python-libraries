@@ -32,7 +32,7 @@ def dynamic_builder(config: Config):
 def build_parser() -> ArgumentParser:
     parser = ArgumentParser()
     parser.add_argument('--config-mode', choices=['json', 'toml'], required=False)
-    parser.add_argument('temp-dir', default='out')
+    parser.add_argument('--temp-dir', default='out')
     return parser
 
 
