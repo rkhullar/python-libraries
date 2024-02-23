@@ -1,3 +1,4 @@
+import sys
 from argparse import ArgumentParser, Namespace
 
 from cffi import FFI
@@ -44,5 +45,11 @@ def main():
     builder.compile(verbose=True, tmpdir=args.temp_dir)
 
 
-default_config = Config.load()
-default_builder = dynamic_builder(default_config)
+def check_setup() -> bool:
+    print(sys.argv)
+    return False
+
+
+if check_setup():
+    default_config = Config.load()
+    default_builder = dynamic_builder(default_config)
