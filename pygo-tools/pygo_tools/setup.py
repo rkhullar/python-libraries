@@ -26,7 +26,7 @@ def build_ffi(config: Config, target: str = None, rename: bool = True) -> Path |
     search_path = Path(target) if target else Path()
     for path in search_path.rglob('*.so'):
         if rename:
-            path = path.rename(search_path / config.extension_path)
+            path = path.rename(search_path / config.extension_path.name)
         return path
 
 
@@ -38,9 +38,7 @@ def inject_file(config: Config, path: Path):
             ['zip', '-j', str(wheel_path), str(path)],
         ]
         for command in commands:
-            print('='*100)
             subprocess.run(command, cwd=dist_path)
-            print('='*100)
 
 
 def patch_wheel_darwin(config: Config):
