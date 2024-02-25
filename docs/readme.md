@@ -22,7 +22,7 @@ twine upload dist/*
 pip install 'pygo-tools @ git+https://github.com/rkhullar/python-libraries.git@feature/toml#subdirectory=pygo-tools'
 ```
 
-## Install from Source
+## Install from Source Distribution (wip)
 ```shell
 pip install cython
 pip install meson-python
