@@ -6,6 +6,7 @@
 - [ ] add extension to top level record?
 - [ ] include changelog in build?
 - [ ] test examples against aws lambda
+- [ ] transfer or include [`example-lib`](https://github.com/rkhullar/python-java-scratches/tree/main/src/main/python/example-lib)?
 
 ## Ideas
 - [ ] build context manager class for patching wheel files:
