@@ -10,6 +10,7 @@ docker_context="$here/local/docker-context.tar"
 tar --exclude='local' --exclude='venv' --exclude='docker' -hcvf "$docker_context" ./*
 tar -tvf "$docker_context"
 
-docker build -t pygo-hello-build-layer - < "$docker_context"
+platform=$(yq '.services.builder.platform' docker-compose.yaml)
+docker build --platform "$platform" -t pygo-hello-build-layer - < "$docker_context"
 rm -rf "$here/local" "$here/out"
 docker compose up
