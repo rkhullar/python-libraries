@@ -19,5 +19,5 @@ docker build -t pygo-hello-build - < "$docker_context"
 rm -rf "$here/local" "$here/out"
 docker compose up
 
-## other
+## first attempt
 # tar --exclude='local' --exclude='venv' -cvh ./* | docker build -t pygo-hello-build -
