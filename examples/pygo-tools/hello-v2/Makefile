@@ -2,7 +2,7 @@ all: clean build post_build
 
 build:
 	# python -m build -n --wheel --config-setting x=1
-	python -m build -n --wheel --config-setting x=1
+	python -m build -n --wheel
 	unzip -l dist/*.whl
 
 clean:
