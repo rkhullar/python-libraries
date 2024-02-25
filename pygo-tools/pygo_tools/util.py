@@ -1,6 +1,6 @@
-from pathlib import Path
-from contextlib import contextmanager
 import functools
+from contextlib import contextmanager
+from pathlib import Path
 
 
 @contextmanager

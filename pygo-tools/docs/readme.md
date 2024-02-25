@@ -17,10 +17,17 @@
 tree --charset ascii -I 'local|venv'
 ```
 
-#### Attempt to Embed Extension
+##### Attempt to Embed Extension
 ```python
 # attempt to build extension within package
 module_name=f'{pkg_name}.lib.extension'
+```
+
+##### Attempt to Ensure Non-Pure Build without Monkey Patching
+```python
+config_settings = config_settings or dict()
+from wheel.bdist_wheel import get_platform
+config_settings['--build-option'] = f'--plat-name {get_platform(None)} --py-limited-api cp312'
 ```
 
 #### Testing Wheel Validity
