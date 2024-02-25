@@ -14,8 +14,11 @@ tar --exclude='local' --exclude='venv' --exclude='docker' -hcvf "$docker_context
 
 cd "$here" || exit
 tar --append --file "$docker_context" Dockerfile
+tar --append --file "$docker_context" --dereference docker-compose.yaml
 tar -tvf "$docker_context"
-docker build -t pygo-hello-build - < "$docker_context"
+
+platform=$(yq '.services.builder.platform' docker-compose.yaml)
+docker build --platform "$platform" -t pygo-hello-build - < "$docker_context"
 rm -rf "$here/local" "$here/out"
 docker compose up
 
