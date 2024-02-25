@@ -16,3 +16,14 @@
 ```shell
 tree --charset ascii -I 'local|venv'
 ```
+
+#### Attempt to Embed Extension
+```python
+# attempt to build extension within package
+module_name=f'{pkg_name}.lib.extension'
+```
+
+#### Testing Wheel Validity
+```shell
+wheel unpack library.whl -d tmp
+```

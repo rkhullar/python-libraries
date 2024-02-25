@@ -6,11 +6,13 @@ name = "pypi"
 [packages]
 
 [dev-packages]
-wheel = "*"
-twine = "*"
 build = "*"
+setuptools = "*"
+wheel = "*"
 toml = "*"
+cffi = "*"
 isort = "*"
+twine = "*"
 
 [requires]
 python_version = "3.12"
