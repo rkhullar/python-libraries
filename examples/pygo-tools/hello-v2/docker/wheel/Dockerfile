@@ -4,6 +4,6 @@ RUN dnf install -y golang make
 RUN pip install -U pip setuptools
 RUN pip install pygo-tools
 COPY example example/
-COPY setup.py config.json MANIFEST.in ./
-RUN python setup.py bdist_wheel
+COPY pyproject.toml MANIFEST.in ./
+RUN python -m build -n --wheel
 ENTRYPOINT ["/bin/sh"]

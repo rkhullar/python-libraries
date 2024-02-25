@@ -1,5 +1,4 @@
 import subprocess
-import sys
 from pathlib import Path
 
 from setuptools import setup as _setup
@@ -7,22 +6,43 @@ from wheel.bdist_wheel import bdist_wheel as _bdist_wheel
 
 from .config import Config
 
-config = Config.load()
 
-
-def precompile():
+def precompile(config: Config):
     path = config.project_path / config.package / 'go'
     subprocess.run('make', cwd=path)
 
 
-def find_wheel() -> Path | None:
+def find_wheel(config: Config) -> Path | None:
     dist_path = config.project_path / 'dist'
-    for path in dist_path.glob('*.whl'):
+    for path in dist_path.rglob('*.whl'):
         return path
 
 
-def patch_wheel_darwin():
-    if wheel_path := find_wheel():
+def build_ffi(config: Config, target: str = None, rename: bool = True) -> Path | None:
+    command = ['build-ffi']
+    if target:
+        command.extend(['--target', target])
+    subprocess.run(command, cwd=config.project_path)
+    search_path = Path(target) if target else Path()
+    for path in search_path.rglob('*.so'):
+        if rename:
+            path = path.rename(search_path / config.extension_path.name)
+        return path
+
+
+def inject_file(config: Config, path: Path):
+    """helper needed for newer build format with toml"""
+    if wheel_path := find_wheel(config):
+        dist_path = wheel_path.parent
+        commands = [
+            ['zip', '-j', str(wheel_path), str(path)],
+        ]
+        for command in commands:
+            subprocess.run(command, cwd=dist_path)
+
+
+def patch_wheel_darwin(config: Config):
+    if wheel_path := find_wheel(config):
         dist_path = wheel_path.parent
         lib_file, ext_file = f'lib{config.library}.so', f'{config.extension}.abi3.so'
         commands = [
@@ -39,10 +59,11 @@ def patch_wheel_darwin():
 
 class BuildGoWheel(_bdist_wheel):
     def run(self):
-        precompile()
+        config = Config.from_json()
+        precompile(config)
         _bdist_wheel.run(self)
-        if sys.platform == 'darwin':
-            patch_wheel_darwin()
+        if config.platform == 'darwin':
+            patch_wheel_darwin(config)
 
 
 def setup(cffi: str = 'cffi', **kwargs):
@@ -52,5 +73,5 @@ def setup(cffi: str = 'cffi', **kwargs):
     if cffi not in install_requires:
         install_requires.append(cffi)
     build_ffi_path = Path(__file__).parent / 'build_ffi.py'
-    cffi_module = f'{build_ffi_path}:builder'
+    cffi_module = f'{build_ffi_path}:default_builder'
     _setup(**kwargs, cmdclass=cmdclass, install_requires=install_requires, cffi_modules=[cffi_module])

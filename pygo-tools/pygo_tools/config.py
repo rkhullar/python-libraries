@@ -4,15 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Self
 
-
-def _read_config() -> tuple[Path, dict]:
-    project_path = Path().absolute()
-    setup_path, config_path = project_path / 'setup.py', project_path / 'config.json'
-    if setup_path.exists() and config_path.exists():
-        with config_path.open('r') as f:
-            return project_path, json.load(f)
-    else:
-        raise EnvironmentError
+import toml
 
 
 @dataclass
@@ -23,15 +15,16 @@ class Config:
     signatures: list[str]
     project_path: Path
 
-    @classmethod
-    def load(cls) -> Self:
-        # NOTE: could be done with pydantic model validate
-        project_path, data = _read_config()
-        return cls(project_path=project_path, **data)
-
     @property
     def platform(self) -> str:
         return sys.platform
+
+    @staticmethod
+    def get_path(child: str = None) -> Path:
+        path = Path().absolute()
+        if child:
+            path = path / child
+        return path
 
     @property
     def library_path(self) -> Path:
@@ -44,3 +37,47 @@ class Config:
     @property
     def shared_object_path(self) -> Path:
         return self.library_path / f'lib{self.library}.so'
+
+    @property
+    def extension_path(self) -> Path:
+        return self.project_path / self.package / f'{self.extension}.abi3.so'
+
+    @classmethod
+    def from_json(cls) -> Self:
+        setup_path = cls.get_path('setup.py')
+        config_path = cls.get_path('config.json')
+        if setup_path.exists() and config_path.exists():
+            with config_path.open('r') as f:
+                data = json.load(f)
+                data['project_path'] = setup_path.parent
+                # TODO: validate data?
+                return cls(**data)
+        else:
+            raise EnvironmentError
+
+    @classmethod
+    def from_toml(cls) -> Self:
+        toml_path = cls.get_path('pyproject.toml')
+        if toml_path.exists():
+            with toml_path.open('r') as f:
+                data = toml.load(f)
+                data = data.get('tool', {}).get('pygo-tools', {})
+                data['project_path'] = toml_path.parent
+                # TODO: validate data?
+                return cls(**data)
+        else:
+            raise EnvironmentError
+
+    @classmethod
+    def load(cls, mode: str = None) -> Self:
+        mapping = {'json': cls.from_json, 'toml': cls.from_toml}
+        if mode:
+            return mapping[mode]()
+        else:
+            for mode in mapping:
+                try:
+                    return mapping[mode]()
+                except EnvironmentError:
+                    pass
+            else:
+                raise EnvironmentError
