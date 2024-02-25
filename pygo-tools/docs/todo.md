@@ -15,6 +15,14 @@
   - add package / module to `top_level.txt`
   - generate `sha256sum` hash for file; upsert to `RECORD`
 
-## Revisit Custom Backend
+- [ ] entrypoint for starting project? 
+  - main entrypoint would be like `pygo-tool`
+  - subparser command for `start-project`
+  - reads config from params or from stdin?
+  - another subparser for `build-ffi`
+  - remove `build-ffi` entrypoint?
+
+
+### Revisit Custom Backend
 - [ ] try `finalize_distribution_options`
   - https://setuptools.pypa.io/en/latest/userguide/extension.html#customizing-distribution-options
