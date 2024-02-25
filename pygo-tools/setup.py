@@ -10,7 +10,7 @@ def read_file(path: Path | str) -> str:
 
 setup(
     name='pygo-tools',
-    version='0.2.0',
+    version='0.1.2',
     packages=find_packages(),
     include_package_data=True,
     entry_points={'console_scripts': ['build-ffi=pygo_tools.build_ffi:main']},
