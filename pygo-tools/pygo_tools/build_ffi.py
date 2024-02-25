@@ -1,12 +1,11 @@
+from argparse import ArgumentParser, Namespace
+
 from cffi import FFI
 
 from pygo_tools.config import Config
 
-config = Config.load()
-header_path, shared_object_path = config.header_path, config.shared_object_path
 
-
-def build_extra_set_source_args() -> dict[str, list[str]]:
+def build_extra_set_source_args(config: Config) -> dict[str, list[str]]:
     match config.platform:
         case 'linux':
             set_rpath = [f'-Wl,-rpath=$ORIGIN/{config.package}/lib']
@@ -17,23 +16,34 @@ def build_extra_set_source_args() -> dict[str, list[str]]:
             return dict()
 
 
-builder = FFI()
+def dynamic_builder(config: Config):
+    builder = FFI()
+    builder.set_source(
+        module_name=config.extension,
+        source=f'#include "{config.header_path}"',
+        libraries=[config.library],
+        library_dirs=[str(config.library_path)],
+        **build_extra_set_source_args(config)
+    )
+    builder.cdef('\n'.join(config.signatures))
+    return builder
 
-'''
-# attempt to build extension within package
-module_name=f'{pkg_name}.lib.extension'
-'''
 
-builder.set_source(
-    module_name=config.extension,
-    source=f'#include "{header_path}"',
-    libraries=[config.library],
-    library_dirs=[str(config.library_path)],
-    **build_extra_set_source_args()
-)
-
-builder.cdef('\n'.join(config.signatures))
+def build_parser() -> ArgumentParser:
+    parser = ArgumentParser()
+    parser.add_argument('--mode', choices=['json', 'toml'], required=False)
+    parser.add_argument('--target', default='out')
+    return parser
 
 
 def main():
-    builder.compile(verbose=True, tmpdir='out')
+    parser: ArgumentParser = build_parser()
+    args: Namespace = parser.parse_args()
+    config = Config.load(mode=args.mode)
+    builder = dynamic_builder(config)
+    builder.compile(verbose=True, tmpdir=args.target)
+
+
+if __name__ == '__cffi__':
+    default_config = Config.load()
+    default_builder = dynamic_builder(default_config)

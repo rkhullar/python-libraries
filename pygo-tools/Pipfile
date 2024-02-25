@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+
+[dev-packages]
+build = "*"
+setuptools = "*"
+wheel = "*"
+toml = "*"
+cffi = "*"
+isort = "*"
+twine = "*"
+
+[requires]
+python_version = "3.12"

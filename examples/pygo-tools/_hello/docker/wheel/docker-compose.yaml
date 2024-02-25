@@ -1,9 +1,9 @@
 version: '3'
 services:
   builder:
-    build: .
-    # platform: linux/arm64
-    platform: linux/amd64
+    image: pygo-hello-build
+    platform: linux/arm64
+    # platform: linux/amd64
     volumes:
       - ./out:/var/task/out:rw
     entrypoint: ["/bin/sh", "-c"]

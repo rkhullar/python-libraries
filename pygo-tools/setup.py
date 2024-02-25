@@ -10,12 +10,12 @@ def read_file(path: Path | str) -> str:
 
 setup(
     name='pygo-tools',
-    version='0.1.1',
+    version='0.1.2',
     packages=find_packages(),
     include_package_data=True,
-    entry_points={'console_scripts': ['build-ffi=setup_util.build_ffi:main']},
+    entry_points={'console_scripts': ['build-ffi=pygo_tools.build_ffi:main']},
     python_requires='~=3.12',
-    install_requires=['setuptools', 'cffi', 'wheel'],
+    install_requires=['build', 'setuptools', 'wheel', 'toml', 'cffi'],
     author='Rajan Khullar',
     author_email='rkhullar03@gmail.com',
     url='https://github.com/rkhullar/python-libraries/tree/main/pygo-tools',
