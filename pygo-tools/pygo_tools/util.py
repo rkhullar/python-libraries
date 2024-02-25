@@ -5,6 +5,7 @@ from pathlib import Path
 
 @contextmanager
 def temp_copy(source: Path, target: Path):
+    # TODO: may be unused; return file handles?
     with source.open('rb') as s, target.open('wb') as t:
         t.write(s.read())
         try:
@@ -23,9 +24,11 @@ def monkey_patch(original: type, extended: type, to_patch: list[str]):
             original_methods[key](*args, **kwargs)
             return extended_methods[key](*args, **kwargs)
         setattr(original, key, wrapper)
-    yield
-    for key in to_patch:
-        setattr(original, key, original_methods[key])
+    try:
+        yield
+    finally:
+        for key in to_patch:
+            setattr(original, key, original_methods[key])
 
 
 def monkey_patched(original: type, extended: type, to_patch: list[str]):
