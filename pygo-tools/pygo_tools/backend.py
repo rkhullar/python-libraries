@@ -11,8 +11,12 @@ from .util import monkey_patched
 
 class custom_bdist_wheel(bdist_wheel):
     def finalize_options(self):
+        # NOTE: self.distribution -> setuptools.dist.Distribution
         self.root_is_pure = False
-        self.distribution.install_requires.append('cffi')
+        install_requires: list[str] = self.distribution.install_requires
+        for dep in ['cffi']:
+            if dep not in install_requires:
+                install_requires.append(dep)
 
 
 @monkey_patched(original=bdist_wheel, extended=custom_bdist_wheel, to_patch=['finalize_options'])

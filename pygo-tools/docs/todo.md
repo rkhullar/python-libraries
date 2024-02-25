@@ -4,6 +4,7 @@
 - [x] add `cffi` to `install_requires`
 - [ ] fix `sha256sum` hashes for so files?
 - [ ] add extension to top level record?
+- [ ] include changelog in build?
 
 ## Ideas
 - [ ] build context manager class for patching wheel files:
