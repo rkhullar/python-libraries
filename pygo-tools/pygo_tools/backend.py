@@ -7,7 +7,6 @@ from wheel.bdist_wheel import bdist_wheel
 from .config import Config
 from .setup import build_ffi, inject_file, patch_wheel_darwin, precompile
 from .util import monkey_patched
-from setuptools.command import build
 
 
 class custom_bdist_wheel(bdist_wheel):
