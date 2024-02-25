@@ -52,3 +52,10 @@ When the `build-ffi` script is used to create the python extension for the share
 in the wheel file with the following name for macos and linux: `{extension}.abi3.so`. On windows it looks like the name
 would be `{extension.abi3.pyd`, but testing is required to confirm.
 - [cffi.verifier._get_so_suffixes](https://github.com/python-cffi/cffi/blob/e59ec8f8b319874f6d063bee10ae87ae43016224/src/cffi/verifier.py#L292-L301)
+
+## Install from GitHub
+```shell
+# https://pip.pypa.io/en/stable/cli/pip_install/#pip-install-examples
+# example: install pygo-tools from branch feature/toml
+pip install 'pygo-tools @ git+https://github.com/rkhullar/python-libraries.git@feature/toml#subdirectory=pygo-tools'
+```

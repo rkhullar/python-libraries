@@ -5,6 +5,6 @@ RUN pip install -U pip setuptools
 RUN #pip install pygo-tools
 RUN pip install 'pygo-tools @ git+https://github.com/rkhullar/python-libraries.git@feature/toml#subdirectory=pygo-tools'
 COPY example example/
-COPY setup.py pyproject.toml MANIFEST.in ./
+COPY pyproject.toml MANIFEST.in ./
 RUN python -m build -n --wheel
 ENTRYPOINT ["/bin/sh"]
