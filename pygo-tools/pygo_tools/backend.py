@@ -4,31 +4,15 @@ from .config import Config
 from .setup import patch_wheel_darwin, precompile, build_ffi, inject_file
 import tempfile
 from wheel.bdist_wheel import bdist_wheel
-from contextlib import contextmanager
+from .util import monkey_patched
 
 
-def patch_bdist_wheel(cls):
-    to_patch = ['finalize_options']
-    original = {key: getattr(cls, key) for key in to_patch}
-
-    class patched(cls):
-        def finalize_options(self):
-            original['finalize_options'](self)
-            self.root_is_pure = False
-
-    for key in to_patch:
-        setattr(cls, key, getattr(patched, key))
-
-    # yield
+class custom_bdist_wheel(bdist_wheel):
+    def finalize_options(self):
+        self.root_is_pure = False
 
 
-patch_bdist_wheel(bdist_wheel)
-
-
-def finalize_options(self: bdist_wheel):
-    self.root_is_pure = False
-
-
+@monkey_patched(original=bdist_wheel, extended=custom_bdist_wheel, to_patch=['finalize_options'])
 def build_wheel(wheel_directory, config_settings=None, metadata_directory=None):
     # config_settings = config_settings or dict()
     # from wheel.bdist_wheel import get_platform
