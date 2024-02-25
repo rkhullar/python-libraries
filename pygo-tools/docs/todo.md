@@ -5,7 +5,7 @@
 - [ ] fix `sha256sum` hashes for so files?
 - [ ] add extension to top level record?
 - [ ] include changelog in build?
-- [ ] test examples against aws lambda
+- [x] test examples against aws lambda
 - [ ] transfer or include [`example-lib`](https://github.com/rkhullar/python-java-scratches/tree/main/src/main/python/example-lib)?
 
 ## Ideas
