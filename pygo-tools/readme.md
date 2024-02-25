@@ -10,7 +10,11 @@ removing the need to manually configure `LD_LIBRARY_PATH` or `DYLD_LIBRARY_PATH`
 pip install pygo-tools
 ```
 
-### Example Usage
+### Example Projects
+- [hello world with `setup.py` and `config.json`][hello-v1]
+- [hello world with `pyproject.toml`][hello-v2]
+
+### Walkthrough for Hello World with `setup.py` and `config.json`
 #### Project Structure
 ```text
 |-- Makefile
@@ -131,7 +135,7 @@ include example/lib/*.so
 all: clean build post_build
 
 build:
-	python setup.py bdist_wheel
+	python -m build -n --wheel
 	unzip -l dist/*.whl
 
 clean:
@@ -143,7 +147,7 @@ post_build:
 ```
 
 #### Build
-The `Makefile` at the project level runs `setup.py bdist_wheel` in order to create the wheel file under the `dist` folder.
+The `Makefile` at the project level runs `python -m build -n --wheel` in order to create the wheel file under the `dist` folder.
 The binary distribution should include your python and golang source code, along with the compiled library and extension.
 ```text
 - example/lib/libhello.so
@@ -167,7 +171,7 @@ RUN pip install -U pip setuptools
 RUN pip install pygo-tools
 COPY example example/
 COPY setup.py config.json MANIFEST.in ./
-RUN python setup.py bdist_wheel
+RUN python -m build -n --wheel
 ENTRYPOINT ["/bin/sh"]
 ```
 
@@ -190,3 +194,5 @@ services:
 
 [cffi]: https://cffi.readthedocs.io
 [cibuildwheel]: https://cibuildwheel.readthedocs.io
+[hello-v1]: https://github.com/rkhullar/python-libraries/tree/main/examples/pygo-tools/hello-v1
+[hello-v2]: https://github.com/rkhullar/python-libraries/tree/main/examples/pygo-tools/hello-v2

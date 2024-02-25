@@ -5,6 +5,7 @@
 - [ ] fix `sha256sum` hashes for so files?
 - [ ] add extension to top level record?
 - [ ] include changelog in build?
+- [ ] test examples against aws lambda
 
 ## Ideas
 - [ ] build context manager class for patching wheel files:
