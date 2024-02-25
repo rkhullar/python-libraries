@@ -18,8 +18,10 @@ setup(
     install_requires=['build', 'setuptools', 'wheel', 'toml', 'cffi'],
     author='Rajan Khullar',
     author_email='rkhullar03@gmail.com',
-    url='https://github.com/rkhullar/python-libraries/tree/main/pygo-tools',
     license='MIT NON-AI',
     long_description=read_file('readme.md'),
     long_description_content_type='text/markdown',
+    project_urls={
+        'Source': 'https://github.com/rkhullar/python-libraries/tree/main/pygo-tools'
+    }
 )
