@@ -7,11 +7,13 @@ from wheel.bdist_wheel import bdist_wheel
 from .config import Config
 from .setup import build_ffi, inject_file, patch_wheel_darwin, precompile
 from .util import monkey_patched
+from setuptools.command import build
 
 
 class custom_bdist_wheel(bdist_wheel):
     def finalize_options(self):
         self.root_is_pure = False
+        self.distribution.install_requires.append('cffi')
 
 
 @monkey_patched(original=bdist_wheel, extended=custom_bdist_wheel, to_patch=['finalize_options'])

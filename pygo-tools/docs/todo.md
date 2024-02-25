@@ -1,8 +1,8 @@
 ## TODO
-- [ ] add cffi to `install_requires`
 - [x] mark wheel file as non-pure python
   - done with monkey patch on `bdist_wheel` class
-- [ ] fix sha256sum hashes for so files?
+- [x] add `cffi` to `install_requires`
+- [ ] fix `sha256sum` hashes for so files?
 - [ ] add extension to top level record?
 
 ## Ideas
@@ -13,3 +13,7 @@
   - add requirement to `METADATA` `Requires-Dist`
   - add package / module to `top_level.txt`
   - generate `sha256sum` hash for file; upsert to `RECORD`
+
+## Revisit Custom Backend
+- [ ] try `finalize_distribution_options`
+  - https://setuptools.pypa.io/en/latest/userguide/extension.html#customizing-distribution-options
