@@ -3,16 +3,30 @@ package main
 import (
 	"crypto/rand"
 	"crypto/rsa"
-	"fmt"
+	"encoding/base64"
+	"encoding/json"
 )
 
-func build_keypair() {
-	privateKey, err := rsa.GenerateKey(rand.Reader, 256)
+func b64enc(data []byte) string {
+	return base64.RawURLEncoding.EncodeToString(data)
+}
+
+func build_key(size int) {
+	private_key, err := rsa.GenerateKey(rand.Reader, size)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(privateKey)
-	//fmt.Println(&privateKey.PublicKey)
+	private_jwk := map[string]interface{}{
+		"kty": "RSA",
+		"n":   b64enc(private_key.N.Bytes()),
+		"e":   "tbd",
+		"d":   "tbd",
+	}
+	private_jwk_json, err := json.Marshal(private_jwk)
+	if err != nil {
+		panic(err)
+	}
+	print(private_jwk_json)
 }
 
 func build_signature() string {
@@ -20,7 +34,7 @@ func build_signature() string {
 }
 
 func main() {
-	build_keypair()
+	build_key(2048)
 }
 
 /*
