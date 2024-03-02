@@ -5,28 +5,31 @@ import (
 	"crypto/rsa"
 	"encoding/base64"
 	"encoding/json"
+	"fmt"
+	"math/big"
 )
 
 func b64enc(data []byte) string {
 	return base64.RawURLEncoding.EncodeToString(data)
 }
 
-func build_key(size int) {
+func build_key(size int) string {
 	private_key, err := rsa.GenerateKey(rand.Reader, size)
 	if err != nil {
 		panic(err)
 	}
+	E := big.NewInt(int64(private_key.E))
 	private_jwk := map[string]interface{}{
 		"kty": "RSA",
 		"n":   b64enc(private_key.N.Bytes()),
-		"e":   "tbd",
-		"d":   "tbd",
+		"e":   b64enc(E.Bytes()),
+		"d":   b64enc(private_key.D.Bytes()),
 	}
 	private_jwk_json, err := json.Marshal(private_jwk)
 	if err != nil {
 		panic(err)
 	}
-	print(private_jwk_json)
+	return string(private_jwk_json)
 }
 
 func build_signature() string {
@@ -34,7 +37,8 @@ func build_signature() string {
 }
 
 func main() {
-	build_key(2048)
+	jwk := build_key(256)
+	fmt.Println(jwk)
 }
 
 /*
