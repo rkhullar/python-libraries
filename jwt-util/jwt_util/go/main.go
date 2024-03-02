@@ -24,6 +24,11 @@ func build_key(size int) string {
 		"n":   b64enc(private_key.N.Bytes()),
 		"e":   b64enc(E.Bytes()),
 		"d":   b64enc(private_key.D.Bytes()),
+		"p":   b64enc(private_key.Primes[0].Bytes()),
+		"q":   b64enc(private_key.Primes[1].Bytes()),
+		"dp":  b64enc(private_key.Precomputed.Dp.Bytes()),
+		"dq":  b64enc(private_key.Precomputed.Dq.Bytes()),
+		"qi":  b64enc(private_key.Precomputed.Qinv.Bytes()),
 	}
 	private_jwk_json, err := json.Marshal(private_jwk)
 	if err != nil {
@@ -37,7 +42,7 @@ func build_signature() string {
 }
 
 func main() {
-	jwk := build_key(256)
+	jwk := build_key(2048)
 	fmt.Println(jwk)
 }
 
