@@ -13,7 +13,7 @@ func b64enc(data []byte) string {
 	return base64.RawURLEncoding.EncodeToString(data)
 }
 
-func build_key(size int) string {
+func build_key(size int, id *string) string {
 	private_key, err := rsa.GenerateKey(rand.Reader, size)
 	if err != nil {
 		panic(err)
@@ -30,6 +30,9 @@ func build_key(size int) string {
 		"dq":  b64enc(private_key.Precomputed.Dq.Bytes()),
 		"qi":  b64enc(private_key.Precomputed.Qinv.Bytes()),
 	}
+	if id != nil {
+		private_jwk["kid"] = *id
+	}
 	private_jwk_json, err := json.Marshal(private_jwk)
 	if err != nil {
 		panic(err)
@@ -42,7 +45,8 @@ func build_signature() string {
 }
 
 func main() {
-	jwk := build_key(2048)
+	x := "1234"
+	jwk := build_key(256, &x)
 	fmt.Println(jwk)
 }
 
