@@ -13,6 +13,10 @@ func b64enc(data []byte) string {
 	return base64.RawURLEncoding.EncodeToString(data)
 }
 
+func strptr(data string) *string {
+	return &data
+}
+
 func build_key(size int, id *string) string {
 	private_key, err := rsa.GenerateKey(rand.Reader, size)
 	if err != nil {
@@ -45,8 +49,7 @@ func build_signature() string {
 }
 
 func main() {
-	x := "1234"
-	jwk := build_key(256, &x)
+	jwk := build_key(256, strptr("asdf"))
 	fmt.Println(jwk)
 }
 
