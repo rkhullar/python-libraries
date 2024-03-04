@@ -5,3 +5,6 @@ build:
 
 clean:
 	@rm -rf local
+
+run:
+	@go run main.go core.go util.go
