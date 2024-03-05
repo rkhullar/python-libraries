@@ -8,6 +8,8 @@ import (
 func main() {
 	jwk := x.NewJWK(256, nil)
 	fmt.Println(jwk)
+	key := x.ParseJWK(jwk)
+	fmt.Println(key)
 
 	//test_json := `{
 	//	"d": "5NYey8IunZM9But2h4F8-APSKCD3GWHLwA3KN2J5wgE",
