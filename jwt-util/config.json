@@ -4,6 +4,7 @@
   "library": "jwtutil",
   "signatures": [
     "char* NewJWK(int size, char* id);",
+    "char* JWKToPEM(char* json_data);",
     "char* BuildSignature();"
   ]
 }
