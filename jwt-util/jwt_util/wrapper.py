@@ -7,6 +7,16 @@ from _jwt_util import ffi, lib
 class ExtensionAdapter:
 
     @staticmethod
+    def new_jwk(size: int = 2048, _id: str = None) -> str:
+        params = [ffi.cast('int', size)]
+        if _id:
+            params.append(ffi.new('char[]', _id.encode()))
+        else:
+            params.append(ffi.NULL)
+        result = lib.NewJWK()
+        return ffi.string(result).decode()
+
+    @staticmethod
     def build_signature() -> str:
         result = lib.BuildSignature()
         return ffi.string(result).decode()

@@ -3,6 +3,7 @@
   "extension": "_jwt_util",
   "library": "jwtutil",
   "signatures": [
+    "char* NewJWK(int size, char* id);",
     "char* BuildSignature();"
   ]
 }
