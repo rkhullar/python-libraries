@@ -13,7 +13,7 @@ class ExtensionAdapter:
             params.append(ffi.new('char[]', _id.encode()))
         else:
             params.append(ffi.NULL)
-        result = lib.NewJWK()
+        result = lib.NewJWK(*params)
         return ffi.string(result).decode()
 
     @staticmethod
