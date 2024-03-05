@@ -48,14 +48,27 @@ func NewJWK(size int, id *string) string {
 
 func ParseJWK(json_data string) *rsa.PrivateKey {
 	data := ParseJSON(json_data)
+
+	x := b64dec(data["n"])
+	fmt.Println("test")
+	fmt.Println(x)
+
 	n := b64dec(data["n"])
+	fmt.Println("decoded n")
 	e := b64dec(data["e"])
+	fmt.Println("decoded e")
 	d := b64dec(data["d"])
+	fmt.Println("decoded d")
 	p := b64dec(data["p"])
+	fmt.Println("decoded p")
 	q := b64dec(data["q"])
+	fmt.Println("decoded q")
 	dp := b64dec(data["dp"])
+	fmt.Println("decoded dp")
 	dq := b64dec(data["dq"])
+	fmt.Println("decoded dq")
 	qi := b64dec(data["qi"])
+	fmt.Println("decoded qi")
 	return &rsa.PrivateKey{
 		PublicKey: rsa.PublicKey{
 			N: new(big.Int).SetBytes(n),
