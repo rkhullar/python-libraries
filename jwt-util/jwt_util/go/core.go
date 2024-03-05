@@ -8,31 +8,41 @@ import (
 	"math/big"
 )
 
-func build_key(size int, id *string) string {
-	private_key, err := rsa.GenerateKey(rand.Reader, size)
+func new_key(size int) *rsa.PrivateKey {
+	key, err := rsa.GenerateKey(rand.Reader, size)
 	if err != nil {
 		panic(err)
 	}
-	E := big.NewInt(int64(private_key.E))
-	private_jwk := map[string]interface{}{
+	return key
+}
+
+func key_to_json(key *rsa.PrivateKey, id *string) string {
+	data := key_to_dict(key, id)
+	return to_json(data)
+}
+
+func key_to_dict(key *rsa.PrivateKey, id *string) map[string]interface{} {
+	E := big.NewInt(int64(key.E))
+	data := map[string]interface{}{
 		"kty": "RSA",
-		"n":   b64enc(private_key.N.Bytes()),
+		"n":   b64enc(key.N.Bytes()),
 		"e":   b64enc(E.Bytes()),
-		"d":   b64enc(private_key.D.Bytes()),
-		"p":   b64enc(private_key.Primes[0].Bytes()),
-		"q":   b64enc(private_key.Primes[1].Bytes()),
-		"dp":  b64enc(private_key.Precomputed.Dp.Bytes()),
-		"dq":  b64enc(private_key.Precomputed.Dq.Bytes()),
-		"qi":  b64enc(private_key.Precomputed.Qinv.Bytes()),
+		"d":   b64enc(key.D.Bytes()),
+		"p":   b64enc(key.Primes[0].Bytes()),
+		"q":   b64enc(key.Primes[1].Bytes()),
+		"dp":  b64enc(key.Precomputed.Dp.Bytes()),
+		"dq":  b64enc(key.Precomputed.Dq.Bytes()),
+		"qi":  b64enc(key.Precomputed.Qinv.Bytes()),
 	}
 	if id != nil {
-		private_jwk["kid"] = *id
+		data["kid"] = *id
 	}
-	private_jwk_json, err := json.Marshal(private_jwk)
-	if err != nil {
-		panic(err)
-	}
-	return string(private_jwk_json)
+	return data
+}
+
+func new_jwk(size int, id *string) string {
+	key := new_key(size)
+	return key_to_json(key, id)
 }
 
 func parse_key(json_data string) {
