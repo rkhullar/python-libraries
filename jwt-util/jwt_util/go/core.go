@@ -21,9 +21,9 @@ func key_to_json(key *rsa.PrivateKey, id *string) string {
 	return to_json(data)
 }
 
-func key_to_dict(key *rsa.PrivateKey, id *string) map[string]interface{} {
+func key_to_dict(key *rsa.PrivateKey, id *string) StringMap {
 	E := big.NewInt(int64(key.E))
-	data := map[string]interface{}{
+	data := StringMap{
 		"kty": "RSA",
 		"n":   b64enc(key.N.Bytes()),
 		"e":   b64enc(E.Bytes()),

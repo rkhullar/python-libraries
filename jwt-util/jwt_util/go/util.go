@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 )
 
+type StringMap map[string]string
+
 func b64enc(data []byte) string {
 	return base64.RawURLEncoding.EncodeToString(data)
 }
@@ -13,7 +15,7 @@ func strptr(data string) *string {
 	return &data
 }
 
-func to_json(data map[string]interface{}) string {
+func to_json(data StringMap) string {
 	result, err := json.Marshal(data)
 	if err != nil {
 		panic(err)
