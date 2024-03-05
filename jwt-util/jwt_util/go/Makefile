@@ -10,4 +10,4 @@ run:
 	@go run main_example.go
 
 test:
-	@go run main_test.go
+	@go test main_test.go

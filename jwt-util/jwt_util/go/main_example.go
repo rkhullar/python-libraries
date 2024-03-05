@@ -2,15 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/rkhullar/python-libraries/jwt-util/x"
+	core "github.com/rkhullar/python-libraries/jwt-util/core"
 )
 
 func main() {
-	jwk := x.NewJWK(256, nil)
+	jwk := core.NewJWK(256, nil)
 	fmt.Println(jwk)
 	fmt.Println("========")
-	key := x.ParseJWK(jwk)
-	exported := x.KeyToJSON(key, nil)
+	key := core.ParseJWK(jwk)
+	exported := core.KeyToJSON(key, nil)
 	fmt.Println(exported)
 	fmt.Println("========")
 	fmt.Println("========")
