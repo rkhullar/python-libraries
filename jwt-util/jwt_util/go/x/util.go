@@ -12,7 +12,7 @@ func b64enc(data []byte) string {
 }
 
 func b64dec(data string) []byte {
-	res, err := base64.StdEncoding.DecodeString(data)
+	res, err := base64.RawURLEncoding.DecodeString(data)
 	if err != nil {
 		panic(err)
 	}
