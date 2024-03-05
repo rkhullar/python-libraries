@@ -17,6 +17,12 @@ class ExtensionAdapter:
         return ffi.string(result).decode()
 
     @staticmethod
+    def jwk_to_pem(jwk: str) -> str:
+        param = ffi.new('char[]', jwk.encode())
+        result = lib.JWKToPEM(param)
+        return ffi.string(result).decode()
+
+    @staticmethod
     def build_signature() -> str:
         result = lib.BuildSignature()
         return ffi.string(result).decode()
