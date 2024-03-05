@@ -13,9 +13,9 @@ func NewJWK(size C.int, id *C.char) *C.char {
 }
 
 //export JWKToPEM
-func JWKToPem(json_data *C.char) *C.char {
-	result := lib.JWKToPem(C.GoString(json_data))
-	return C.Cstring(result)
+func JWKToPEM(json_data *C.char) *C.char {
+	result := lib.JWKToPEM(C.GoString(json_data))
+	return C.CString(result)
 }
 
 //export BuildSignature

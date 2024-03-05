@@ -81,7 +81,7 @@ func KeyToPEM(key *rsa.PrivateKey) string {
 	return string(data)
 }
 
-func JWKToPem(json_data string) string {
+func JWKToPEM(json_data string) string {
 	key := ParseJWK(json_data)
 	return KeyToPEM(key)
 }
