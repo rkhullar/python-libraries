@@ -9,12 +9,19 @@ func main() {
 	jwk := core.NewJWK(256, nil)
 	fmt.Println(jwk)
 	fmt.Println("========")
+
 	key := core.ParseJWK(jwk)
 	exported := core.KeyToJSON(key, nil)
+
 	fmt.Println(exported)
 	fmt.Println("========")
-	fmt.Println("========")
+
 	fmt.Println(jwk == exported)
+	fmt.Println("========")
+
+	exported2 := core.KeyToPem(key)
+	fmt.Println(exported2)
+	fmt.Println("========")
 
 	//test_json := `{
 	//	"d": "5NYey8IunZM9But2h4F8-APSKCD3GWHLwA3KN2J5wgE",

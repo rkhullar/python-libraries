@@ -5,7 +5,6 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/pem"
-	"fmt"
 	"math/big"
 )
 
@@ -79,8 +78,7 @@ func KeyToPem(key *rsa.PrivateKey) string {
 		Type:  "RSA PRIVATE KEY",
 		Bytes: x509.MarshalPKCS1PrivateKey(key),
 	})
-	fmt.Println(data)
-	return "hello world"
+	return string(data)
 }
 
 func BuildSignature() string {
