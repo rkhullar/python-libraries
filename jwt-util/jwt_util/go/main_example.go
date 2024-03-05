@@ -1,9 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/rkhullar/python-libraries/jwt-util/x"
+)
 
 func main() {
-	jwk := new_jwk(256, nil)
+	jwk := x.NewJWK(256, nil)
 	fmt.Println(jwk)
 
 	//test_json := `{

@@ -1,4 +1,4 @@
-package main
+package x
 
 /*
 	privateKey, err := rsa.GenerateKey(rand.Reader, 2048)

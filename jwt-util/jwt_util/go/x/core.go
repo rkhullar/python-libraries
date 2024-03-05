@@ -1,4 +1,4 @@
-package main
+package x
 
 import (
 	"crypto/rand"
@@ -40,7 +40,7 @@ func key_to_dict(key *rsa.PrivateKey, id *string) StringMap {
 	return data
 }
 
-func new_jwk(size int, id *string) string {
+func NewJWK(size int, id *string) string {
 	key := new_key(size)
 	return key_to_json(key, id)
 }
@@ -65,6 +65,6 @@ func parse_key(json_data string) {
 func jwk_to_pem() {
 }
 
-func build_signature() string {
+func BuildSignature() string {
 	return "hello world"
 }
