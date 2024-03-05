@@ -73,12 +73,17 @@ func ParseJWK(json_data string) *rsa.PrivateKey {
 	}
 }
 
-func KeyToPem(key *rsa.PrivateKey) string {
+func KeyToPEM(key *rsa.PrivateKey) string {
 	data := pem.EncodeToMemory(&pem.Block{
 		Type:  "RSA PRIVATE KEY",
 		Bytes: x509.MarshalPKCS1PrivateKey(key),
 	})
 	return string(data)
+}
+
+func JWKToPem(json_data string) string {
+	key := ParseJWK(json_data)
+	return KeyToPEM(key)
 }
 
 func BuildSignature() string {
