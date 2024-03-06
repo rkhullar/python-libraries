@@ -78,6 +78,7 @@ func ParseMap(data StringMap) *rsa.PrivateKey {
 }
 
 func KeyToPEM(key *rsa.PrivateKey) string {
+	// TODO: consider PKCS8 format?
 	data := pem.EncodeToMemory(&pem.Block{
 		Type:  "RSA PRIVATE KEY",
 		Bytes: x509.MarshalPKCS1PrivateKey(key),

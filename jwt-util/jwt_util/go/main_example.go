@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	jwk := lib.NewJWK(256, nil)
+	jwk := lib.NewJWK(1024, nil)
 	fmt.Println(jwk)
 	fmt.Println("========")
 
