@@ -18,6 +18,12 @@ func JWKToPEM(json_data *C.char) *C.char {
 	return C.CString(result)
 }
 
+//export PEMToJWK
+func PEMToJWK(pem *C.char) *C.char {
+	result := lib.PEMToJWK(C.GoString(pem))
+	return C.CString(result)
+}
+
 //export BuildSignature
 func BuildSignature() *C.char {
 	return C.CString(lib.BuildSignature())

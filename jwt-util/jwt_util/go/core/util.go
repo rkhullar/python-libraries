@@ -23,6 +23,10 @@ func strptr(data string) *string {
 	return &data
 }
 
+func strenc(data string) []byte {
+	return []byte(data)
+}
+
 func MapToJSON(data StringMap) string {
 	result, err := json.Marshal(data)
 	if err != nil {

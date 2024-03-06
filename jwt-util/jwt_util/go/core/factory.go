@@ -45,8 +45,12 @@ func NewJWK(size int, id *string) string {
 	return KeyToJSON(key, id)
 }
 
-func ParseJWK(json_data string) *rsa.PrivateKey {
-	data := ParseJSON(json_data)
+func ParseJWK(jwk string) *rsa.PrivateKey {
+	data := ParseJSON(jwk)
+	return ParseMap(data)
+}
+
+func ParseMap(data StringMap) *rsa.PrivateKey {
 	n := b64dec(data["n"])
 	e := b64dec(data["e"])
 	d := b64dec(data["d"])
@@ -81,9 +85,39 @@ func KeyToPEM(key *rsa.PrivateKey) string {
 	return string(data)
 }
 
-func JWKToPEM(json_data string) string {
-	key := ParseJWK(json_data)
+func JWKToPEM(jwk string) string {
+	key := ParseJWK(jwk)
 	return KeyToPEM(key)
+}
+
+func PEMToJWK(data string) string {
+	key := ParsePEM(data)
+	return KeyToJSON(key, nil)
+}
+
+func ParsePEM(data string) *rsa.PrivateKey {
+	block, _ := pem.Decode(strenc(data))
+	if block == nil {
+		panic("failed to decode PEM data")
+	}
+	var key interface{}
+	var err error
+	switch block.Type {
+	case "RSA PRIVATE KEY":
+		key, err = x509.ParsePKCS1PrivateKey(block.Bytes)
+	case "PRIVATE KEY":
+		key, err = x509.ParsePKCS8PrivateKey(block.Bytes)
+	default:
+		panic("unsupported PEM type")
+	}
+	if err != nil {
+		panic(err)
+	}
+	rsaKey, ok := key.(*rsa.PrivateKey)
+	if !ok {
+		panic("parsed key is not an RSA private key")
+	}
+	return rsaKey
 }
 
 func BuildSignature() string {
