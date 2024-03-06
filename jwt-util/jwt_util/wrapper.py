@@ -7,22 +7,28 @@ from _jwt_util import ffi, lib
 class ExtensionAdapter:
 
     @staticmethod
-    def new_jwk(size: int = 2048, _id: str = None) -> str:
+    def _decode_string(data) -> str:
+        output = ffi.string(data).decode()
+        lib.FreeCString(data)
+        return output
+
+    @classmethod
+    def new_jwk(cls, size: int = 2048, _id: str = None) -> str:
         params = [ffi.cast('int', size)]
         if _id:
             params.append(ffi.new('char[]', _id.encode()))
         else:
             params.append(ffi.NULL)
         result = lib.NewJWK(*params)
-        return ffi.string(result).decode()
+        return cls._decode_string(result)
 
-    @staticmethod
-    def jwk_to_pem(jwk: str) -> str:
+    @classmethod
+    def jwk_to_pem(cls, jwk: str) -> str:
         param = ffi.new('char[]', jwk.encode())
         result = lib.JWKToPEM(param)
-        return ffi.string(result).decode()
+        return cls._decode_string(result)
 
-    @staticmethod
-    def build_signature() -> str:
+    @classmethod
+    def build_signature(cls) -> str:
         result = lib.BuildSignature()
-        return ffi.string(result).decode()
+        return cls._decode_string(result)
