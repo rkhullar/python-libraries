@@ -2,7 +2,10 @@ package main
 
 import (
 	lib "github.com/rkhullar/python-libraries/jwt-util/core"
+	"unsafe"
 )
+
+// #include <stdlib.h>
 import "C"
 
 //export NewJWK
@@ -27,6 +30,11 @@ func PEMToJWK(pem *C.char) *C.char {
 //export BuildSignature
 func BuildSignature() *C.char {
 	return C.CString(lib.BuildSignature())
+}
+
+//export FreeCString
+func FreeCString(data *C.char) {
+	C.free(unsafe.Pointer(data))
 }
 
 func main() {}
