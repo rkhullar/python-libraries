@@ -5,13 +5,14 @@ import (
 	"encoding/json"
 )
 
-type StringMap map[string]string
+type ByteArray []byte
+type StringMap map[string]any
 
-func b64enc(data []byte) string {
+func b64enc(data ByteArray) string {
 	return base64.RawURLEncoding.EncodeToString(data)
 }
 
-func b64dec(data string) []byte {
+func b64dec(data string) ByteArray {
 	res, err := base64.RawURLEncoding.DecodeString(data)
 	if err != nil {
 		panic(err)
@@ -24,7 +25,7 @@ func strptr(data string) *string {
 }
 
 func strenc(data string) []byte {
-	return []byte(data)
+	return ByteArray(data)
 }
 
 func MapToJSON(data StringMap) string {
@@ -37,7 +38,7 @@ func MapToJSON(data StringMap) string {
 
 func ParseJSON(json_data string) StringMap {
 	var data StringMap
-	err := json.Unmarshal([]byte(json_data), &data)
+	err := json.Unmarshal(strenc(json_data), &data)
 	if err != nil {
 		panic(err)
 	}

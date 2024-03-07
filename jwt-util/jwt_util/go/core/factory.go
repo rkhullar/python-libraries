@@ -50,18 +50,30 @@ func ParseJWK(jwk string) *rsa.PrivateKey {
 	return ParseMap(data)
 }
 
+func b64dec_bigint(data any) *big.Int {
+	data_str, ok := data.(string)
+	if !ok {
+		panic("input data is not a string")
+	}
+	buffer := b64dec(data_str)
+	output := new(big.Int)
+	output.SetBytes(buffer)
+	return output
+}
+
 func ParseMap(data StringMap) *rsa.PrivateKey {
-	n := b64dec(data["n"])
-	e := b64dec(data["e"])
-	d := b64dec(data["d"])
-	p := b64dec(data["p"])
-	q := b64dec(data["q"])
-	dp := b64dec(data["dp"])
-	dq := b64dec(data["dq"])
-	qi := b64dec(data["qi"])
+	//n := b64dec(data["n"].(string))
+	e := b64dec(data["e"].(string))
+	d := b64dec(data["d"].(string))
+	p := b64dec(data["p"].(string))
+	q := b64dec(data["q"].(string))
+	dp := b64dec(data["dp"].(string))
+	dq := b64dec(data["dq"].(string))
+	qi := b64dec(data["qi"].(string))
 	return &rsa.PrivateKey{
 		PublicKey: rsa.PublicKey{
-			N: new(big.Int).SetBytes(n),
+			//N: new(big.Int).SetBytes(n),
+			N: b64dec_bigint(data["n"]),
 			E: int(new(big.Int).SetBytes(e).Int64()),
 		},
 		D: new(big.Int).SetBytes(d),
