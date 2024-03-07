@@ -60,15 +60,20 @@ func ParseJSON(json_data string) StringMap {
 
 func MarshalOrdered(data StringMap) (ByteArray, error) {
 	result := "{"
+	count := 0
 	var template string
 	for key, value := range data {
 		switch value.(type) {
 		case string:
-			template = `"%s":"%s",`
+			template = `"%s":"%s"`
 		default:
-			template = `"%s":%v,`
+			template = `"%s":%v`
 		}
-		result += fmt.Sprintf(template, key, value)
+		result += fmt.Sprintf(template, key, value) + ","
+		count += 1
+	}
+	if count > 0 {
+		result = result[:len(result)-1]
 	}
 	result += "}"
 	return ByteArray(result), nil
