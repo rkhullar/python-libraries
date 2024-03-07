@@ -3,6 +3,7 @@ package core
 import (
 	"encoding/base64"
 	"encoding/json"
+	"fmt"
 	"math/big"
 )
 
@@ -41,7 +42,7 @@ func strenc(data string) []byte {
 }
 
 func MapToJSON(data StringMap) string {
-	result, err := json.Marshal(data)
+	result, err := MarshalOrdered(data)
 	if err != nil {
 		panic(err)
 	}
@@ -55,6 +56,22 @@ func ParseJSON(json_data string) StringMap {
 		panic(err)
 	}
 	return data
+}
+
+func MarshalOrdered(data StringMap) (ByteArray, error) {
+	result := "{"
+	var template string
+	for key, value := range data {
+		switch value.(type) {
+		case string:
+			template = `"%s":"%s",`
+		default:
+			template = `"%s":%v,`
+		}
+		result += fmt.Sprintf(template, key, value)
+	}
+	result += "}"
+	return ByteArray(result), nil
 }
 
 func B64EncStr(data string) string {

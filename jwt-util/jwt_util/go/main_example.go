@@ -44,6 +44,11 @@ func main() {
 	payload := lib.StringMap{
 		"message": "hello world",
 		"count":   4,
+		"nested": map[string]any{
+			"x": 1,
+			"y": false,
+			"z": "asdf",
+		},
 	}
 
 	fmt.Println(headers)
