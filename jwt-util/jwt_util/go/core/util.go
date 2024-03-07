@@ -56,3 +56,7 @@ func ParseJSON(json_data string) StringMap {
 	}
 	return data
 }
+
+func B64EncStr(data string) string {
+	return b64enc(strenc(data))
+}
