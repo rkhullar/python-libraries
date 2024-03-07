@@ -3,6 +3,7 @@ package x
 import (
 	"encoding/base64"
 	"encoding/json"
+	"math/big"
 )
 
 type ByteArray []byte
@@ -18,6 +19,17 @@ func b64dec(data string) ByteArray {
 		panic(err)
 	}
 	return res
+}
+
+func b64dec_bigint(data any) *big.Int {
+	data_str, ok := data.(string)
+	if !ok {
+		panic("input data is not a string")
+	}
+	buffer := b64dec(data_str)
+	output := new(big.Int)
+	output.SetBytes(buffer)
+	return output
 }
 
 func strptr(data string) *string {
