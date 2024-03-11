@@ -6,7 +6,8 @@ import (
 )
 
 func MapToJSON(data StringMap) string {
-	result, err := MarshalOrdered(data)
+	// TODO: move to ordered map?
+	result, err := json.Marshal(data)
 	if err != nil {
 		panic(err)
 	}
@@ -14,6 +15,7 @@ func MapToJSON(data StringMap) string {
 }
 
 func ParseJSON(json_data string) StringMap {
+	// TODO: move to ordered map?
 	var data StringMap
 	err := json.Unmarshal(strenc(json_data), &data)
 	if err != nil {
@@ -22,6 +24,10 @@ func ParseJSON(json_data string) StringMap {
 	return data
 }
 
+/* TODO
+ * adopt bytes.Buffer; buffer.WriteString and buffer.Truncate methods
+ * handle nested data
+ */
 func MarshalOrdered(data StringMap) (ByteArray, error) {
 	result := "{"
 	count := 0
@@ -42,3 +48,9 @@ func MarshalOrdered(data StringMap) (ByteArray, error) {
 	result += "}"
 	return ByteArray(result), nil
 }
+
+/*
+ * NOTE: ordered map package
+ * - https://pkg.go.dev/github.com/wk8/go-ordered-map/v2
+ * - https://github.com/wk8/go-ordered-map
+ */
