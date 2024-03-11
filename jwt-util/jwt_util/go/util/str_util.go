@@ -9,5 +9,5 @@ func StrEnc(data string) []byte {
 }
 
 func B64StrEnc(data string) string {
-	return b64enc(StrEnc(data))
+	return B64Enc(StrEnc(data))
 }
