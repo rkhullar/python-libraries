@@ -1,7 +1,7 @@
 package main
 
 import (
-	lib "github.com/rkhullar/python-libraries/jwt-util/core"
+	lib "jwt-util/core"
 	"testing"
 )
 import "gotest.tools/assert"

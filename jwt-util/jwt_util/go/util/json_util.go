@@ -17,7 +17,7 @@ func MapToJSON(data StringMap) string {
 func ParseJSON(json_data string) StringMap {
 	// TODO: move to ordered map?
 	var data StringMap
-	err := json.Unmarshal(strenc(json_data), &data)
+	err := json.Unmarshal(StrEnc(json_data), &data)
 	if err != nil {
 		panic(err)
 	}

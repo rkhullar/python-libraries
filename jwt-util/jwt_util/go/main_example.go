@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	lib "github.com/rkhullar/python-libraries/jwt-util/core"
+	lib "jwt-util/core"
 )
 
 func main() {

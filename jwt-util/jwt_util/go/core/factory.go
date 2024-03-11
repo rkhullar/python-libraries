@@ -5,6 +5,7 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/pem"
+	"jwt-util/util"
 	"math/big"
 )
 
@@ -18,21 +19,21 @@ func NewKey(size int) *rsa.PrivateKey {
 
 func KeyToJSON(key *rsa.PrivateKey, id *string) string {
 	data := KeyToMap(key, id)
-	return MapToJSON(data)
+	return util.MapToJSON(data)
 }
 
-func KeyToMap(key *rsa.PrivateKey, id *string) StringMap {
+func KeyToMap(key *rsa.PrivateKey, id *string) util.StringMap {
 	E := big.NewInt(int64(key.E))
-	data := StringMap{
+	data := util.StringMap{
 		"kty": "RSA",
-		"n":   b64enc(key.N.Bytes()),
-		"e":   b64enc(E.Bytes()),
-		"d":   b64enc(key.D.Bytes()),
-		"p":   b64enc(key.Primes[0].Bytes()),
-		"q":   b64enc(key.Primes[1].Bytes()),
-		"dp":  b64enc(key.Precomputed.Dp.Bytes()),
-		"dq":  b64enc(key.Precomputed.Dq.Bytes()),
-		"qi":  b64enc(key.Precomputed.Qinv.Bytes()),
+		"n":   util.B64Enc(key.N.Bytes()),
+		"e":   util.B64Enc(E.Bytes()),
+		"d":   util.B64Enc(key.D.Bytes()),
+		"p":   util.B64Enc(key.Primes[0].Bytes()),
+		"q":   util.B64Enc(key.Primes[1].Bytes()),
+		"dp":  util.B64Enc(key.Precomputed.Dp.Bytes()),
+		"dq":  util.B64Enc(key.Precomputed.Dq.Bytes()),
+		"qi":  util.B64Enc(key.Precomputed.Qinv.Bytes()),
 	}
 	if id != nil {
 		data["kid"] = *id
@@ -46,25 +47,25 @@ func NewJWK(size int, id *string) string {
 }
 
 func ParseJWK(jwk string) *rsa.PrivateKey {
-	data := ParseJSON(jwk)
+	data := util.ParseJSON(jwk)
 	return ParseMap(data)
 }
 
-func ParseMap(data StringMap) *rsa.PrivateKey {
+func ParseMap(data util.StringMap) *rsa.PrivateKey {
 	return &rsa.PrivateKey{
 		PublicKey: rsa.PublicKey{
-			N: b64dec_bigint(data["n"]),
-			E: int(b64dec_bigint(data["e"]).Int64()),
+			N: util.B64DecBigInt(data["n"]),
+			E: int(util.B64DecBigInt(data["e"]).Int64()),
 		},
-		D: b64dec_bigint(data["d"]),
+		D: util.B64DecBigInt(data["d"]),
 		Primes: []*big.Int{
-			b64dec_bigint(data["p"]),
-			b64dec_bigint(data["q"]),
+			util.B64DecBigInt(data["p"]),
+			util.B64DecBigInt(data["q"]),
 		},
 		Precomputed: rsa.PrecomputedValues{
-			Dp:   b64dec_bigint(data["dp"]),
-			Dq:   b64dec_bigint(data["dq"]),
-			Qinv: b64dec_bigint(data["qi"]),
+			Dp:   util.B64DecBigInt(data["dp"]),
+			Dq:   util.B64DecBigInt(data["dq"]),
+			Qinv: util.B64DecBigInt(data["qi"]),
 		},
 	}
 }
@@ -89,7 +90,7 @@ func PEMToJWK(data string) string {
 }
 
 func ParsePEM(data string) *rsa.PrivateKey {
-	block, _ := pem.Decode(strenc(data))
+	block, _ := pem.Decode(util.StrEnc(data))
 	if block == nil {
 		panic("failed to decode PEM data")
 	}

@@ -1,13 +1,13 @@
 package util
 
-func strptr(data string) *string {
+func StrPtr(data string) *string {
 	return &data
 }
 
-func strenc(data string) []byte {
+func StrEnc(data string) []byte {
 	return ByteArray(data)
 }
 
-func B64EncStr(data string) string {
-	return b64enc(strenc(data))
+func B64StrEnc(data string) string {
+	return b64enc(StrEnc(data))
 }
