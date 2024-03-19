@@ -1,7 +1,20 @@
+import time
 from dataclasses import dataclass
-
+import datetime as dt
+import functools
 from _jwt_util import ffi, lib
 
+
+def timed(fn):
+    @functools.wraps(fn)
+    def wrapper(*args, **kwargs):
+        t1 = time.perf_counter()
+        result = fn(*args, **kwargs)
+        t2 = time.perf_counter()
+        benchmark = dt.timedelta(seconds=t2-t1)
+        print(f'completed in {benchmark}')
+        return result
+    return wrapper
 
 @dataclass
 class ExtensionAdapter:
@@ -32,3 +45,9 @@ class ExtensionAdapter:
     def build_signature(cls) -> str:
         result = lib.BuildSignature()
         return cls._decode_string(result)
+
+    @classmethod
+    @timed
+    def example_go(cls, n: int) -> None:
+        param = ffi.cast('int', n)
+        lib.ExampleGo(param)

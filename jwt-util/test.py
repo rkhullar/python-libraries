@@ -6,6 +6,8 @@ jwk = adapter.new_jwk()
 print(jwk)
 pem = adapter.jwk_to_pem(jwk)
 print(pem)
+
+adapter.example_go(4)
 # '''
 
 '''

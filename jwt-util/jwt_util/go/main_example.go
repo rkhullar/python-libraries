@@ -30,6 +30,8 @@ func main() {
 
 	fmt.Println(test3 == jwk)
 	fmt.Println("========")
+
+	lib.ExampleGo(4)
 	//*/
 
 	/*

@@ -37,4 +37,8 @@ func FreeCString(data *C.char) {
 	C.free(unsafe.Pointer(data))
 }
 
+//export ExampleGo
+func ExampleGo(n C.int) {
+	lib.ExampleGo(int(n))
+}
 func main() {}
