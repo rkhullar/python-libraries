@@ -27,9 +27,10 @@ func PEMToJWK(pem *C.char) *C.char {
 	return C.CString(result)
 }
 
-//export BuildSignature
-func BuildSignature() *C.char {
-	return C.CString(lib.BuildSignature())
+//export Sign
+func Sign(data *C.char) *C.char {
+	result := lib.Sign(C.GoString(data))
+	return C.CString(result)
 }
 
 //export FreeCString

@@ -5,11 +5,8 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/pem"
-	"fmt"
 	"jwt-util/util"
 	"math/big"
-	"sync"
-	"time"
 )
 
 func NewKey(size int) *rsa.PrivateKey {
@@ -117,23 +114,6 @@ func ParsePEM(data string) *rsa.PrivateKey {
 	return rsaKey
 }
 
-func BuildSignature() string {
-	return "hello world"
-}
-
-func ExampleGo(n int) {
-	work := func(id int) {
-		fmt.Printf("worker %d starting\n", id)
-		time.Sleep(time.Second)
-		fmt.Printf("worker %d ending\n", id)
-	}
-	var wg sync.WaitGroup
-	for i := 0; i < n; i++ {
-		wg.Add(1)
-		go func(i int) {
-			defer wg.Done()
-			work(i)
-		}(i)
-	}
-	wg.Wait()
+func Sign(data string) string {
+	return data + "1"
 }
