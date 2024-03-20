@@ -50,11 +50,15 @@ func ExtractPublicPEM(pem string) string {
 }
 
 func ParsePublicMap(data util.StringMap) *rsa.PublicKey {
-	return nil
+	return &rsa.PublicKey{
+		N: util.B64DecBigInt(data["n"]),
+		E: int(util.B64DecBigInt(data["e"]).Int64()),
+	}
 }
 
 func ParsePublicJWK(jwk string) *rsa.PublicKey {
-	return nil
+	data := util.ParseJSON(jwk)
+	return ParsePublicMap(data)
 }
 
 func ParsePublicPEM(data string) *rsa.PublicKey {
