@@ -74,7 +74,7 @@ func ParsePEM(data string) *rsa.PrivateKey {
 	if block == nil {
 		panic("failed to decode PEM data")
 	}
-	var key interface{}
+	var key any
 	var err error
 	switch block.Type {
 	case "RSA PRIVATE KEY":

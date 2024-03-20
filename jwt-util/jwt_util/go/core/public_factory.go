@@ -57,6 +57,25 @@ func ParsePublicJWK(jwk string) *rsa.PublicKey {
 	return nil
 }
 
-func ParsePublicPEM(pem string) *rsa.PublicKey {
-	return nil
+func ParsePublicPEM(data string) *rsa.PublicKey {
+	block, _ := pem.Decode(util.StrEnc(data))
+	if block == nil {
+		panic("failed to decode PEM data")
+	}
+	var key any
+	var err error
+	switch block.Type {
+	case "RSA PUBLIC KEY":
+		key, err = x509.ParsePKCS1PublicKey(block.Bytes)
+	default:
+		panic("unsupported PEM type")
+	}
+	if err != nil {
+		panic(err)
+	}
+	rsaKey, ok := key.(*rsa.PublicKey)
+	if !ok {
+		panic("parsed key is not an RSA public key")
+	}
+	return rsaKey
 }

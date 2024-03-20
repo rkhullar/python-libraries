@@ -96,4 +96,8 @@ func main() {
 	fmt.Println(pem)
 	public_pem := lib.ExtractPublicPEM(pem)
 	fmt.Println(public_pem)
+
+	public_key := lib.ParsePublicPEM(public_pem)
+	public_pem2 := lib.PublicKeyToPEM(public_key)
+	fmt.Println(public_pem == public_pem2)
 }
