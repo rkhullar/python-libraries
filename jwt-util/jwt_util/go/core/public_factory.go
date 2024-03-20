@@ -67,6 +67,8 @@ func ParsePublicPEM(data string) *rsa.PublicKey {
 	switch block.Type {
 	case "RSA PUBLIC KEY":
 		key, err = x509.ParsePKCS1PublicKey(block.Bytes)
+	case "PUBLIC KEY":
+		key, err = x509.ParsePKIXPublicKey(block.Bytes)
 	default:
 		panic("unsupported PEM type")
 	}
