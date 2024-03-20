@@ -27,9 +27,15 @@ func PEMToJWK(pem *C.char) *C.char {
 	return C.CString(result)
 }
 
-//export Sign
-func Sign(data *C.char) *C.char {
-	result := lib.Sign(C.GoString(data))
+//export ParseJWKAndSign
+func ParseJWKAndSign(key *C.char, data *C.char) *C.char {
+	result := lib.ParseJWKAndSign(C.GoString(key), C.GoString(data))
+	return C.CString(result)
+}
+
+//export ParsePEMAndSign
+func ParsePEMAndSign(key *C.char, data *C.char) *C.char {
+	result := lib.ParsePEMAndSign(C.GoString(key), C.GoString(data))
 	return C.CString(result)
 }
 

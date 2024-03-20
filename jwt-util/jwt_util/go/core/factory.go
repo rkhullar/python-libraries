@@ -114,6 +114,16 @@ func ParsePEM(data string) *rsa.PrivateKey {
 	return rsaKey
 }
 
-func Sign(data string) string {
+func Sign(key *rsa.PrivateKey, data string) string {
 	return data + "1"
+}
+
+func ParseJWKAndSign(jwk string, data string) string {
+	key := ParseJWK(jwk)
+	return Sign(key, data)
+}
+
+func ParsePEMAndSign(pem string, data string) string {
+	key := ParsePEM(pem)
+	return Sign(key, data)
 }

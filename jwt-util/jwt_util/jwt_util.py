@@ -15,8 +15,19 @@ def _b64_enc(data: str) -> str:
     return base64.b64encode(data.encode()).decode().rstrip('=')
 
 
+signers = {
+    'jwk': ExtensionAdapter.parse_jwk_and_sign,
+    'pem': ExtensionAdapter.parse_pem_and_sign
+}
+
+
 def encode(payload: dict, key: str, mode: KeyFormat = 'jwk', headers: dict = None) -> str:
     headers = dict(headers or dict())
     headers['alg'] = 'RS256'
     headers['typ'] = 'JWT'
-    return _b64_json_dumps(headers, sort=True)
+    header_data = _b64_json_dumps(headers, sort=True)
+    payload_data = _b64_json_dumps(payload)
+    header_payload_data = f'{header_data}.{payload_data}'
+    #signature_data = signers[mode](key, header_payload_data)
+    signature_data = 'tbd'
+    return f'{header_payload_data}.{signature_data}'
