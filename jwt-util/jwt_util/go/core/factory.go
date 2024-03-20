@@ -6,7 +6,7 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/pem"
-	"github.com/rkhullar/python-libraries/jwt-util/util"
+	"github.com/rkhullar/python-libraries/jwt-util/jwt_util/go/util"
 	"math/big"
 )
 
