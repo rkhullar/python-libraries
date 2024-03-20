@@ -28,6 +28,5 @@ def encode(payload: dict, key: str, mode: KeyFormat = 'jwk', headers: dict = Non
     header_data = _b64_json_dumps(headers, sort=True)
     payload_data = _b64_json_dumps(payload)
     header_payload_data = f'{header_data}.{payload_data}'
-    #signature_data = signers[mode](key, header_payload_data)
-    signature_data = 'tbd'
+    signature_data = signers[mode](key, header_payload_data)
     return f'{header_payload_data}.{signature_data}'
