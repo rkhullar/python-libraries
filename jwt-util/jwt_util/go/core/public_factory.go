@@ -48,3 +48,15 @@ func ExtractPublicPEM(pem string) string {
 	key := ParsePEM(pem)
 	return PublicKeyToPEM(&key.PublicKey)
 }
+
+func ParsePublicMap(data util.StringMap) *rsa.PublicKey {
+	return nil
+}
+
+func ParsePublicJWK(jwk string) *rsa.PublicKey {
+	return nil
+}
+
+func ParsePublicPEM(pem string) *rsa.PublicKey {
+	return nil
+}

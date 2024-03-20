@@ -36,16 +36,6 @@ func KeyToMap(key *rsa.PrivateKey, id *string) util.StringMap {
 	return data
 }
 
-func KeyToJSON(key *rsa.PrivateKey, id *string) string {
-	data := KeyToMap(key, id)
-	return util.MapToJSON(data)
-}
-
-func NewJWK(size int, id *string) string {
-	key := NewKey(size)
-	return KeyToJSON(key, id)
-}
-
 func ParseMap(data util.StringMap) *rsa.PrivateKey {
 	return &rsa.PrivateKey{
 		PublicKey: rsa.PublicKey{
@@ -77,16 +67,6 @@ func KeyToPEM(key *rsa.PrivateKey) string {
 		Bytes: x509.MarshalPKCS1PrivateKey(key),
 	})
 	return string(data)
-}
-
-func JWKToPEM(jwk string) string {
-	key := ParseJWK(jwk)
-	return KeyToPEM(key)
-}
-
-func PEMToJWK(data string) string {
-	key := ParsePEM(data)
-	return KeyToJSON(key, nil)
 }
 
 func ParsePEM(data string) *rsa.PrivateKey {
