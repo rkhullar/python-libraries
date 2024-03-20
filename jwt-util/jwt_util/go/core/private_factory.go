@@ -1,7 +1,6 @@
 package core
 
 import (
-	"crypto"
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/x509"
@@ -16,11 +15,6 @@ func NewKey(size int) *rsa.PrivateKey {
 		panic(err)
 	}
 	return key
-}
-
-func KeyToJSON(key *rsa.PrivateKey, id *string) string {
-	data := KeyToMap(key, id)
-	return util.MapToJSON(data)
 }
 
 func KeyToMap(key *rsa.PrivateKey, id *string) util.StringMap {
@@ -42,14 +36,14 @@ func KeyToMap(key *rsa.PrivateKey, id *string) util.StringMap {
 	return data
 }
 
+func KeyToJSON(key *rsa.PrivateKey, id *string) string {
+	data := KeyToMap(key, id)
+	return util.MapToJSON(data)
+}
+
 func NewJWK(size int, id *string) string {
 	key := NewKey(size)
 	return KeyToJSON(key, id)
-}
-
-func ParseJWK(jwk string) *rsa.PrivateKey {
-	data := util.ParseJSON(jwk)
-	return ParseMap(data)
 }
 
 func ParseMap(data util.StringMap) *rsa.PrivateKey {
@@ -69,6 +63,11 @@ func ParseMap(data util.StringMap) *rsa.PrivateKey {
 			Qinv: util.B64DecBigInt(data["qi"]),
 		},
 	}
+}
+
+func ParseJWK(jwk string) *rsa.PrivateKey {
+	data := util.ParseJSON(jwk)
+	return ParseMap(data)
 }
 
 func KeyToPEM(key *rsa.PrivateKey) string {
@@ -113,63 +112,4 @@ func ParsePEM(data string) *rsa.PrivateKey {
 		panic("parsed key is not an RSA private key")
 	}
 	return rsaKey
-}
-
-func Sign(key *rsa.PrivateKey, data string) string {
-	result, err := rsa.SignPKCS1v15(rand.Reader, key, crypto.SHA256, util.SHA256Sum(data))
-	if err != nil {
-		panic(err)
-	}
-	return util.B64Enc(result)
-}
-
-func ParseJWKAndSign(jwk string, data string) string {
-	key := ParseJWK(jwk)
-	return Sign(key, data)
-}
-
-func ParsePEMAndSign(pem string, data string) string {
-	key := ParsePEM(pem)
-	return Sign(key, data)
-}
-
-func PublicKeyToMap(key *rsa.PublicKey, id *string) util.StringMap {
-	E := big.NewInt(int64(key.E))
-	data := util.StringMap{
-		"kty": "RSA",
-		"e":   util.B64Enc(E.Bytes()),
-		"n":   util.B64Enc(key.N.Bytes()),
-		"alg": "RS256",
-		"use": "sig",
-	}
-	if id != nil {
-		data["kid"] = *id
-	}
-	return data
-}
-
-func PublicKeyToJSON(key *rsa.PublicKey, id *string) string {
-	data := PublicKeyToMap(key, id)
-	return util.MapToJSON(data)
-}
-
-func ExtractPublicJWK(jwk string) string {
-	data := util.ParseJSON(jwk)
-	key := ParseMap(data)
-	kid := util.StringMap_GetStrPtr(data, "kid")
-	return PublicKeyToJSON(&key.PublicKey, kid)
-}
-
-func PublicKeyToPEM(key *rsa.PublicKey) string {
-	// TODO: consider PKIX format?
-	data := pem.EncodeToMemory(&pem.Block{
-		Type:  "RSA PUBLIC KEY",
-		Bytes: x509.MarshalPKCS1PublicKey(key),
-	})
-	return string(data)
-}
-
-func ExtractPublicPEM(pem string) string {
-	key := ParsePEM(pem)
-	return PublicKeyToPEM(&key.PublicKey)
 }
