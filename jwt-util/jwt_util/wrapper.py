@@ -1,5 +1,7 @@
 from dataclasses import dataclass
+
 from _jwt_util import ffi, lib
+
 from .time_util import timed
 
 

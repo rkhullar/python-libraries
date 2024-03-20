@@ -1,6 +1,6 @@
+import datetime as dt
 import functools
 import time
-import datetime as dt
 
 
 def timed(fn):

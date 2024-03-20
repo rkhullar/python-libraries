@@ -1,7 +1,8 @@
 import base64
-from typing import Literal
-from .wrapper import ExtensionAdapter
 import json
+from typing import Literal
+
+from .wrapper import ExtensionAdapter
 
 KeyFormat = Literal['jwk', 'pem']
 
