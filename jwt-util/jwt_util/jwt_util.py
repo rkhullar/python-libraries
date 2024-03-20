@@ -21,7 +21,7 @@ signers = {
 }
 
 
-def encode(payload: dict, key: str, mode: KeyFormat = 'jwk', headers: dict = None) -> str:
+def encode(payload: dict, key: str, mode: KeyFormat, headers: dict = None) -> str:
     headers = dict(headers or dict())
     headers['alg'] = 'RS256'
     headers['typ'] = 'JWT'

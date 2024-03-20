@@ -25,12 +25,14 @@ def read_data(name: str) -> str:
 test_jwk = read_data('private-key.json')
 test_pem = read_data('private-key.pem')
 
-payload = {'message': 'hello world', 'count': 4}
-result = jwt.encode(payload=payload, key=test_pem, algorithm='RS256', headers={'kid': 'asdf'})
-print(result)
+payload = {'message': 'hello world', 'count': 4, "nested": {"x": 1, "a": 2}}
+result_a = jwt.encode(payload=payload, key=test_pem, algorithm='RS256', headers={'kid': 'asdf'})
+print(result_a)
 
 print()
 
-x = jwt_util.encode(payload=payload, key=test_pem, headers={'kid': 'asdf'})
-print(x)
+result_b = jwt_util.encode(payload=payload, key=test_jwk, mode='jwk', headers={'kid': 'asdf'})
+print(result_b)
+
+print(result_a == result_b)
 # '''
