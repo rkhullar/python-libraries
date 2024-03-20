@@ -87,4 +87,13 @@ func main() {
 	actual := lib.ParseJWKAndSign(jwk, header_data+"."+payload_data)
 	fmt.Println(actual)
 	fmt.Println(actual == expected)
+
+	//fmt.Println(jwk)
+	//public_jwk := lib.ExtractPublicJWK(jwk)
+	//fmt.Println(public_jwk)
+
+	pem := lib.JWKToPEM(jwk)
+	fmt.Println(pem)
+	public_pem := lib.ExtractPublicPEM(pem)
+	fmt.Println(public_pem)
 }
