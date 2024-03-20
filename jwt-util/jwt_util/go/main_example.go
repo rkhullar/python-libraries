@@ -89,15 +89,19 @@ func main() {
 	fmt.Println(actual == expected)
 
 	//fmt.Println(jwk)
-	//public_jwk := lib.ExtractPublicJWK(jwk)
+	public_jwk := lib.ExtractPublicJWK(jwk)
 	//fmt.Println(public_jwk)
 
-	pem := lib.JWKToPEM(jwk)
-	fmt.Println(pem)
-	public_pem := lib.ExtractPublicPEM(pem)
-	fmt.Println(public_pem)
+	public_key := lib.ParsePublicJWK(public_jwk)
+	public_jwk2 := lib.PublicKeyToJSON(public_key, nil)
+	fmt.Println(public_jwk == public_jwk2)
 
-	public_key := lib.ParsePublicPEM(public_pem)
-	public_pem2 := lib.PublicKeyToPEM(public_key)
-	fmt.Println(public_pem == public_pem2)
+	//pem := lib.JWKToPEM(jwk)
+	//fmt.Println(pem)
+	//public_pem := lib.ExtractPublicPEM(pem)
+	//fmt.Println(public_pem)
+	//
+	//public_key := lib.ParsePublicPEM(public_pem)
+	//public_pem2 := lib.PublicKeyToPEM(public_key)
+	//fmt.Println(public_pem == public_pem2)
 }
