@@ -4,7 +4,7 @@ func StrPtr(data string) *string {
 	return &data
 }
 
-func StrEnc(data string) []byte {
+func StrEnc(data string) ByteArray {
 	return ByteArray(data)
 }
 

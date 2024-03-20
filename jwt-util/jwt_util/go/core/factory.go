@@ -1,6 +1,7 @@
 package core
 
 import (
+	"crypto"
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/x509"
@@ -115,7 +116,11 @@ func ParsePEM(data string) *rsa.PrivateKey {
 }
 
 func Sign(key *rsa.PrivateKey, data string) string {
-	return data + "1"
+	result, err := rsa.SignPKCS1v15(rand.Reader, key, crypto.SHA256, util.SHA256Sum(data))
+	if err != nil {
+		panic(err)
+	}
+	return util.B64Enc(result)
 }
 
 func ParseJWKAndSign(jwk string, data string) string {
