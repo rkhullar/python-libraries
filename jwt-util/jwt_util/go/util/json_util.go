@@ -28,7 +28,7 @@ func ParseJSON(json_data string) StringMap {
  * adopt bytes.Buffer; buffer.WriteString and buffer.Truncate methods
  * handle nested data
  */
-func MarshalOrdered(data StringMap) (ByteArray, error) {
+func MarshalOrdered(data StringMap) (ByteSlice, error) {
 	result := "{"
 	count := 0
 	var template string
@@ -46,7 +46,7 @@ func MarshalOrdered(data StringMap) (ByteArray, error) {
 		result = result[:len(result)-1]
 	}
 	result += "}"
-	return ByteArray(result), nil
+	return ByteSlice(result), nil
 }
 
 /*

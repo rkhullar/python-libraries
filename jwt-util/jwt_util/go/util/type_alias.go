@@ -1,4 +1,4 @@
 package util
 
-type ByteArray []byte // TODO: change to ByteSlice?
+type ByteSlice []byte
 type StringMap map[string]any

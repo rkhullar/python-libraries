@@ -5,11 +5,11 @@ import (
 	"math/big"
 )
 
-func B64Enc(data ByteArray) string {
+func B64Enc(data ByteSlice) string {
 	return base64.RawURLEncoding.EncodeToString(data)
 }
 
-func B64Dec(data string) ByteArray {
+func B64Dec(data string) ByteSlice {
 	res, err := base64.RawURLEncoding.DecodeString(data)
 	if err != nil {
 		panic(err)
