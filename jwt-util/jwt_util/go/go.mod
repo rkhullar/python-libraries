@@ -1,5 +1,4 @@
-//module github.com/rkhullar/python-libraries/jwt-util
-module jwt-util
+module github.com/rkhullar/python-libraries/jwt-util
 
 go 1.21.5
 

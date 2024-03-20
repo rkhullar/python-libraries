@@ -1,7 +1,7 @@
 package main
 
 import (
-	lib "jwt-util/core"
+	lib "github.com/rkhullar/python-libraries/jwt-util/core"
 	"unsafe"
 )
 
