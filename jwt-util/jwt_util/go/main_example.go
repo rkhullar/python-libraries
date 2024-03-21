@@ -88,13 +88,17 @@ func main() {
 	fmt.Println(actual)
 	fmt.Println(actual == expected)
 
-	//fmt.Println(jwk)
 	public_jwk := lib.ExtractPublicJWK(jwk)
+	t := lib.ParsePublicJWKAndVerify(public_jwk, header_data+"."+payload_data, actual)
+	fmt.Println(t)
+
+	//fmt.Println(jwk)
+	//public_jwk := lib.ExtractPublicJWK(jwk)
 	//fmt.Println(public_jwk)
 
-	public_key := lib.ParsePublicJWK(public_jwk)
-	public_jwk2 := lib.PublicKeyToJSON(public_key, nil)
-	fmt.Println(public_jwk == public_jwk2)
+	//public_key := lib.ParsePublicJWK(public_jwk)
+	//public_jwk2 := lib.PublicKeyToJSON(public_key, nil)
+	//fmt.Println(public_jwk == public_jwk2)
 
 	//pem := lib.JWKToPEM(jwk)
 	//fmt.Println(pem)

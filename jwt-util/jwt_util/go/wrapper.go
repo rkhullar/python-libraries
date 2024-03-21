@@ -1,11 +1,13 @@
 package main
 
+import "C"
 import (
 	lib "github.com/rkhullar/python-libraries/jwt-util/jwt_util/go/core"
 	"unsafe"
 )
 
 // #include <stdlib.h>
+// #include <stdbool.h>
 import "C"
 
 //export NewJWK
@@ -39,6 +41,18 @@ func ParsePEMAndSign(key *C.char, data *C.char) *C.char {
 	return C.CString(result)
 }
 
+//export ParsePublicJWKAndVerify
+func ParsePublicJWKAndVerify(key *C.char, data *C.char, signature *C.char) C.bool {
+	result := lib.ParsePublicJWKAndVerify(C.GoString(key), C.GoString(data), C.GoString(signature))
+	return C.bool(result)
+}
+
+//export ParsePublicPEMAndVerify
+func ParsePublicPEMAndVerify(key *C.char, data *C.char, signature *C.char) C.bool {
+	result := lib.ParsePublicPEMAndVerify(C.GoString(key), C.GoString(data), C.GoString(signature))
+	return C.bool(result)
+}
+
 //export FreeCString
 func FreeCString(data *C.char) {
 	C.free(unsafe.Pointer(data))
@@ -48,4 +62,5 @@ func FreeCString(data *C.char) {
 func ExampleGo(n C.int) {
 	lib.ExampleGo(int(n))
 }
+
 func main() {}
