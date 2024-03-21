@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	lib "github.com/rkhullar/python-libraries/jwt-util/jwt_util/go/core"
+	lib "github.com/rkhullar/python-libraries/pygo-jwt/pygo_jwt/go/core"
 	"os"
 	"os/user"
 )
@@ -58,7 +58,7 @@ func main() {
 
 	me, _ := user.Current()
 
-	jwk_path := "Lab/personal/python-libraries/jwt-util/local/data/private-key.json"
+	jwk_path := "Lab/personal/python-libraries/pygo-jwt/local/data/private-key.json"
 	jwk_data, err := os.ReadFile(me.HomeDir + "/" + jwk_path)
 	if err != nil {
 		panic(err)
