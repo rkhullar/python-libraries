@@ -41,6 +41,18 @@ func ParsePEMAndSign(key *C.char, data *C.char) *C.char {
 	return C.CString(result)
 }
 
+//export ExtractPublicJWK
+func ExtractPublicJWK(key *C.char) *C.char {
+	result := lib.ExtractPublicJWK(C.GoString(key))
+	return C.CString(result)
+}
+
+//export ExtractPublicPEM
+func ExtractPublicPEM(key *C.char) *C.char {
+	result := lib.ExtractPublicPEM(C.GoString(key))
+	return C.CString(result)
+}
+
 //export ParsePublicJWKAndVerify
 func ParsePublicJWKAndVerify(key *C.char, data *C.char, signature *C.char) C.bool {
 	result := lib.ParsePublicJWKAndVerify(C.GoString(key), C.GoString(data), C.GoString(signature))
