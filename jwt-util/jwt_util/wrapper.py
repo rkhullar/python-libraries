@@ -45,6 +45,18 @@ class ExtensionAdapter:
         return cls._decode_string(result)
 
     @classmethod
+    def extract_public_jwk(cls, key: str) -> str:
+        param = cls._encode_string(key)
+        result = lib.ExtractPublicJWK(param)
+        return cls._decode_string(result)
+
+    @classmethod
+    def extract_public_pem(cls, key: str) -> str:
+        param = cls._encode_string(key)
+        result = lib.ExtractPublicPEM(param)
+        return cls._decode_string(result)
+
+    @classmethod
     def parse_jwk_and_sign(cls, key: str, data: str) -> str:
         params = [cls._encode_string(key), cls._encode_string(data)]
         result = lib.ParseJWKAndSign(*params)
@@ -55,6 +67,18 @@ class ExtensionAdapter:
         params = [cls._encode_string(key), cls._encode_string(data)]
         result = lib.ParsePEMAndSign(*params)
         return cls._decode_string(result)
+
+    @classmethod
+    def parse_public_jwk_and_verify(cls, key: str, data: str, signature: str) -> bool:
+        params = [cls._encode_string(key), cls._encode_string(data), cls._encode_string(signature)]
+        result = lib.ParsePublicJWKAndVerify(*params)
+        return ffi.bool(result)
+
+    @classmethod
+    def parse_public_pem_and_verify(cls, key: str, data: str, signature: str) -> bool:
+        params = [cls._encode_string(key), cls._encode_string(data), cls._encode_string(signature)]
+        result = lib.ParsePublicPEMAndVerify(*params)
+        return ffi.bool(result)
 
     @classmethod
     @timed
