@@ -29,10 +29,13 @@ func PublicKeyToJSON(key *rsa.PublicKey, id *string) string {
 }
 
 func PublicKeyToPEM(key *rsa.PublicKey) string {
-	// TODO: consider PKIX format?
+	bytes, err := x509.MarshalPKIXPublicKey(key)
+	if err != nil {
+		panic(err)
+	}
 	data := pem.EncodeToMemory(&pem.Block{
 		Type:  "RSA PUBLIC KEY",
-		Bytes: x509.MarshalPKCS1PublicKey(key),
+		Bytes: bytes,
 	})
 	return string(data)
 }

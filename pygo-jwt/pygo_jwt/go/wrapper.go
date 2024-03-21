@@ -10,6 +10,8 @@ import (
 // #include <stdbool.h>
 import "C"
 
+// TODO: handle null for NewJWK and PEMToJWK
+
 //export NewJWK
 func NewJWK(size C.int, id *C.char) *C.char {
 	_id := C.GoString(id)
@@ -24,8 +26,9 @@ func JWKToPEM(json_data *C.char) *C.char {
 }
 
 //export PEMToJWK
-func PEMToJWK(pem *C.char) *C.char {
-	result := lib.PEMToJWK(C.GoString(pem))
+func PEMToJWK(pem *C.char, id *C.char) *C.char {
+	_id := C.GoString(id)
+	result := lib.PEMToJWK(C.GoString(pem), &_id)
 	return C.CString(result)
 }
 

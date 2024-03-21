@@ -61,10 +61,13 @@ func ParseJWK(jwk string) *rsa.PrivateKey {
 }
 
 func KeyToPEM(key *rsa.PrivateKey) string {
-	// TODO: consider PKCS8 format?
+	bytes, err := x509.MarshalPKCS8PrivateKey(key)
+	if err != nil {
+		panic(err)
+	}
 	data := pem.EncodeToMemory(&pem.Block{
-		Type:  "RSA PRIVATE KEY",
-		Bytes: x509.MarshalPKCS1PrivateKey(key),
+		Type:  "PRIVATE KEY",
+		Bytes: bytes,
 	})
 	return string(data)
 }
