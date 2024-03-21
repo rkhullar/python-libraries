@@ -16,6 +16,7 @@ from pathlib import Path
 import jwt
 
 import jwt_util
+from jwt_util import ExtensionAdapter
 
 
 def read_data(name: str) -> str:
@@ -37,4 +38,18 @@ result_b = jwt_util.encode(payload=payload, key=test_jwk, mode='jwk', headers={'
 print(result_b)
 
 print(result_a == result_b)
+
+public_jwk = ExtensionAdapter.extract_public_jwk(test_jwk)
+public_pem = ExtensionAdapter.extract_public_pem(test_pem)
+
+print(public_jwk)
+print(public_pem)
+
+token_parts = result_b.split('.')
+assert len(token_parts) == 3
+print(token_parts)
+x = ExtensionAdapter.parse_public_jwk_and_verify(key=public_jwk, data=f'{token_parts[0]}.{token_parts[1]}', signature=token_parts[2])
+print(x)
+y = ExtensionAdapter.parse_public_pem_and_verify(key=public_pem, data=f'{token_parts[0]}.{token_parts[1]}', signature=token_parts[2])
+print(y)
 # '''

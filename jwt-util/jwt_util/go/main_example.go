@@ -89,6 +89,7 @@ func main() {
 	fmt.Println(actual == expected)
 
 	public_jwk := lib.ExtractPublicJWK(jwk)
+	fmt.Println(public_jwk)
 	t := lib.ParsePublicJWKAndVerify(public_jwk, header_data+"."+payload_data, actual)
 	fmt.Println(t)
 

@@ -71,14 +71,12 @@ class ExtensionAdapter:
     @classmethod
     def parse_public_jwk_and_verify(cls, key: str, data: str, signature: str) -> bool:
         params = [cls._encode_string(key), cls._encode_string(data), cls._encode_string(signature)]
-        result = lib.ParsePublicJWKAndVerify(*params)
-        return ffi.bool(result)
+        return lib.ParsePublicJWKAndVerify(*params)
 
     @classmethod
     def parse_public_pem_and_verify(cls, key: str, data: str, signature: str) -> bool:
         params = [cls._encode_string(key), cls._encode_string(data), cls._encode_string(signature)]
-        result = lib.ParsePublicPEMAndVerify(*params)
-        return ffi.bool(result)
+        return lib.ParsePublicPEMAndVerify(*params)
 
     @classmethod
     @timed
