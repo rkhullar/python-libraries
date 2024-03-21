@@ -4,10 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pygo-tools = "*"
-isort = "*"
 
 [dev-packages]
+pygo-tools = "*"
+isort = "*"
+twine = "*"
 
 [requires]
 python_version = "3.12"

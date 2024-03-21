@@ -2,7 +2,7 @@ package core
 
 import (
 	"crypto/rsa"
-	"github.com/rkhullar/python-libraries/jwt-util/jwt_util/go/util"
+	"github.com/rkhullar/python-libraries/pygo-jwt/pygo_jwt/go/util"
 )
 
 func NewJWK(size int, id *string) string {

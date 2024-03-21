@@ -4,7 +4,7 @@
 
 ```shell
 go mod init main
-go get github.com/rkhullar/python-libraries/jwt-util/jwt_util/go
+go get github.com/rkhullar/python-libraries/pygo-jwt/pygo_jwt/go
 ```
 
 ```go
@@ -12,7 +12,7 @@ package main
 
 import (
 	"fmt"
-	lib "github.com/rkhullar/python-libraries/jwt-util/jwt_util/go/core"
+	lib "github.com/rkhullar/python-libraries/pygo-jwt/pygo_jwt/go/core"
 )
 
 func main() {

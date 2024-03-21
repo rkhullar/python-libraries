@@ -4,7 +4,7 @@ import (
 	"crypto"
 	"crypto/rand"
 	"crypto/rsa"
-	"github.com/rkhullar/python-libraries/jwt-util/jwt_util/go/util"
+	"github.com/rkhullar/python-libraries/pygo-jwt/pygo_jwt/go/util"
 )
 
 func Sign(key *rsa.PrivateKey, data string) string {

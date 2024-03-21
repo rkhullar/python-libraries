@@ -2,7 +2,7 @@ package main
 
 import "C"
 import (
-	lib "github.com/rkhullar/python-libraries/jwt-util/jwt_util/go/core"
+	lib "github.com/rkhullar/python-libraries/pygo-jwt/pygo_jwt/go/core"
 	"unsafe"
 )
 

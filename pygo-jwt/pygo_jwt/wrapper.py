@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from _jwt_util import ffi, lib
+from _rsa_util import ffi, lib
 
 from .time_util import timed
 

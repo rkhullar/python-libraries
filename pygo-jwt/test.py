@@ -15,8 +15,8 @@ from pathlib import Path
 
 import jwt
 
-import jwt_util
-from jwt_util import ExtensionAdapter
+import pygo_jwt
+from pygo_jwt import ExtensionAdapter
 
 
 def read_data(name: str) -> str:
@@ -34,7 +34,7 @@ print(result_a)
 
 print()
 
-result_b = jwt_util.encode(payload=payload, key=test_jwk, mode='jwk', headers={'kid': 'asdf'})
+result_b = pygo_jwt.encode(payload=payload, key=test_jwk, mode='jwk', headers={'kid': 'asdf'})
 print(result_b)
 
 print(result_a == result_b)
