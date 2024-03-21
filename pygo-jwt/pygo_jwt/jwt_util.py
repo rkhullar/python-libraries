@@ -1,7 +1,7 @@
 from typing import Literal
 from .wrapper import ExtensionAdapter
 from .b64_util import b64_json_dumps, b64_json_loads
-from .error import TokenDecodeError, InvalidSignature
+from .errors import TokenDecodeError, InvalidSignature
 
 
 KeyFormat = Literal['jwk', 'pem']
