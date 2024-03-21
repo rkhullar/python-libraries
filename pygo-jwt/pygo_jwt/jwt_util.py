@@ -1,6 +1,7 @@
 from typing import Literal
 from .wrapper import ExtensionAdapter
 from .b64_util import b64_json_dumps, b64_json_loads
+from .error import TokenDecodeError, InvalidSignature
 
 
 KeyFormat = Literal['jwk', 'pem']
@@ -9,6 +10,11 @@ KeyFormat = Literal['jwk', 'pem']
 signers = {
     'jwk': ExtensionAdapter.parse_jwk_and_sign,
     'pem': ExtensionAdapter.parse_pem_and_sign
+}
+
+verifiers = {
+    'jwk': ExtensionAdapter.parse_public_jwk_and_verify,
+    'pem': ExtensionAdapter.parse_public_pem_and_verify
 }
 
 
@@ -39,9 +45,17 @@ def encode(payload: dict, key: str, mode: KeyFormat, headers: dict = None) -> st
     header_data = b64_json_dumps(headers, sort=True)
     payload_data = b64_json_dumps(payload)
     header_payload_data = f'{header_data}.{payload_data}'
-    signature_data = signers[mode](key, header_payload_data)
+    signature_data = signers[mode](key=key, data=header_payload_data)
     return f'{header_payload_data}.{signature_data}'
 
 
-def decode(token: str) -> dict:
-    pass
+def decode(token: str, key: str, mode: KeyFormat, verify: bool = True) -> dict:
+    parts = token.split('.')
+    if len(parts) != 3:
+        raise TokenDecodeError
+    header, payload, signature = parts
+    if verify:
+        is_valid = verifiers[mode](key=key, data=f'{header}.{payload}', signature=signature)
+        if not is_valid:
+            raise InvalidSignature
+    return b64_json_loads(payload)
