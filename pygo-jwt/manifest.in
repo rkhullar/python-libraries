@@ -1,5 +1,5 @@
-recursive-include jwt_util/go *.go
-recursive-exclude jwt_util/go *test*.go
-recursive-exclude jwt_util/go *main*.go
-include jwt_util/go/go.mod
-include jwt_util/lib/*.so
+recursive-include pygo_jwt/go *.go
+recursive-exclude pygo_jwt/go *test*.go
+recursive-exclude pygo_jwt/go *main*.go
+include pygo_jwt/go/go.mod
+include pygo_jwt/lib/*.so
