@@ -34,7 +34,7 @@ func PublicKeyToPEM(key *rsa.PublicKey) string {
 		panic(err)
 	}
 	data := pem.EncodeToMemory(&pem.Block{
-		Type:  "RSA PUBLIC KEY",
+		Type:  "PUBLIC KEY",
 		Bytes: bytes,
 	})
 	return string(data)
