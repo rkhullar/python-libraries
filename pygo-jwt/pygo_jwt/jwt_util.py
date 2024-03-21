@@ -1,7 +1,7 @@
 from typing import Literal
 
 from .b64_util import b64_json_dumps, b64_json_loads
-from .errors import InvalidSignature, TokenDecodeError
+from .errors import InvalidSignatureError, TokenDecodeError
 from .wrapper import ExtensionAdapter
 
 KeyFormat = Literal['jwk', 'pem']
@@ -57,5 +57,5 @@ def decode(token: str, key: str, mode: KeyFormat, verify: bool = True) -> dict:
     if verify:
         is_valid = verifiers[mode](key=key, data=f'{header}.{payload}', signature=signature)
         if not is_valid:
-            raise InvalidSignature
+            raise InvalidSignatureError
     return b64_json_loads(payload)

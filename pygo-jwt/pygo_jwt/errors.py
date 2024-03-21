@@ -1,6 +1,10 @@
-class TokenDecodeError(Exception):
+class PyGoJWTError(Exception):
     pass
 
 
-class InvalidSignature(TokenDecodeError):
+class TokenDecodeError(PyGoJWTError):
+    pass
+
+
+class InvalidSignatureError(TokenDecodeError):
     pass
