@@ -3,6 +3,16 @@
   "extension": "_jwt_util",
   "library": "jwtutil",
   "signatures": [
-    "char* BuildSignature();"
+    "char* NewJWK(int size, char* id);",
+    "char* JWKToPEM(char* json_data);",
+    "char* PEMToJWK(char* pem);",
+    "char* ExtractPublicJWK(char* key);",
+    "char* ExtractPublicPEM(char* key);",
+    "char* ParseJWKAndSign(char* key, char* data);",
+    "char* ParsePEMAndSign(char* key, char* data);",
+    "_Bool ParsePublicJWKAndVerify(char* key, char* data, char* signature);",
+    "_Bool ParsePublicPEMAndVerify(char* key, char* data, char* signature);",
+    "void FreeCString(char* data);",
+    "void ExampleGo(int n);"
   ]
 }
