@@ -1,5 +1,6 @@
-import pygo_jwt
 from util import write_data
+
+import pygo_jwt
 
 private_jwk = pygo_jwt.new_jwk(size=2048, _id='asdf')
 private_pem = pygo_jwt.jwk_to_pem(private_jwk)
