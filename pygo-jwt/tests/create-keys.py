@@ -2,7 +2,7 @@ from util import write_data
 
 import pygo_jwt
 
-private_jwk = pygo_jwt.new_jwk(size=256, _id='asdf')
+private_jwk = pygo_jwt.new_jwk(size=512, _id='asdf')
 private_pem = pygo_jwt.jwk_to_pem(private_jwk)
 
 print(private_jwk)
