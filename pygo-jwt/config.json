@@ -5,7 +5,7 @@
   "signatures": [
     "char* NewJWK(int size, char* id);",
     "char* JWKToPEM(char* json_data);",
-    "char* PEMToJWK(char* pem);",
+    "char* PEMToJWK(char* pem, char* id);",
     "char* ExtractPublicJWK(char* key);",
     "char* ExtractPublicPEM(char* key);",
     "char* ParseJWKAndSign(char* key, char* data);",
