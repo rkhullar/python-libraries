@@ -20,7 +20,7 @@ func JWKToPEM(jwk string) string {
 	return KeyToPEM(key)
 }
 
-func PEMToJWK(data string) string {
+func PEMToJWK(data string, id *string) string {
 	key := ParsePEM(data)
-	return KeyToJSON(key, nil)
+	return KeyToJSON(key, id)
 }

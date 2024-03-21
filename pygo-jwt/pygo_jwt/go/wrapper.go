@@ -12,8 +12,7 @@ import "C"
 
 //export NewJWK
 func NewJWK(size C.int, id *C.char) *C.char {
-	_id := C.GoString(id)
-	result := lib.NewJWK(int(size), &_id)
+	result := lib.NewJWK(int(size), TranslateStrPtr(id))
 	return C.CString(result)
 }
 
@@ -24,8 +23,8 @@ func JWKToPEM(json_data *C.char) *C.char {
 }
 
 //export PEMToJWK
-func PEMToJWK(pem *C.char) *C.char {
-	result := lib.PEMToJWK(C.GoString(pem))
+func PEMToJWK(pem *C.char, id *C.char) *C.char {
+	result := lib.PEMToJWK(C.GoString(pem), TranslateStrPtr(id))
 	return C.CString(result)
 }
 
@@ -73,6 +72,15 @@ func FreeCString(data *C.char) {
 //export ExampleGo
 func ExampleGo(n C.int) {
 	lib.ExampleGo(int(n))
+}
+
+func TranslateStrPtr(data *C.char) *string {
+	if data != nil {
+		result := C.GoString(data)
+		return &result
+	} else {
+		return nil
+	}
 }
 
 func main() {}

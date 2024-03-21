@@ -7,11 +7,8 @@ build:
 clean:
 	@rm -rf local
 
-run:
-	@go run main_example.go
-
 test:
-	@go test main_test.go
+	@go test
 
 reset:
 	@rm -f go.sum

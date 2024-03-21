@@ -39,9 +39,13 @@ class ExtensionAdapter:
         return cls._decode_string(result)
 
     @classmethod
-    def pem_to_jwk(cls, pem: str) -> str:
-        param = cls._encode_string(pem)
-        result = lib.PEMToJWK(param)
+    def pem_to_jwk(cls, pem: str, _id: str = None) -> str:
+        params = [cls._encode_string(pem)]
+        if _id:
+            params.append(cls._encode_string(_id))
+        else:
+            params.append(ffi.NULL)
+        result = lib.PEMToJWK(*params)
         return cls._decode_string(result)
 
     @classmethod
