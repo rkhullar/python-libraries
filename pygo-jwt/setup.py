@@ -1,9 +1,25 @@
 from pygo_tools import setup
 from setuptools import find_packages
+from pathlib import Path
+
+
+def read_file(path: Path | str) -> str:
+    with Path(path).open('r') as f:
+        return f.read().strip()
+
 
 setup(
     name='pygo-jwt',
     version='0.0.1',
     packages=find_packages(),
-    include_package_data=True
+    include_package_data=True,
+    python_requires='~=3.12',
+    author='Rajan Khullar',
+    author_email='rkhullar03@gmail.com',
+    license='MIT NON-AI',
+    long_description=read_file('readme.md'),
+    long_description_content_type='text/markdown',
+    project_urls={
+        'Source': 'https://github.com/rkhullar/python-libraries/tree/main/pygo-jwt'
+    }
 )
