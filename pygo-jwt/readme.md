@@ -1,6 +1,10 @@
 ## pygo-jwt
 
-### Example Usage with Python
+This project focusing on managing json web tokens signed with RS256. Inspired from [`pyjwt`](https://pypi.org/project/PyJWT)
+this library provides the core`encode` and `decode` functionality, but uses the standard `crypto` package within Go instead
+of [`cryptography`](https://pypi.org/project/cryptography).
+
+### Example Usage for Python
 
 ```shell
 pip install pygo-jwt
@@ -20,7 +24,7 @@ token = pygo_jwt.encode(payload=payload, key=private_pem, mode='pem')
 token_data = pygo_jwt.decode(token=token, key=public_jwk, mode='jwk')
 ```
 
-### Example Usage with Go
+### Example Usage for Go
 
 ```shell
 go mod init main
