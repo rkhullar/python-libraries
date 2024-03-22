@@ -1,6 +1,6 @@
 module github.com/rkhullar/python-libraries/pygo-jwt/pygo_jwt/go
 
-go 1.21.5
+go 1.21
 
 require gotest.tools v2.2.0+incompatible
 

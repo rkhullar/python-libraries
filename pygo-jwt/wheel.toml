@@ -1,0 +1,24 @@
+[tool.cibuildwheel]
+before-all = "uname -a"
+#environment = {GO_VERSION="1.21.5", ASDF_VERSION="0.14.0"}
+repair-wheel-command = ""
+
+#[[tool.cibuildwheel.overrides]]
+#select="*-????linux_*"
+#inherit.environment="append"
+#environment.ASDF_HOME = "/opt/asdf"
+#environment.PATH = "${PATH}:$ASDF_HOME/shims:$ASDF_HOME/bin"
+
+[tool.cibuildwheel.linux]
+before-build = [
+    "yum install -y make",
+#    "git clone https://github.com/asdf-vm/asdf.git /opt/asdf --branch v${ASDF_VERSION}",
+#    "asdf plugin-add golang",
+#    "asdf install golang $GO_VERSION",
+#    "asdf global golang $GO_VERSION",
+    "yum install -y go",
+    "go version",
+    "pip install pygo-tools"
+]
+
+# cibuildwheel --config-file wheel.toml --platform linux --arch x86_64
