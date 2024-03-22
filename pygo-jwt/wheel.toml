@@ -18,11 +18,11 @@ before-build = [
     "pip install pygo-tools"
 ]
 
-#[[tool.cibuildwheel.overrides]]
-#select="*-????linux_*"
-#inherit.environment="append"
-#environment.ASDF_HOME = "/opt/asdf"
-#environment.PATH = "${PATH}:$ASDF_HOME/shims:$ASDF_HOME/bin"
+[[tool.cibuildwheel.overrides]]
+select="*-????linux_*"
+inherit.environment="append"
+environment.ASDF_HOME = "/opt/asdf"
+environment.PATH = "${PATH}:$ASDF_HOME/bin:~/.asdf/shims"
 
 [[tool.cibuildwheel.overrides]]
 select = "*-musllinux*"
