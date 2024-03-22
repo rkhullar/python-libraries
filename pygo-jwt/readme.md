@@ -1,8 +1,8 @@
 ## pygo-jwt
 
-This project focusing on managing json web tokens signed with RS256. Inspired from [`pyjwt`](https://pypi.org/project/PyJWT)
-this library provides the core`encode` and `decode` functionality, but uses the standard `crypto` package within Go instead
-of [`cryptography`](https://pypi.org/project/cryptography).
+This project focuses on managing JSON Web Tokens signed with RS256. Inspired by [pyjwt](https://pypi.org/project/PyJWT),
+this library provides core encode and decode functionality, utilizing the standard `crypto` package within Go instead of
+[cryptography](https://pypi.org/project/cryptography).
 
 ### Example Usage for Python
 
