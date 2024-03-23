@@ -30,4 +30,10 @@ before-all = [
     "apk add make",
 ]
 
+
+# NOTES for Building:
 # cibuildwheel --config-file wheel.toml --platform linux --archs x86_64,aarch64
+
+# cibuildwheel --config-file wheel.toml --platform linux --arch x86_64
+# cibuildwheel --config-file wheel.toml --platform linux --arch aarch64
+

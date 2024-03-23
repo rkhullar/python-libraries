@@ -1,1 +1,3 @@
 wheelhouse
+!wheelhouse/*.py
+!wheelhouse/Dockerfile
