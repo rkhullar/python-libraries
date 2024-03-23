@@ -1,6 +1,6 @@
 [tool.cibuildwheel]
 environment = {GO_VERSION="1.21.8", ASDF_VERSION="0.14.0"}
-repair-wheel-command = ""
+repair-wheel-command = "auditwheel repair --lib-sdir lib -w {dest_dir} {wheel}"
 
 [tool.cibuildwheel.linux]
 before-all = [
