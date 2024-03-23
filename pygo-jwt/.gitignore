@@ -1,3 +1,4 @@
 wheelhouse
 !wheelhouse/*.py
 !wheelhouse/Dockerfile
+!wheelhouse/docker-build.sh
