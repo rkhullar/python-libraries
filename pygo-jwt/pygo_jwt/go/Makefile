@@ -1,7 +1,6 @@
 all: clean build
 
 build:
-	go version
 	go build -buildmode=c-shared -o local/librsautil.so wrapper.go
 	@# go tool cgo wrapper.go
 

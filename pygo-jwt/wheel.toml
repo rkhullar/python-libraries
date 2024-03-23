@@ -9,20 +9,20 @@ before-all = [
 before-build = [
     "uname -a",
     "git clone https://github.com/asdf-vm/asdf.git /opt/asdf --branch v${ASDF_VERSION}",
-    "echo -e '. /opt/asdf/asdf.sh' >> /etc/profile.d/asdf.sh",
-    ". /etc/profile.d/asdf.sh",
+    ". /opt/asdf/asdf.sh",
     "asdf plugin-add golang",
     "asdf install golang $GO_VERSION",
-    "asdf global golang $GO_VERSION",
-    "go version",
+#    "ln -s $(which go) /usr/bin/go",
+    "ln -s ~/.asdf/installs/golang/${GO_VERSION}/go/bin/go /usr/local/bin/go",
+#    "ln -s ~/.asdf/installs/golang/${GO_VERSION}/go/bin/gofmt /usr/local/bin/gofmt",
     "pip install pygo-tools"
 ]
 
 [[tool.cibuildwheel.overrides]]
 select="*-????linux_*"
 inherit.environment="append"
-environment.ASDF_HOME = "/opt/asdf"
-environment.PATH = "${PATH}:$ASDF_HOME/bin:~/.asdf/shims"
+environment.ASDF_DIR = "/opt/asdf"
+#environment.PATH = "${PATH}:$ASDF_HOME/bin:~/.asdf/shims"
 
 [[tool.cibuildwheel.overrides]]
 select = "*-musllinux*"
