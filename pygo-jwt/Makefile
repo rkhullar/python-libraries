@@ -22,3 +22,7 @@ build_linux_arm64: clean
 build_macos_amd64: clean
 	cibuildwheel --config-file wheel.toml --platform macos --arch x86_64
 	@make post_build
+
+build_macos_arm64: clean
+	cibuildwheel --config-file wheel.toml --platform macos --arch arm64
+	@make post_build
