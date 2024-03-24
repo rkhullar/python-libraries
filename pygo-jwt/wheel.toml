@@ -1,6 +1,6 @@
 [tool.cibuildwheel]
 environment = {GO_VERSION="1.21.8", ASDF_VERSION="0.14.0"}
-repair-wheel-command = "auditwheel repair --lib-sdir lib -w {dest_dir} {wheel}"
+skip = ["*-musllinux*"]
 
 [tool.cibuildwheel.linux]
 before-all = [
@@ -12,17 +12,15 @@ before-build = [
     ". /opt/asdf/asdf.sh",
     "asdf plugin-add golang",
     "asdf install golang $GO_VERSION",
-#    "ln -s $(which go) /usr/bin/go",
     "ln -s ~/.asdf/installs/golang/${GO_VERSION}/go/bin/go /usr/local/bin/go",
-#    "ln -s ~/.asdf/installs/golang/${GO_VERSION}/go/bin/gofmt /usr/local/bin/gofmt",
     "pip install pygo-tools"
 ]
+repair-wheel-command = "auditwheel repair --lib-sdir lib -w {dest_dir} {wheel}"
 
 [[tool.cibuildwheel.overrides]]
 select="*-????linux_*"
 inherit.environment="append"
 environment.ASDF_DIR = "/opt/asdf"
-#environment.PATH = "${PATH}:$ASDF_HOME/bin:~/.asdf/shims"
 
 [[tool.cibuildwheel.overrides]]
 select = "*-musllinux*"
