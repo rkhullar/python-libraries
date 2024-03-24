@@ -9,6 +9,7 @@ name = "pypi"
 pygo-tools = "*"
 isort = "*"
 twine = "*"
+cibuildwheel = "*"
 
 [requires]
 python_version = "3.12"
