@@ -1,3 +1,5 @@
+#!/usr/bin/env sh
+
 # check if both parameters are provided
 if [ $# -ne 3 ]; then
     echo "usage: $0 <base> <version> <arch>"
