@@ -36,3 +36,6 @@ before-all = [
 
 # cibuildwheel --config-file wheel.toml --platform linux --arch x86_64
 # cibuildwheel --config-file wheel.toml --platform linux --arch aarch64
+
+# cibuildwheel --config-file wheel.toml --platform macos --arch x86_64
+# cibuildwheel --config-file wheel.toml --platform macos --arch arm64
