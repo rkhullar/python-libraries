@@ -8,12 +8,8 @@ before-all = [
 ]
 before-build = [
     "uname -a",
-    "git clone https://github.com/asdf-vm/asdf.git /opt/asdf --branch v${ASDF_VERSION}",
-    ". /opt/asdf/asdf.sh",
-    "asdf plugin-add golang",
-    "asdf install golang $GO_VERSION",
-    "ln -s ~/.asdf/installs/golang/${GO_VERSION}/go/bin/go /usr/local/bin/go",
-    "pip install pygo-tools"
+    "pip install pygo-tools",
+    "./scripts/install-asdf-go.sh"
 ]
 repair-wheel-command = "auditwheel repair --lib-sdir lib -w {dest_dir} {wheel}"
 
