@@ -1,6 +1,3 @@
-### TBD
-- jwt-util: example python go library
-
 ## Building
 ```shell
 cd pydantic-mql
