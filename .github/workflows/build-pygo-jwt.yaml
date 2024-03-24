@@ -1,7 +1,12 @@
 name: build pygo-jwt
 
+#on:
+#  workflow_dispatch:
+
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - feature/cicd
 
 jobs:
   build_wheels:
