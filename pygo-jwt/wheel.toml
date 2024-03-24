@@ -24,12 +24,10 @@ before-all = [
     "apk add make",
 ]
 
-
-# NOTES for Building:
-# cibuildwheel --config-file wheel.toml --platform linux --archs x86_64,aarch64
-
-# cibuildwheel --config-file wheel.toml --platform linux --arch x86_64
-# cibuildwheel --config-file wheel.toml --platform linux --arch aarch64
-
-# cibuildwheel --config-file wheel.toml --platform macos --arch x86_64
-# cibuildwheel --config-file wheel.toml --platform macos --arch arm64
+[tool.cibuildwheel.macos]
+before-build = [
+    "uname -a",
+    "pip install pygo-tools",
+    "python -c 'from pygo_tools import Config; config = Config.from_json(); print(config.project_path)'"
+]
+repair-wheel-command = ""
