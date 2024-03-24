@@ -1,23 +1,33 @@
-from pygo_tools.setup import patch_wheel_darwin
-from pygo_tools.util import monkey_patched
-from pathlib import Path
+import subprocess
 from argparse import ArgumentParser, Namespace
+from pathlib import Path
+
+from pygo_tools import Config
 
 
 def build_parser() -> ArgumentParser:
     parser = ArgumentParser()
     parser.add_argument('--wheel', required=True, type=Path)
-    parser.add_argument('--dest-dir', required=True, type=Path)
     return parser
 
 
-def copy_into_dir(source_file: Path, target_dir: Path) -> None:
-    target_file = target_dir / source_file.name
-    with source_file.open('rb') as s, target_file.open('wb') as t:
-        t.write(s.read())
+def patch_wheel_darwin(wheel_path: Path, config: Config):
+    dist_path = wheel_path.parent
+    lib_file, ext_file = f'lib{config.library}.so', f'{config.extension}.abi3.so'
+    commands = [
+            ['unzip', str(wheel_path), ext_file],
+            ['install_name_tool', '-change', lib_file, f'@loader_path/{config.package}/lib/{lib_file}', ext_file],
+            ['otool', '-L', ext_file],
+            ['zip', '-d', str(wheel_path), ext_file],
+            ['zip', '-u', str(wheel_path), ext_file],
+            ['rm', '-rf', ext_file]
+        ]
+    for command in commands:
+        subprocess.run(command, cwd=dist_path)
 
 
 if __name__ == '__main__':
     parser: ArgumentParser = build_parser()
     args: Namespace = parser.parse_args()
-    print(args)
+    config = Config.load()
+    patch_wheel_darwin(wheel_path=args.wheel, config=config)

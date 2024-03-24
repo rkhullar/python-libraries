@@ -9,3 +9,6 @@
 ### Blocked
 - [ ] support alpine linux; remove skip
   - https://github.com/golang/go/issues/54805
+
+### For PYGO Tools
+- [ ] decouple patch logic to allow caller to define wheel path location?
