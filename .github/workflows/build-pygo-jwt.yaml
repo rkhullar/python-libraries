@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: docker/setup-qemu-action@v3
-        if: ${{ contains('linux'), runner.os) }}
+        if: ${{ contains('linux', runner.os) }}
         with:
           platforms: arm64
 
