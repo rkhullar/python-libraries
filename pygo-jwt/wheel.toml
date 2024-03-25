@@ -30,7 +30,11 @@ before-build = [
     "pip install pygo-tools",
 ]
 repair-wheel-command = [
-    "python scripts/patch-macos-wheel.py --wheel {wheel}",
+    "pwd",
+    "ls",
+    "whoami",
+    "echo {package} {project}",
+    "python {package}/scripts/patch-macos-wheel.py --wheel {wheel}",
     "cp {wheel} {dest_dir}"
 #    "delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
 ]
