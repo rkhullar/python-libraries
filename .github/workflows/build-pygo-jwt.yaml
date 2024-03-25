@@ -31,7 +31,7 @@ jobs:
       - uses: actions/setup-go@v5
         if: ${{ contains(fromJSON('["macos", "windows"]'), runner.os) }}
         with:
-          go-version: $go_version
+          go-version: ${{ env.go_version }}
 
       - name: build wheels
         uses: pypa/cibuildwheel@v2.17.0
@@ -44,5 +44,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: cibw-wheels-${package}-${{ matrix.os }}-${{ strategy.job-index }}
+          name: cibw-wheels-${{ env.package }}-${{ matrix.os }}-${{ strategy.job-index }}
           path: ./wheelhouse/*.whl
