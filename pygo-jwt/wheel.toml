@@ -28,6 +28,8 @@ before-all = [
 before-build = [
     "uname -a",
     "pip install pygo-tools",
+    "pwd",
+    "echo {package} {project}"
 ]
 repair-wheel-command = [
     "pwd",
