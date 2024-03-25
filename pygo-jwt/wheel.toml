@@ -12,6 +12,7 @@ before-build = [
     "pwd",
     "ls",
     "whoami",
+    "echo {project} {package}",
     "./scripts/install-asdf-go.sh"
 ]
 repair-wheel-command = "auditwheel repair --lib-sdir lib -w {dest_dir} {wheel}"
