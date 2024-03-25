@@ -8,6 +8,9 @@ on:
     branches:
       - feature/cicd
 
+env:
+  package: "pygo-jwt"
+
 jobs:
   build_wheels:
     name: build wheels on ${{ matrix.os }}
