@@ -18,11 +18,16 @@ jobs:
     strategy:
       matrix:
         # macos-13 is an intel runner, macos-14 is apple silicon
-        os: [macos-14]
+        os: [ubuntu-latest]
 #        os: [ubuntu-latest, macos-13, macos-14]
 
     steps:
       - uses: actions/checkout@v4
+
+      - uses: docker/setup-qemu-action@v3
+        if: ${{ contains('linux'), runner.os) }}
+        with:
+          platforms: arm64
 
       - uses: actions/setup-go@v5
         if: ${{ contains(fromJSON('["macos", "windows"]'), runner.os) }}
@@ -31,6 +36,8 @@ jobs:
 
       - name: build wheels
         uses: pypa/cibuildwheel@v2.17.0
+        env:
+          CIBW_ARCHS_LINUX: auto aarch64
         with:
           package-dir: pygo-jwt
           output-dir: wheelhouse
