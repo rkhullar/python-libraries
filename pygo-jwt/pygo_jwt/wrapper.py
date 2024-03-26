@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from _rsa_util import ffi, lib
 
 from .time_util import timed
+from .errors import CorePyGoJWTError
 
 
 @dataclass
@@ -91,4 +92,10 @@ class ExtensionAdapter:
     @classmethod
     def maybe_error(cls, n: int):
         param = cls._encode_int(n)
-        lib.MaybeError(param)
+        result = lib.MaybeError(param)
+        if res := result.data:
+            output = ffi.string(res).decode()
+            return output
+        elif err := result.error:
+            error_message = ffi.string(err).decode()
+            raise CorePyGoJWTError(error_message)

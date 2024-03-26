@@ -8,3 +8,7 @@ class TokenDecodeError(PyGoJWTError):
 
 class InvalidSignatureError(TokenDecodeError):
     pass
+
+
+class CorePyGoJWTError(PyGoJWTError):
+    pass
