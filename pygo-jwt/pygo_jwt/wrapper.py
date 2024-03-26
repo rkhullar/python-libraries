@@ -1,9 +1,10 @@
 from dataclasses import dataclass
-from _rsa_util import ffi, lib
-from .time_util import timed
-from .errors import CorePyGoJWTError
-from .wrapper_util import build_base_adapter
 
+from _rsa_util import ffi, lib
+
+from .errors import CorePyGoJWTError
+from .time_util import timed
+from .wrapper_util import build_base_adapter
 
 BaseExtensionAdapter = build_base_adapter(ffi, lib, error_type=CorePyGoJWTError)
 # TODO: move wrapper_util to pygo-tools
