@@ -5,16 +5,14 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/pem"
+	"errors"
+	"fmt"
 	"github.com/rkhullar/python-libraries/pygo-jwt/pygo_jwt/go/util"
 	"math/big"
 )
 
-func NewKey(size int) *rsa.PrivateKey {
-	key, err := rsa.GenerateKey(rand.Reader, size)
-	if err != nil {
-		panic(err)
-	}
-	return key
+func NewKey(size int) (*rsa.PrivateKey, error) {
+	return rsa.GenerateKey(rand.Reader, size)
 }
 
 func KeyToMap(key *rsa.PrivateKey, id *string) util.StringMap {
@@ -36,46 +34,54 @@ func KeyToMap(key *rsa.PrivateKey, id *string) util.StringMap {
 	return data
 }
 
-func ParseMap(data util.StringMap) *rsa.PrivateKey {
+func ParseMap(data util.StringMap) (*rsa.PrivateKey, error) {
+	fields := []string{"n", "e", "d", "p", "q", "dp", "dq", "qi"}
+	values, err := util.B64DecBigIntMap(data, fields)
+	if err != nil {
+		return nil, err
+	}
 	return &rsa.PrivateKey{
 		PublicKey: rsa.PublicKey{
-			N: util.B64DecBigInt(data["n"]),
-			E: int(util.B64DecBigInt(data["e"]).Int64()),
+			N: values["n"],
+			E: int(values["e"].Int64()),
 		},
-		D: util.B64DecBigInt(data["d"]),
+		D: values["d"],
 		Primes: []*big.Int{
-			util.B64DecBigInt(data["p"]),
-			util.B64DecBigInt(data["q"]),
+			values["p"],
+			values["q"],
 		},
 		Precomputed: rsa.PrecomputedValues{
-			Dp:   util.B64DecBigInt(data["dp"]),
-			Dq:   util.B64DecBigInt(data["dq"]),
-			Qinv: util.B64DecBigInt(data["qi"]),
+			Dp:   values["dp"],
+			Dq:   values["dq"],
+			Qinv: values["qi"],
 		},
-	}
+	}, nil
 }
 
-func ParseJWK(jwk string) *rsa.PrivateKey {
-	data := util.ParseJSON(jwk)
+func ParseJWK(jwk string) (*rsa.PrivateKey, error) {
+	data, err := util.ParseJSON(jwk)
+	if err != nil {
+		return nil, err
+	}
 	return ParseMap(data)
 }
 
-func KeyToPEM(key *rsa.PrivateKey) string {
+func KeyToPEM(key *rsa.PrivateKey) (string, error) {
 	bytes, err := x509.MarshalPKCS8PrivateKey(key)
 	if err != nil {
-		panic(err)
+		return "", err
 	}
 	data := pem.EncodeToMemory(&pem.Block{
 		Type:  "PRIVATE KEY",
 		Bytes: bytes,
 	})
-	return string(data)
+	return string(data), nil
 }
 
-func ParsePEM(data string) *rsa.PrivateKey {
+func ParsePEM(data string) (*rsa.PrivateKey, error) {
 	block, _ := pem.Decode(util.StrEnc(data))
 	if block == nil {
-		panic("failed to decode PEM data")
+		return nil, errors.New("failed to decode PEM data")
 	}
 	var key any
 	var err error
@@ -85,14 +91,14 @@ func ParsePEM(data string) *rsa.PrivateKey {
 	case "PRIVATE KEY":
 		key, err = x509.ParsePKCS8PrivateKey(block.Bytes)
 	default:
-		panic("unsupported PEM type")
+		return nil, fmt.Errorf("unsupported PEM type: %s", block.Type)
 	}
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	rsaKey, ok := key.(*rsa.PrivateKey)
 	if !ok {
-		panic("parsed key is not an RSA private key")
+		return nil, errors.New("parsed key is not an RSA private key")
 	}
-	return rsaKey
+	return rsaKey, nil
 }
