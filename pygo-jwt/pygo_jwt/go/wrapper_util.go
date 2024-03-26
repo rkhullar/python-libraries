@@ -84,4 +84,5 @@ func HandleBoolWithError(res bool, err error) *C.BoolWithError {
  * TODO
  * - check thread safety and mutex usage; implement mutex map?
  * - check memory leaks; use C.malloc?
+ * - how to prevent potential panic?
  */

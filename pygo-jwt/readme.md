@@ -40,7 +40,9 @@ import (
 )
 
 func main() {
-	key := lib.NewJWK(2048, nil)
-	fmt.Println(key)
+	private_jwk, _ := lib.NewJWK(2048, nil)
+	private_pem, _ := lib.JWKToPEM(private_jwk)
+	fmt.Println(private_jwk)
+	fmt.Println(private_pem)
 }
 ```
