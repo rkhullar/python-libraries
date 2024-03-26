@@ -5,7 +5,8 @@ from .errors import CorePyGoJWTError
 from .wrapper_util import build_base_adapter
 
 
-BaseExtensionAdapter = build_base_adapter(ffi, lib)
+BaseExtensionAdapter = build_base_adapter(ffi, lib, error_type=CorePyGoJWTError)
+# TODO: move wrapper_util to pygo-tools
 
 
 @dataclass
@@ -19,13 +20,13 @@ class ExtensionAdapter(BaseExtensionAdapter):
         else:
             params.append(ffi.NULL)
         result = lib.NewJWK(*params)
-        return cls._decode_string(result)
+        return cls._handle_string_with_error(result)
 
     @classmethod
     def jwk_to_pem(cls, jwk: str) -> str:
         param = cls._encode_string(jwk)
         result = lib.JWKToPEM(param)
-        return cls._decode_string(result)
+        return cls._handle_string_with_error(result)
 
     @classmethod
     def pem_to_jwk(cls, pem: str, _id: str = None) -> str:
@@ -35,41 +36,43 @@ class ExtensionAdapter(BaseExtensionAdapter):
         else:
             params.append(ffi.NULL)
         result = lib.PEMToJWK(*params)
-        return cls._decode_string(result)
+        return cls._handle_string_with_error(result)
 
     @classmethod
     def extract_public_jwk(cls, key: str) -> str:
         param = cls._encode_string(key)
         result = lib.ExtractPublicJWK(param)
-        return cls._decode_string(result)
+        return cls._handle_string_with_error(result)
 
     @classmethod
     def extract_public_pem(cls, key: str) -> str:
         param = cls._encode_string(key)
         result = lib.ExtractPublicPEM(param)
-        return cls._decode_string(result)
+        return cls._handle_string_with_error(result)
 
     @classmethod
     def parse_jwk_and_sign(cls, key: str, data: str) -> str:
         params = [cls._encode_string(key), cls._encode_string(data)]
         result = lib.ParseJWKAndSign(*params)
-        return cls._decode_string(result)
+        return cls._handle_string_with_error(result)
 
     @classmethod
     def parse_pem_and_sign(cls, key: str, data: str) -> str:
         params = [cls._encode_string(key), cls._encode_string(data)]
         result = lib.ParsePEMAndSign(*params)
-        return cls._decode_string(result)
+        return cls._handle_string_with_error(result)
 
     @classmethod
     def parse_public_jwk_and_verify(cls, key: str, data: str, signature: str) -> bool:
         params = [cls._encode_string(key), cls._encode_string(data), cls._encode_string(signature)]
-        return lib.ParsePublicJWKAndVerify(*params)
+        result = lib.ParsePublicJWKAndVerify(*params)
+        return cls._handle_bool_with_error(result)
 
     @classmethod
     def parse_public_pem_and_verify(cls, key: str, data: str, signature: str) -> bool:
         params = [cls._encode_string(key), cls._encode_string(data), cls._encode_string(signature)]
-        return lib.ParsePublicPEMAndVerify(*params)
+        result = lib.ParsePublicPEMAndVerify(*params)
+        return cls._handle_bool_with_error(result)
 
     @classmethod
     @timed
@@ -78,13 +81,7 @@ class ExtensionAdapter(BaseExtensionAdapter):
         lib.ExampleGo(param)
 
     @classmethod
-    def maybe_error(cls, n: int):
+    def maybe_error(cls, n: int) -> str:
         param = cls._encode_int(n)
         result = lib.MaybeError(param)
-        # TODO: create helper; deallocate struct
-        if res := result.data:
-            output = ffi.string(res).decode()
-            return output
-        elif err := result.error:
-            error_message = ffi.string(err).decode()
-            raise CorePyGoJWTError(error_message)
+        return cls._handle_string_with_error(result)
