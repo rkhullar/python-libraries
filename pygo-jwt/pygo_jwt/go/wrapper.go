@@ -1,8 +1,6 @@
 package main
 
 import (
-	"errors"
-	"fmt"
 	lib "github.com/rkhullar/python-libraries/pygo-jwt/pygo_jwt/go/core"
 )
 
@@ -68,18 +66,10 @@ func ExampleGo(n C.int) {
 	lib.ExampleGo(int(n))
 }
 
-func _MaybeError(n int) (string, error) {
-	if n >= 0 {
-		return fmt.Sprintf("asdf %d", n), nil
-	} else {
-		return "", errors.New("positive only")
-	}
-}
-
 //export MaybeError
 func MaybeError(n C.int) *C.StringWithError {
 	m := int(n)
-	res, err := _MaybeError(m)
+	res, err := lib.MaybeError(m)
 	return HandleStringWithError(res, err)
 }
 

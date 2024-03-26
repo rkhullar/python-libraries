@@ -1,6 +1,7 @@
 package core
 
 import (
+	"errors"
 	"fmt"
 	"sync"
 	"time"
@@ -21,4 +22,12 @@ func ExampleGo(n int) {
 		}(i)
 	}
 	wg.Wait()
+}
+
+func MaybeError(n int) (string, error) {
+	if n >= 0 {
+		return fmt.Sprintf("asdf %d", n), nil
+	} else {
+		return "", errors.New("positive only")
+	}
 }
