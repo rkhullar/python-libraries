@@ -99,6 +99,6 @@ func HandleBoolWithError(res bool, err error) *C.BoolWithError {
 /*
  * TODO
  * - check thread safety and mutex usage; implement mutex map?
- * - check memory leaks; use C.malloc?
+ * - check memory leaks; use reflection for C.malloc?; check double free?
  * - how to prevent potential panic?
  */

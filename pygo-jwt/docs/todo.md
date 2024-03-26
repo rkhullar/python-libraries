@@ -8,10 +8,12 @@
     - [ ] encode tokens with claims `iss` `aud` `exp` `iat`, `nbf`
     - [ ] decode tokens with key server `PyJWKClient`
 - [ ] improve error handling
-    - [ ] remove `panic` in core logic
+    - [x] remove `panic` in core logic
     - [ ] explore `panic` and `recover`
+    - [ ] research error propagation; try/catch
 - [ ] research source distribution build
 - [ ] test for windows?
+- [ ] check code formatting
 
 ### Blocked
 - [ ] support alpine linux; remove skip

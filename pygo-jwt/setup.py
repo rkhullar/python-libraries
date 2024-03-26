@@ -17,7 +17,7 @@ setup(
     author='Rajan Khullar',
     author_email='rkhullar03@gmail.com',
     license='MIT NON-AI',
-    description="encode and decode RS256 JSON Web Tokens with python and go",
+    description="Encode and Decode RS256 JSON Web Tokens with Python and Go",
     long_description=read_file('readme.md'),
     long_description_content_type='text/markdown',
     project_urls={
