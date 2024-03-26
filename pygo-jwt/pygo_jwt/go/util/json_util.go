@@ -2,32 +2,32 @@ package util
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
-func MapToJSON(data StringMap) string {
+func MapToJSON(data StringMap) (string, error) {
 	// TODO: move to ordered map?
 	result, err := json.Marshal(data)
 	if err != nil {
-		panic(err)
+		return "", err
 	}
-	return string(result)
+	return string(result), nil
 }
 
-func ParseJSON(json_data string) StringMap {
+func ParseJSON(json_data string) (StringMap, error) {
 	// TODO: move to ordered map?
 	var data StringMap
 	err := json.Unmarshal(StrEnc(json_data), &data)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-	return data
+	return data, nil
 }
 
 /* TODO
  * adopt bytes.Buffer; buffer.WriteString and buffer.Truncate methods
  * handle nested data
  */
+/*
 func MarshalOrdered(data StringMap) (ByteSlice, error) {
 	result := "{"
 	count := 0
@@ -48,6 +48,7 @@ func MarshalOrdered(data StringMap) (ByteSlice, error) {
 	result += "}"
 	return ByteSlice(result), nil
 }
+*/
 
 /*
  * NOTE: ordered map package

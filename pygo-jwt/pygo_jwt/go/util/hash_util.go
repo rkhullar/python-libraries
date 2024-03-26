@@ -2,6 +2,7 @@ package util
 
 import (
 	"crypto/sha256"
+	"errors"
 	"reflect"
 )
 
@@ -11,14 +12,14 @@ func ByteArrayToSlice32(array [32]byte) ByteSlice {
 	return slice
 }
 
-func ByteArrayToSlice(array any) ByteSlice {
+func ByteArrayToSlice(array any) (ByteSlice, error) {
 	_type := reflect.TypeOf(array)
 	if _type.Kind() != reflect.Array {
-		panic("unexpected data type")
+		return nil, errors.New("unexpected data type")
 	}
 	slice := make(ByteSlice, _type.Len())
 	reflect.Copy(reflect.ValueOf(slice), reflect.ValueOf(array))
-	return slice
+	return slice, nil
 }
 
 func SHA256Sum(data string) ByteSlice {

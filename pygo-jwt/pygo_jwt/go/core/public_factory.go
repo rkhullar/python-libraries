@@ -4,6 +4,8 @@ import (
 	"crypto/rsa"
 	"crypto/x509"
 	"encoding/pem"
+	"errors"
+	"fmt"
 	"github.com/rkhullar/python-libraries/pygo-jwt/pygo_jwt/go/util"
 	"math/big"
 )
@@ -23,51 +25,68 @@ func PublicKeyToMap(key *rsa.PublicKey, id *string) util.StringMap {
 	return data
 }
 
-func PublicKeyToJSON(key *rsa.PublicKey, id *string) string {
+func PublicKeyToJSON(key *rsa.PublicKey, id *string) (string, error) {
 	data := PublicKeyToMap(key, id)
 	return util.MapToJSON(data)
 }
 
-func PublicKeyToPEM(key *rsa.PublicKey) string {
+func PublicKeyToPEM(key *rsa.PublicKey) (string, error) {
 	bytes, err := x509.MarshalPKIXPublicKey(key)
 	if err != nil {
-		panic(err)
+		return "", err
 	}
 	data := pem.EncodeToMemory(&pem.Block{
 		Type:  "PUBLIC KEY",
 		Bytes: bytes,
 	})
-	return string(data)
+	return string(data), nil
 }
 
-func ExtractPublicJWK(jwk string) string {
-	data := util.ParseJSON(jwk)
-	key := ParseMap(data)
+func ExtractPublicJWK(jwk string) (string, error) {
+	data, err := util.ParseJSON(jwk)
+	if err != nil {
+		return "", err
+	}
+	key, err := ParseMap(data)
+	if err != nil {
+		return "", err
+	}
 	kid := util.StringMap_GetStrPtr(data, "kid")
 	return PublicKeyToJSON(&key.PublicKey, kid)
 }
 
-func ExtractPublicPEM(pem string) string {
-	key := ParsePEM(pem)
+func ExtractPublicPEM(pem string) (string, error) {
+	key, err := ParsePEM(pem)
+	if err != nil {
+		return "", err
+	}
 	return PublicKeyToPEM(&key.PublicKey)
 }
 
-func ParsePublicMap(data util.StringMap) *rsa.PublicKey {
-	return &rsa.PublicKey{
-		N: util.B64DecBigInt(data["n"]),
-		E: int(util.B64DecBigInt(data["e"]).Int64()),
+func ParsePublicMap(data util.StringMap) (*rsa.PublicKey, error) {
+	fields := []string{"n", "e"}
+	values, err := util.B64DecBigIntMap(data, fields)
+	if err != nil {
+		return nil, err
 	}
+	return &rsa.PublicKey{
+		N: values["n"],
+		E: int(values["e"].Int64()),
+	}, nil
 }
 
-func ParsePublicJWK(jwk string) *rsa.PublicKey {
-	data := util.ParseJSON(jwk)
+func ParsePublicJWK(jwk string) (*rsa.PublicKey, error) {
+	data, err := util.ParseJSON(jwk)
+	if err != nil {
+		return nil, err
+	}
 	return ParsePublicMap(data)
 }
 
-func ParsePublicPEM(data string) *rsa.PublicKey {
+func ParsePublicPEM(data string) (*rsa.PublicKey, error) {
 	block, _ := pem.Decode(util.StrEnc(data))
 	if block == nil {
-		panic("failed to decode PEM data")
+		return nil, errors.New("failed to decode PEM data")
 	}
 	var key any
 	var err error
@@ -77,14 +96,14 @@ func ParsePublicPEM(data string) *rsa.PublicKey {
 	case "PUBLIC KEY":
 		key, err = x509.ParsePKIXPublicKey(block.Bytes)
 	default:
-		panic("unsupported PEM type")
+		return nil, fmt.Errorf("unsupported PEM type: %s", block.Type)
 	}
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	rsaKey, ok := key.(*rsa.PublicKey)
 	if !ok {
-		panic("parsed key is not an RSA public key")
+		return nil, errors.New("parsed key is not an RSA public key")
 	}
-	return rsaKey
+	return rsaKey, nil
 }
