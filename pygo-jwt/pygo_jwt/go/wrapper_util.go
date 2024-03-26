@@ -64,20 +64,36 @@ func FreeBoolWithError(object *C.BoolWithError) {
 	C.free(unsafe.Pointer(object))
 }
 
+func NewStringWithError() *C.StringWithError {
+	return (*C.StringWithError)(C.malloc(C.size_t(unsafe.Sizeof(C.StringWithError{}))))
+}
+
+func NewBoolWithError() *C.BoolWithError {
+	return (*C.BoolWithError)(C.malloc(C.size_t(unsafe.Sizeof(C.BoolWithError{}))))
+}
+
 func HandleStringWithError(res string, err error) *C.StringWithError {
+	object := NewStringWithError()
 	if err != nil {
-		return &C.StringWithError{nil, C.CString(err.Error())}
+		object.data = nil
+		object.error = C.CString(err.Error())
 	} else {
-		return &C.StringWithError{C.CString(res), nil}
+		object.data = C.CString(res)
+		object.error = nil
 	}
+	return object
 }
 
 func HandleBoolWithError(res bool, err error) *C.BoolWithError {
+	object := NewBoolWithError()
 	if err != nil {
-		return &C.BoolWithError{false, C.CString(err.Error())}
+		object.data = false
+		object.error = C.CString(err.Error())
 	} else {
-		return &C.BoolWithError{C.bool(res), nil}
+		object.data = C.bool(res)
+		object.error = nil
 	}
+	return object
 }
 
 /*
