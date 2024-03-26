@@ -22,29 +22,32 @@ def build_base_adapter(ffi, lib, error_type: Type[Exception], free_string_name: 
             return ffi.cast('int', data)
 
         @classmethod
-        def _decode_string(cls, data) -> str:
+        def _decode_string(cls, data, free: bool = True) -> str:
             output = ffi.string(data).decode()
-            free_string_func(data)
+            if free:
+                free_string_func(data)
             return output
 
         @classmethod
         def _handle_string_with_error(cls, obj) -> str:
             if res := obj.data:
+                output = cls._decode_string(res, free=False)
                 free_string_with_error_func(obj)
-                return cls._decode_string(res)
+                return output
             elif err := obj.error:
+                error_message = cls._decode_string(err, free=False)
                 free_string_with_error_func(obj)
-                error_message = cls._decode_string(err)
                 raise error_type(error_message)
 
         @classmethod
         def _handle_bool_with_error(cls, obj) -> bool:
             if res := obj.data:
+                output = res
                 free_bool_with_error_func(obj)
-                return res
+                return output
             elif err := obj.error:
+                error_message = cls._decode_string(err, free=False)
                 free_bool_with_error_func(obj)
-                error_message = cls._decode_string(err)
                 raise error_type(error_message)
 
     return BaseExtensionAdapter
