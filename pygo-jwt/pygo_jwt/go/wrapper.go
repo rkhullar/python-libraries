@@ -1,13 +1,18 @@
 package main
 
-import "C"
 import (
+	"errors"
+	"fmt"
 	lib "github.com/rkhullar/python-libraries/pygo-jwt/pygo_jwt/go/core"
 	"unsafe"
 )
 
-// #include <stdlib.h>
-// #include <stdbool.h>
+/*
+#include <stdlib.h>
+#include <stdbool.h>
+
+typedef struct string_with_error {char* data; char* error;} StringWithError;
+*/
 import "C"
 
 //export NewJWK
@@ -72,6 +77,29 @@ func FreeCString(data *C.char) {
 //export ExampleGo
 func ExampleGo(n C.int) {
 	lib.ExampleGo(int(n))
+}
+
+func _MaybeError(n int) (string, error) {
+	if n >= 0 {
+		return fmt.Sprintf("asdf %d", n), nil
+	} else {
+		return "", errors.New("positive only")
+	}
+}
+
+func HandleStringWithError(res string, err error) C.StringWithError {
+	if err != nil {
+		return C.StringWithError{nil, C.CString(err.Error())}
+	} else {
+		return C.StringWithError{C.CString(res), nil}
+	}
+}
+
+//export MaybeError
+func MaybeError(n C.int) C.StringWithError {
+	m := int(n)
+	res, err := _MaybeError(m)
+	return HandleStringWithError(res, err)
 }
 
 func TranslateStrPtr(data *C.char) *string {

@@ -87,3 +87,8 @@ class ExtensionAdapter:
     def example_go(cls, n: int) -> None:
         param = cls._encode_int(n)
         lib.ExampleGo(param)
+
+    @classmethod
+    def maybe_error(cls, n: int):
+        param = cls._encode_int(n)
+        lib.MaybeError(param)
