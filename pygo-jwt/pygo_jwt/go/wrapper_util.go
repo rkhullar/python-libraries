@@ -34,8 +34,8 @@ func TranslateStrPtr(data *C.char) *string {
 	}
 }
 
-//export FreeCString
-func FreeCString(data *C.char) {
+//export FreeString
+func FreeString(data *C.char) {
 	_FreeStringMutex.Lock()
 	defer _FreeStringMutex.Unlock()
 	C.free(unsafe.Pointer(data))
@@ -46,10 +46,10 @@ func FreeStringWithError(object *C.StringWithError) {
 	_FreeStringErrorMutex.Lock()
 	defer _FreeStringErrorMutex.Unlock()
 	if object.data != nil {
-		FreeCString(object.data)
+		FreeString(object.data)
 	}
 	if object.error != nil {
-		FreeCString(object.error)
+		FreeString(object.error)
 	}
 	C.free(unsafe.Pointer(object))
 }
@@ -59,7 +59,7 @@ func FreeBoolWithError(object *C.BoolWithError) {
 	_FreeBoolErrorMutex.Lock()
 	defer _FreeBoolErrorMutex.Unlock()
 	if object.error != nil {
-		FreeCString(object.error)
+		FreeString(object.error)
 	}
 	C.free(unsafe.Pointer(object))
 }

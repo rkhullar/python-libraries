@@ -16,7 +16,7 @@
     "BoolWithError* ParsePublicPEMAndVerify(char* key, char* data, char* signature);",
     "void ExampleGo(int n);",
     "StringWithError* MaybeError(int n);",
-    "void FreeCString(char* data);",
+    "void FreeString(char* data);",
     "void FreeStringWithError(StringWithError* object);",
     "void FreeBoolWithError(BoolWithError* object);"
   ]

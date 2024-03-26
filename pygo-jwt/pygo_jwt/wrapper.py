@@ -1,27 +1,15 @@
 from dataclasses import dataclass
-
 from _rsa_util import ffi, lib
-
 from .time_util import timed
 from .errors import CorePyGoJWTError
+from .wrapper_util import build_base_adapter
+
+
+BaseExtensionAdapter = build_base_adapter(ffi, lib)
 
 
 @dataclass
-class ExtensionAdapter:
-
-    @staticmethod
-    def _encode_string(data: str):
-        return ffi.new('char[]', data.encode())
-
-    @staticmethod
-    def _encode_int(data: int):
-        return ffi.cast('int', data)
-
-    @staticmethod
-    def _decode_string(data) -> str:
-        output = ffi.string(data).decode()
-        lib.FreeCString(data)
-        return output
+class ExtensionAdapter(BaseExtensionAdapter):
 
     @classmethod
     def new_jwk(cls, size: int = 2048, _id: str = None) -> str:
