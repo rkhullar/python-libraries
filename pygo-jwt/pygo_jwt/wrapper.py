@@ -93,6 +93,7 @@ class ExtensionAdapter:
     def maybe_error(cls, n: int):
         param = cls._encode_int(n)
         result = lib.MaybeError(param)
+        # TODO: create helper; deallocate struct
         if res := result.data:
             output = ffi.string(res).decode()
             return output

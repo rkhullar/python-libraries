@@ -7,6 +7,7 @@
 - [ ] implement practical helpers:
     - [ ] encode tokens with claims `iss` `aud` `exp` `iat`, `nbf`
     - [ ] decode tokens with key server `PyJWKClient`
+- [x] improve error handling; remove `panic` in core logic
 - [ ] research source distribution build
 - [ ] test for windows?
 
