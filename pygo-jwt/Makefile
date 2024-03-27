@@ -6,6 +6,7 @@ build: clean
 clean:
 	@rm -rf build dist *.egg-info
 	@rm -rf */go/local
+	@rm -rf out
 
 post_build:
 	@rm -rf build *.egg-info

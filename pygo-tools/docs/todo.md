@@ -24,6 +24,11 @@
   - another subparser for `build-ffi`
   - remove `build-ffi` entrypoint?
 
+- [ ] improve config loading
+  - add optional environment variable for config path
+  - for `setup.py` add param for config path that gets injected as env var to `build-ffi` script
+  - add setup params or decorator to inject env vars?
+  - add config path option to build-ffi script?
 
 ### Revisit Custom Backend
 - [ ] try `finalize_distribution_options`

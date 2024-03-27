@@ -1,3 +1,4 @@
+import os
 import subprocess
 from pathlib import Path
 
@@ -8,8 +9,7 @@ from .config import Config
 
 
 def precompile(config: Config):
-    path = config.project_path / config.package / 'go'
-    subprocess.run('make', cwd=path)
+    subprocess.run('make', cwd=config.library_source_path)
 
 
 def find_wheel(config: Config) -> Path | None:
@@ -66,7 +66,9 @@ class BuildGoWheel(_bdist_wheel):
             patch_wheel_darwin(config)
 
 
-def setup(cffi: str = 'cffi', **kwargs):
+def setup(cffi: str = 'cffi', config_path: str = None, **kwargs):
+    if config_path:
+        os.environ['PYGO_CONFIG_PATH'] = config_path
     cmdclass = kwargs.pop('cmdclass', dict())
     install_requires = kwargs.get('install_requires', list())
     cmdclass['bdist_wheel'] = BuildGoWheel

@@ -1,3 +1,4 @@
+import os
 from argparse import ArgumentParser, Namespace
 
 from cffi import FFI
@@ -23,6 +24,7 @@ def dynamic_builder(config: Config):
         source=f'#include "{config.header_path}"',
         libraries=[config.library],
         library_dirs=[str(config.library_path)],
+        include_dirs=[str(config.library_source_path)],  # used to find header paths
         **build_extra_set_source_args(config)
     )
     builder.cdef('\n'.join(config.signatures))
@@ -45,5 +47,9 @@ def main():
 
 
 if __name__ == '__cffi__':
+    if config_path := os.environ.get('PYGO_CONFIG_PATH'):
+        print("*"*100)
+        print(f'detected {config_path=}; might support in future release')
+        print("*"*100)
     default_config = Config.load()
     default_builder = dynamic_builder(default_config)

@@ -10,7 +10,7 @@ def read_file(path: Path | str) -> str:
 
 setup(
     name='pygo-tools',
-    version='0.1.2',
+    version='0.1.3',
     packages=find_packages(),
     include_package_data=True,
     entry_points={'console_scripts': ['build-ffi=pygo_tools.build_ffi:main']},
@@ -19,6 +19,7 @@ setup(
     author='Rajan Khullar',
     author_email='rkhullar03@gmail.com',
     license='MIT NON-AI',
+    description='Simplify Python-Go integration for Libraries with Precompiled Extensions',
     long_description=read_file('readme.md'),
     long_description_content_type='text/markdown',
     project_urls={
