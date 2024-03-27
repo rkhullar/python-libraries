@@ -1,7 +1,6 @@
 package core
 
 import (
-	"errors"
 	"fmt"
 	"sync"
 	"time"
@@ -25,9 +24,11 @@ func ExampleGo(n int) {
 }
 
 func MaybeError(n int) (string, error) {
-	if n >= 0 {
-		return fmt.Sprintf("asdf %d", n), nil
+	if n < 0 {
+		return "", fmt.Errorf("positive only: %d", n)
+	} else if n > 100 {
+		panic("intentional panic")
 	} else {
-		return "", errors.New("positive only")
+		return fmt.Sprintf("asdf %d", n), nil
 	}
 }

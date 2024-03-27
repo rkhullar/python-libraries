@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"sync"
 	"unsafe"
 )
@@ -36,6 +37,7 @@ func TranslateStrPtr(data *C.char) *string {
 
 //export FreeString
 func FreeString(data *C.char) {
+	defer PreventPanic()
 	_FreeStringMutex.Lock()
 	defer _FreeStringMutex.Unlock()
 	C.free(unsafe.Pointer(data))
@@ -43,6 +45,7 @@ func FreeString(data *C.char) {
 
 //export FreeStringWithError
 func FreeStringWithError(object *C.StringWithError) {
+	defer PreventPanic()
 	_FreeStringErrorMutex.Lock()
 	defer _FreeStringErrorMutex.Unlock()
 	if object.data != nil {
@@ -56,6 +59,7 @@ func FreeStringWithError(object *C.StringWithError) {
 
 //export FreeBoolWithError
 func FreeBoolWithError(object *C.BoolWithError) {
+	defer PreventPanic()
 	_FreeBoolErrorMutex.Lock()
 	defer _FreeBoolErrorMutex.Unlock()
 	if object.error != nil {
@@ -96,9 +100,15 @@ func HandleBoolWithError(res bool, err error) *C.BoolWithError {
 	return object
 }
 
+func PreventPanic() {
+	if r := recover(); r != nil {
+		fmt.Println("recovered from panic: ", r)
+	}
+}
+
 /*
  * TODO
  * - check thread safety and mutex usage; implement mutex map?
  * - check memory leaks; use reflection for C.malloc?; check double free?
- * - how to prevent potential panic?
+ * - how to prevent memory errors? i.e: pointer being freed was not allocated
  */
