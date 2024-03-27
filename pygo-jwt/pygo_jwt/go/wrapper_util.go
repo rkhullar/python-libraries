@@ -111,4 +111,5 @@ func PreventPanic() {
  * - check thread safety and mutex usage; implement mutex map?
  * - check memory leaks; use reflection for C.malloc?; check double free?
  * - how to prevent memory errors? i.e: pointer being freed was not allocated
+ * - would it be better to return entire struct for StringWithError instead of pointer?
  */

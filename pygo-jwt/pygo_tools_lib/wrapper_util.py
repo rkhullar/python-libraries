@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Type, TypedDict, Callable, Optional
+from typing import Callable, Optional, Type, TypedDict
 
 
 class FreeNamesDict(TypedDict, total=False):
