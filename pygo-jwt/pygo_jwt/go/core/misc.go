@@ -25,9 +25,11 @@ func ExampleGo(n int) {
 }
 
 func MaybeError(n int) (string, error) {
-	if n >= 0 {
-		return fmt.Sprintf("asdf %d", n), nil
-	} else {
+	if n < 0 {
 		return "", errors.New("positive only")
+	} else if n > 100 {
+		panic("intentional panic")
+	} else {
+		return fmt.Sprintf("asdf %d", n), nil
 	}
 }
