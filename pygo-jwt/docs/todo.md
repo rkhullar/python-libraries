@@ -22,7 +22,8 @@
 ### For PYGO Tools
 - [ ] decouple patch logic to allow caller to define wheel path location?
 - [ ] update `build-ffi` to include custom header files, like `wrapper_util.h`
-- [ ] move `wrapper_util` logic to `pygo-tools`
+- [ ] move `wrapper_util` logic to new shared library: `pygo-tools-lib`
+  - [ ] add control in `setup` or `pyproject.toml` to add the library in `install_requires`
 
 ### Random
 - panic-poc
