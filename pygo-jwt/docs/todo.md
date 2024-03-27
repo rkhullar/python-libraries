@@ -23,3 +23,7 @@
 - [ ] decouple patch logic to allow caller to define wheel path location?
 - [ ] update `build-ffi` to include custom header files, like `wrapper_util.h`
 - [ ] move `wrapper_util` logic to `pygo-tools`
+
+### Random
+- panic-poc
+  - https://go.dev/play/p/viL2TInko-q
