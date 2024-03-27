@@ -1,9 +1,9 @@
+import os
 from argparse import ArgumentParser, Namespace
 
 from cffi import FFI
 
 from pygo_tools.config import Config
-import os
 
 
 def build_extra_set_source_args(config: Config) -> dict[str, list[str]]:

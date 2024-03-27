@@ -1,16 +1,18 @@
+import functools
 from dataclasses import dataclass
 from typing import Callable, Optional, Type, TypedDict
-import functools
 
 
 class FreeNamesDict(TypedDict, total=False):
-    string: str
-    string_with_error: str
-    bool_with_error: str
+    string: Optional[str]
+    string_with_error: Optional[str]
+    bool_with_error: Optional[str]
 
 
-def build_with_free(ffi, error_type: Type[Exception], free_funcs: dict[str, Callable]) -> Callable:
+def build_with_free(ffi, error_type: Type[Exception], free_funcs: dict[str, Optional[Callable]]) -> Callable:
     def with_free(key: str):
+        free_func = free_funcs[key]
+
         def decorator(fn):
             @functools.wraps(fn)
             def wrapper(cls, pointer, *, free: bool = True):
@@ -23,9 +25,12 @@ def build_with_free(ffi, error_type: Type[Exception], free_funcs: dict[str, Call
                     error = err
                 finally:
                     if free:
-                        # TODO: add logger / logging
-                        # print(f'{fn.__name__}: calling free {key} on {pointer}')
-                        free_funcs[key](pointer)
+                        if free_func:
+                            # TODO: add logger / logging
+                            # print(f'{fn.__name__}: calling free {key} on {pointer}')
+                            free_func(pointer)
+                        else:
+                            raise NotImplementedError(f'could not load free function for {key}')
                 if error:
                     raise error from None
                 return result
