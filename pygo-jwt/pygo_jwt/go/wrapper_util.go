@@ -102,7 +102,7 @@ func HandleBoolWithError(res bool, err error) *C.BoolWithError {
 
 func PreventPanic() {
 	if r := recover(); r != nil {
-		fmt.Println("recover from panic", r)
+		fmt.Println("recovered from panic: ", r)
 	}
 }
 

@@ -30,7 +30,9 @@ def build_base_adapter(ffi, lib, error_type: Type[Exception], free_string_name: 
 
         @classmethod
         def _handle_string_with_error(cls, obj) -> str:
-            if res := obj.data:
+            if obj == ffi.NULL:
+                raise error_type
+            elif res := obj.data:
                 output = cls._decode_string(res, free=False)
                 free_string_with_error_func(obj)
                 return output
@@ -41,7 +43,9 @@ def build_base_adapter(ffi, lib, error_type: Type[Exception], free_string_name: 
 
         @classmethod
         def _handle_bool_with_error(cls, obj) -> bool:
-            if res := obj.data:
+            if obj == ffi.NULL:
+                raise error_type
+            elif res := obj.data:
                 output = res
                 free_bool_with_error_func(obj)
                 return output
