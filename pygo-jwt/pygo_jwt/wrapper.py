@@ -4,10 +4,11 @@ from _rsa_util import ffi, lib
 
 from .errors import CorePyGoJWTError
 from .time_util import timed
-from .wrapper_util import build_base_adapter
+from pygo_tools.util import build_base_adapter, FreeNamesDict
 
-BaseExtensionAdapter = build_base_adapter(ffi, lib, error_type=CorePyGoJWTError)
-# TODO: move wrapper_util to pygo-tools
+BaseExtensionAdapter = build_base_adapter(ffi, lib, error_type=CorePyGoJWTError, free_names=FreeNamesDict(
+    string='FreeString', string_with_error='FreeStringWithError', bool_with_error='FreeBoolWithError'
+))
 
 
 @dataclass
