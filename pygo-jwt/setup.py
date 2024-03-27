@@ -10,8 +10,7 @@ def read_file(path: Path | str) -> str:
 
 setup(
     name='pygo-jwt',
-    version='0.0.5',
-    config_path='asdf',
+    version='0.0.6-wip',
     packages=find_packages(),
     include_package_data=True,
     python_requires='~=3.12',
@@ -25,3 +24,5 @@ setup(
         'Source': 'https://github.com/rkhullar/python-libraries/tree/main/pygo-jwt'
     }
 )
+
+# TODO: define config_path?

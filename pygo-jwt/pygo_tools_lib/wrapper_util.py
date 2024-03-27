@@ -23,6 +23,7 @@ def build_with_free(ffi, error_type: Type[Exception], free_funcs: dict[str, Call
                     error = err
                 finally:
                     if free:
+                        # TODO: add logger / logging
                         # print(f'{fn.__name__}: calling free {key} on {pointer}')
                         free_funcs[key](pointer)
                 if error:
