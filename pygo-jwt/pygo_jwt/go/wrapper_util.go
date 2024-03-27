@@ -6,7 +6,7 @@ import (
 	"unsafe"
 )
 
-// #include "wrapper_util.h
+// #include "wrapper_util.h"
 import "C"
 
 var _FreeStringMutex sync.Mutex

@@ -9,8 +9,7 @@ from .config import Config
 
 
 def precompile(config: Config):
-    path = config.project_path / config.package / 'go'
-    subprocess.run('make', cwd=path)
+    subprocess.run('make', cwd=config.library_source_path)
 
 
 def find_wheel(config: Config) -> Path | None:

@@ -42,6 +42,10 @@ class Config:
     def extension_path(self) -> Path:
         return self.project_path / self.package / f'{self.extension}.abi3.so'
 
+    @property
+    def library_source_path(self) -> Path:
+        return self.project_path / self.package / 'go'
+
     @classmethod
     def from_json(cls) -> Self:
         setup_path = cls.get_path('setup.py')
