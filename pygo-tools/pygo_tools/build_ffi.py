@@ -3,6 +3,7 @@ from argparse import ArgumentParser, Namespace
 from cffi import FFI
 
 from pygo_tools.config import Config
+import os
 
 
 def build_extra_set_source_args(config: Config) -> dict[str, list[str]]:
@@ -45,5 +46,9 @@ def main():
 
 
 if __name__ == '__cffi__':
+    if config_path := os.environ.get('PYGO_CONFIG_PATH'):
+        print("*"*100)
+        print(f'{config_path=}')
+        print("*"*100)
     default_config = Config.load()
     default_builder = dynamic_builder(default_config)
