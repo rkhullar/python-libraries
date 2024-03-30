@@ -13,7 +13,7 @@ setup(
     version='0.0.6',
     packages=find_packages(),
     include_package_data=True,
-    python_requires='>=3.6, <4.0',
+    python_requires='>=3.9, <4.0',
     author='Rajan Khullar',
     author_email='rkhullar03@gmail.com',
     license='MIT NON-AI',

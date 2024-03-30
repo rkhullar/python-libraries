@@ -14,7 +14,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     entry_points={'console_scripts': ['build-ffi=pygo_tools.build_ffi:main']},
-    python_requires='~=3.12',
+    python_requires='>=3.10, <4.0',
     install_requires=['build', 'setuptools', 'wheel', 'toml', 'cffi'],
     author='Rajan Khullar',
     author_email='rkhullar03@gmail.com',
