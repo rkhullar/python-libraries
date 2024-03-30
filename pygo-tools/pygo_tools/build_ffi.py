@@ -3,7 +3,7 @@ from argparse import ArgumentParser, Namespace
 
 from cffi import FFI
 
-from .config import Config
+from pygo_tools.config import Config
 
 
 def build_extra_set_source_args(config: Config) -> dict[str, list[str]]:
