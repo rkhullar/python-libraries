@@ -42,3 +42,20 @@ jobs:
         with:
           name: build-${{ env.package }}-${{ strategy.job-index }}
           path: ${{ env.package }}/dist/*
+
+  publish_test:
+    if: github.event_name == 'workflow_dispatch'
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment: testpypi
+    permissions:
+      id-token: write
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy
