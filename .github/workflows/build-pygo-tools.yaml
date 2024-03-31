@@ -10,6 +10,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pygo-tools
 
     steps:
       - uses: actions/checkout@v4
@@ -21,10 +24,10 @@ jobs:
       - name: install requirements
         run: |
           pip install pipenv
-          pipenv lock
-          pipenv requirements > requirements.txt
-          pip install -r requirements.txt
-          pip list
+          pipenv install --dev
+#          pipenv lock
+#          pipenv requirements > requirements.txt
+#          pip install -r requirements.txt
 
       - name: debug
         run: |
