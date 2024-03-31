@@ -24,6 +24,7 @@ jobs:
           pipenv lock
           pipenv requirements > requirements.txt
           pip install -r requirements.txt
+          pip list
 
       - name: debug
         run: |
