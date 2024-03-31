@@ -24,10 +24,10 @@ jobs:
           pipenv install --dev
 
       - name: build sdist
-        run: python -m build --sdist
+        run: python -m build -n --sdist
 
       - name: build wheel
-        run: python -m build --wheel
+        run: python -m build -n --wheel
 
 #      - uses: actions/upload-artifact@v4
 #        with:
