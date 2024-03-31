@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 
 [dev-packages]
-#pygo-tools = "*"
+pygo-tools = "*"
 isort = "*"
 twine = "*"
 cibuildwheel = "*"
