@@ -1,15 +1,15 @@
 ## Future Work
 - [ ] adopt `pyproject.toml`
-- [ ] integrate `cibuildwheel` with github actions
+- [x] integrate `cibuildwheel` with github actions
   - [x] build for linux and macos
-  - [ ] automatic push to pypi
+  - [x] publish to testpypi
     - https://cibuildwheel.pypa.io/en/stable/deliver-to-pypi
 - [ ] implement practical helpers:
     - [ ] encode tokens with claims `iss` `aud` `exp` `iat`, `nbf`
     - [ ] decode tokens with key server `PyJWKClient`
 - [ ] improve error handling
     - [x] remove `panic` in core logic
-    - [ ] explore `panic` and `recover`
+    - [x] explore `panic` and `recover`
     - [ ] research error propagation; try/catch
 - [ ] research source distribution build
 - [ ] test for windows?
@@ -21,7 +21,7 @@
 
 ### For PYGO Tools
 - [ ] decouple patch logic to allow caller to define wheel path location?
-- [ ] update `build-ffi` to include custom header files, like `wrapper_util.h`
+- [x] update `build-ffi` to include custom header files, like `wrapper_util.h`
 - [ ] move `wrapper_util` logic to new shared library: `pygo-tools-lib`
   - [ ] add control in `setup` or `pyproject.toml` to add the library in `install_requires`
 
