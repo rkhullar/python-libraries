@@ -23,6 +23,12 @@ jobs:
           pip install pipenv
           pipenv install --dev
 
+      - name: debug
+        run: |
+          python -V
+          pip -V
+          pip list
+
       - name: build sdist
         run: python -m build -n --sdist
 
