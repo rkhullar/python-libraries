@@ -1,7 +1,7 @@
 [project]
 name = "pygo-tools"
 dynamic = ["version"]
-keywords = ["python", "go", "golang", "cffi"]
+keywords = ["python", "golang", "cffi"]
 description = "Simplify Python-Go integration for Libraries with Precompiled Extensions"
 readme = "readme.md"
 license = {text = "MIT NON-AI License"}
