@@ -6,10 +6,10 @@ name = "pypi"
 [packages]
 
 [dev-packages]
-#pygo-tools = "*"
+pygo-tools = "*"
 isort = "*"
 twine = "*"
 cibuildwheel = "*"
 
 [requires]
-python_version = "3.10"
+python_version = "3.12"
