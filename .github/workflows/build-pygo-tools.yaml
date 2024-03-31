@@ -41,4 +41,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: build-${{ env.package }}-${{ strategy.job-index }}
-          path: dist/*
+          path: ${{ env.package }}/dist/*
