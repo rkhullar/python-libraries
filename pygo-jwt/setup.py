@@ -14,6 +14,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     python_requires='>=3.10, <4.0',
+    # setup_requires=['pygo-tools'],
     author='Rajan Khullar',
     author_email='rkhullar03@gmail.com',
     license='MIT NON-AI',
