@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-if command -v go; exit; then exit; fi
+if command -v go; then exit; fi
 git clone https://github.com/asdf-vm/asdf.git "$ASDF_DIR" --branch "v${ASDF_VERSION}"
 . "$ASDF_DIR/asdf.sh"
 asdf plugin-add golang
