@@ -7,8 +7,12 @@ on:
       - release/pygo-tools
       - feature/pygo-tools/support-python-3.10
 
+env:
+  package: "pygo-tools"
+
 jobs:
   build:
+    name: build sdist and wheel
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -28,19 +32,13 @@ jobs:
           pipenv requirements --dev > requirements.txt
           pip install -r requirements.txt
 
-      - name: debug
-        run: |
-          python -V
-          pip -V
-          pip list
-
       - name: build sdist
         run: python -m build -n --sdist
 
       - name: build wheel
         run: python -m build -n --wheel
 
-#      - uses: actions/upload-artifact@v4
-#        with:
-#          name: tbd
-#          path: dist/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ env.package }}-${{ strategy.job-index }}
+          path: dist/*
