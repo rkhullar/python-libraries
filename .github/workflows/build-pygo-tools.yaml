@@ -1,0 +1,30 @@
+name: build pygo-tools
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - release/pygo-tools
+      - feature/pygo-tools/support-python-3.10
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.10
+
+      - name: build-sdist
+        run: python -m build --sdist
+
+      - name: build-sdist
+        run: python -m build --wheel
+
+#      - uses: actions/upload-artifact@v4
+#        with:
+#          name: tbd
+#          path: dist/*
