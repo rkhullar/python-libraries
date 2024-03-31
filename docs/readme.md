@@ -30,6 +30,8 @@ pip install numpy --no-binary ':all:'
 ## Useful Links
 - [non-ai-licenses]
 - [python-versions]
+- [versioning]
 
 [non-ai-licenses]: https://github.com/non-ai-licenses/non-ai-licenses
 [python-versions]: https://devguide.python.org/versions
+[versioning]: https://packaging.python.org/en/latest/discussions/versioning
