@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - release/pygo-tools
-      - feature/pygo-tools/support-python-3.10
 
 env:
   package: "pygo-tools"
@@ -44,7 +43,7 @@ jobs:
           path: ${{ env.package }}/dist/*
 
   publish_test:
-#    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch'
     needs: [build]
     runs-on: ubuntu-latest
     environment: testpypi
