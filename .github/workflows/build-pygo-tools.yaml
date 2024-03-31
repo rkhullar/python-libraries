@@ -23,6 +23,7 @@ jobs:
 
       - name: install requirements
         run: |
+          cat Pipfile
           pip install pipenv
           pipenv lock
           pipenv requirements > requirements.txt
