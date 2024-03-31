@@ -1,8 +1,10 @@
-all: clean build post_build
+build: clean build_sdist build_wheel post_build
 
-build:
-	# python setup.py sdist bdist_wheel
+build_sdist:
 	python -m build -n --sdist
+	tar -tvf dist/*.tar.gz
+
+build_wheel:
 	python -m build -n --wheel
 	unzip -l dist/*.whl
 
