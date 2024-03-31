@@ -1,0 +1,31 @@
+[project]
+name = "pygo-tools"
+dynamic = ["version"]
+keywords = ["python", "golang", "cffi"]
+description = "Simplify Python-Go integration for Libraries with Precompiled Extensions"
+readme = "readme.md"
+license = {text = "MIT NON-AI License"}
+authors = [
+    {name = "Rajan Khullar", email = "rkhullar03@gmail.com"}
+]
+requires-python = ">= 3.10, <4.0"
+dependencies = [
+    "build",
+    "setuptools",
+    "wheel",
+    "toml",
+    "cffi"
+]
+
+[project.urls]
+Repository = "https://github.com/rkhullar/python-libraries/tree/main/pygo-tools"
+
+[project.scripts]
+build-ffi = "pygo_tools.build_ffi:main"
+
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = {attr = "pygo_tools.__version__"}

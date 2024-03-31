@@ -1,0 +1,60 @@
+name: build pygo-tools
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - release/pygo-tools
+
+env:
+  package: "pygo-tools"
+
+jobs:
+  build:
+    name: build sdist and wheel
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pygo-tools
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: install requirements
+        run: |
+          pip install pipenv
+          pipenv lock
+          pipenv requirements --dev > requirements.txt
+          pip install -r requirements.txt
+
+      - name: build sdist
+        run: python -m build -n --sdist
+
+      - name: build wheel
+        run: python -m build -n --wheel
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ env.package }}-${{ strategy.job-index }}
+          path: ${{ env.package }}/dist/*
+
+  publish_test:
+    if: github.event_name == 'workflow_dispatch'
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment: testpypi
+    permissions:
+      id-token: write
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/

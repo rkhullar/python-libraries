@@ -2,7 +2,6 @@ import json
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Self
 
 import toml
 
@@ -47,7 +46,7 @@ class Config:
         return self.project_path / self.package / 'go'
 
     @classmethod
-    def from_json(cls) -> Self:
+    def from_json(cls) -> 'Config':
         setup_path = cls.get_path('setup.py')
         config_path = cls.get_path('config.json')
         if setup_path.exists() and config_path.exists():
@@ -60,7 +59,7 @@ class Config:
             raise EnvironmentError
 
     @classmethod
-    def from_toml(cls) -> Self:
+    def from_toml(cls) -> 'Config':
         toml_path = cls.get_path('pyproject.toml')
         if toml_path.exists():
             with toml_path.open('r') as f:
@@ -73,7 +72,7 @@ class Config:
             raise EnvironmentError
 
     @classmethod
-    def load(cls, mode: str = None) -> Self:
+    def load(cls, mode: str = None) -> 'Config':
         mapping = {'json': cls.from_json, 'toml': cls.from_toml}
         if mode:
             return mapping[mode]()
@@ -85,3 +84,6 @@ class Config:
                     pass
             else:
                 raise EnvironmentError
+
+# TODO:
+# - adopt `from typing import Self` once min python version raised to 3.11
