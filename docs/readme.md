@@ -19,12 +19,11 @@ twine upload dist/*
 pip install 'pygo-tools @ git+https://github.com/rkhullar/python-libraries.git@feature/toml#subdirectory=pygo-tools'
 ```
 
-## Install from Source Distribution (wip)
+## Install from Source Distribution
 ```shell
-pip install cython
-pip install meson-python
-pip install numpy --no-binary ':all:'
-# did not wok
+pip install -U pip setuptools
+pip install pygo-tools
+pip install pygo-jwt --no-cache-dir --no-binary ':all:'
 ```
 
 ## Useful Links
