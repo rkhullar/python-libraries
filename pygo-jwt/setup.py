@@ -1,6 +1,7 @@
+from pathlib import Path
+
 from pygo_tools import setup
 from setuptools import find_packages
-from pathlib import Path
 
 
 def read_file(path: Path | str) -> str:
