@@ -45,6 +45,10 @@ class Config:
     def library_source_path(self) -> Path:
         return self.project_path / self.package / 'go'
 
+    @property
+    def library_target_path(self) -> Path:
+        return self.library_source_path / 'local'
+
     @classmethod
     def from_json(cls) -> 'Config':
         setup_path = cls.get_path('setup.py')
