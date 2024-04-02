@@ -11,7 +11,7 @@ def read_file(path: Path | str) -> str:
 
 setup(
     name='pygo-jwt',
-    version='0.0.7',
+    version='0.0.8.dev1',
     packages=find_packages(),
     include_package_data=True,
     python_requires='>=3.10, <4.0',
