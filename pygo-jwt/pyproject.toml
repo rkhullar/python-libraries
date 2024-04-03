@@ -1,8 +1,22 @@
-{
-  "package": "pygo_jwt",
-  "extension": "_rsa_util",
-  "library": "rsautil",
-  "signatures": [
+[build-system]
+requires = ["pygo-tools"]
+build-backend = "pygo_tools.backend"
+
+[project]
+name = "pygo-jwt"
+dynamic = ["version"]
+
+[tool.setuptools]
+packages = ["pygo_jwt", "pygo_tools_lib"]
+
+[tool.setuptools.dynamic]
+version = {attr = "pygo_jwt.__version__"}
+
+[tool.pygo-tools]
+package    = "pygo_jwt"
+extension  = "_rsa_util"
+library    = "rsautil"
+signatures = [
     "typedef struct string_with_error {char* data; char* error;} StringWithError;",
     "typedef struct bool_with_error {bool data; char* error;} BoolWithError;",
     "StringWithError* NewJWK(int size, char* id);",
@@ -19,5 +33,4 @@
     "void FreeString(char* data);",
     "void FreeStringWithError(StringWithError* object);",
     "void FreeBoolWithError(BoolWithError* object);"
-  ]
-}
+]
