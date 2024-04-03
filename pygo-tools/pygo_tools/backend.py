@@ -1,11 +1,13 @@
 import tempfile
+from pathlib import Path
 
 from setuptools import build_meta as _build_meta
 from setuptools.build_meta import *
 from wheel.bdist_wheel import bdist_wheel
 
 from .config import Config
-from .setup import build_ffi, inject_file, patch_wheel_darwin, precompile
+from .setup import (build_ffi, find_wheel, inject_file, patch_wheel_darwin,
+                    precompile)
 from .util import monkey_patched
 
 
@@ -28,5 +30,8 @@ def build_wheel(wheel_directory, config_settings=None, metadata_directory=None):
         result = _build_meta.build_wheel(wheel_directory, config_settings, metadata_directory)
         inject_file(config, path=source_ffi_path)
         if config.platform == 'darwin':
-            patch_wheel_darwin(config)
+            wheel_path = find_wheel(config, dist_path=Path(wheel_directory))
+            if not wheel_path:
+                raise FileNotFoundError(f'could not find wheel to patch')
+            patch_wheel_darwin(config, wheel_path=wheel_path)
     return result
