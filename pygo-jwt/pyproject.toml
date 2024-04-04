@@ -20,6 +20,9 @@ Repository = "https://github.com/rkhullar/python-libraries/tree/main/pygo-jwt"
 [tool.setuptools]
 packages = ["pygo_jwt", "pygo_tools_lib"]
 
+[tool.setuptools.package-data]
+"pygo_jwt.lib" = ["*.so"]
+
 [tool.setuptools.dynamic]
 version = {attr = "pygo_jwt.__version__"}
 
