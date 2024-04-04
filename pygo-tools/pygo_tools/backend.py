@@ -33,5 +33,8 @@ def build_wheel(wheel_directory, config_settings=None, metadata_directory=None):
             wheel_path = find_wheel(config, dist_path=Path(wheel_directory))
             if not wheel_path:
                 raise FileNotFoundError(f'could not find wheel to patch')
-            patch_wheel_darwin(config, wheel_path=wheel_path)
+            print('+'*100)
+            print('not patching wheel')
+            print('+'*100)
+            #patch_wheel_darwin(config, wheel_path=wheel_path)
     return result
