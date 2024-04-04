@@ -11,7 +11,11 @@ before-build = [
     "pip install pygo-tools",
     "{package}/scripts/install-asdf-go.sh"
 ]
-repair-wheel-command = "auditwheel repair --lib-sdir lib -w {dest_dir} {wheel}"
+repair-wheel-command = [
+    "cd ${package:-.}/ && python scripts/patch-linux-wheel.py --wheel {wheel}",
+    "cp {wheel} {dest_dir}",
+#    "auditwheel repair --lib-sdir lib -w {dest_dir} {wheel}"
+]
 
 [[tool.cibuildwheel.overrides]]
 select="*-????linux_*"
