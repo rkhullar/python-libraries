@@ -5,6 +5,17 @@ build-backend = "pygo_tools.backend"
 [project]
 name = "pygo-jwt"
 dynamic = ["version"]
+keywords = ["python", "golang", "jwt", "rsa"]
+description = "Encode and Decode RS256 JSON Web Tokens with Python and Go"
+readme = "readme.md"
+license = {text = "MIT NON-AI License"}
+requires-python = ">= 3.10, <4.0"
+authors = [
+    {name = "Rajan Khullar", email = "rkhullar03@gmail.com"}
+]
+
+[project.urls]
+Repository = "https://github.com/rkhullar/python-libraries/tree/main/pygo-jwt"
 
 [tool.setuptools]
 packages = ["pygo_jwt", "pygo_tools_lib"]
