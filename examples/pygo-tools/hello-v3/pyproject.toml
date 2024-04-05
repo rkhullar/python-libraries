@@ -1,0 +1,21 @@
+[build-system]
+requires = ["pygo-tools"]
+build-backend = "pygo_tools.backend"
+
+[project]
+name = "pygo-tools-example"
+dynamic = ["version"]
+
+[tool.setuptools]
+packages = ["example"]
+
+[tool.setuptools.dynamic]
+version = {attr = "example.__version__"}
+
+[tool.pygo-tools]
+package    = "example"
+extension  = "_example"
+library    = "hello"
+signatures = [
+    "char* Hello(char* message, int count);"
+]
