@@ -32,15 +32,13 @@ def build_ffi(config: Config, target: str = None, rename: bool = True) -> Path |
         return path
 
 
-def inject_file(config: Config, path: Path):
+def inject_file(wheel_path: Path, path: Path):
     """helper needed for newer build format with toml"""
-    if wheel_path := find_wheel(config):
-        dist_path = wheel_path.parent
-        commands = [
-            ['zip', '-j', str(wheel_path), str(path)],
-        ]
-        for command in commands:
-            subprocess.run(command, cwd=dist_path)
+    commands = [
+        ['zip', '-j', str(wheel_path), str(path)]
+    ]
+    for command in commands:
+        subprocess.run(command, cwd=wheel_path.parent)
 
 
 def patch_wheel_darwin(config: Config, wheel_path: Path):

@@ -1,5 +1,6 @@
 [build-system]
-requires = ["pygo-tools"]
+#requires = ["pygo-tools"]
+requires = ["pygo-tools @ git+https://github.com/rkhullar/python-libraries.git@feature/toml/pygo-jwt#subdirectory=pygo-tools"]
 build-backend = "pygo_tools.backend"
 
 [project]
@@ -25,6 +26,9 @@ packages = ["pygo_jwt", "pygo_tools_lib"]
 
 [tool.setuptools.dynamic]
 version = {attr = "pygo_jwt.__version__"}
+
+#[tool.pygo-tools.dependencies]
+#pygo-tools = { git = "https://github.com/rkhullar/python-libraries.git", branch = "feature/toml/pygo-jwt" }
 
 [tool.pygo-tools]
 package    = "pygo_jwt"
