@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - release/pygo-jwt
+      - feature/cicd
 
 env:
   package: "pygo-jwt"
