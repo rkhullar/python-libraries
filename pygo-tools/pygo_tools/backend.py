@@ -29,10 +29,10 @@ def build_wheel(wheel_directory, config_settings=None, metadata_directory=None):
         precompile(config)
         source_ffi_path = build_ffi(config, target=temp_dir)
         result = _build_meta.build_wheel(wheel_directory, config_settings, metadata_directory)
-        inject_file(config, path=source_ffi_path)
+        wheel_path = find_wheel(config, dist_path=Path(wheel_directory))
+        if not wheel_path:
+            raise FileNotFoundError(f'could not find wheel to patch')
+        inject_file(wheel_path=wheel_path, path=source_ffi_path)
         if config.platform == 'darwin':
-            wheel_path = find_wheel(config, dist_path=Path(wheel_directory))
-            if not wheel_path:
-                raise FileNotFoundError(f'could not find wheel to patch')
             patch_wheel_darwin(config, wheel_path=wheel_path)
     return result

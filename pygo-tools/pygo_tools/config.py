@@ -70,6 +70,7 @@ class Config:
                 data = toml.load(f)
                 data = data.get('tool', {}).get('pygo-tools', {})
                 data['project_path'] = toml_path.parent
+                data.pop('dependencies', None)
                 # TODO: validate data?
                 return cls(**data)
         else:
