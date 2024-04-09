@@ -1,0 +1,23 @@
+{
+  "package": "pygo_jwt",
+  "extension": "_rsa_util",
+  "library": "rsautil",
+  "signatures": [
+    "typedef struct string_with_error {char* data; char* error;} StringWithError;",
+    "typedef struct bool_with_error {bool data; char* error;} BoolWithError;",
+    "StringWithError* NewJWK(int size, char* id);",
+    "StringWithError* JWKToPEM(char* json_data);",
+    "StringWithError* PEMToJWK(char* pem, char* id);",
+    "StringWithError* ExtractPublicJWK(char* key);",
+    "StringWithError* ExtractPublicPEM(char* key);",
+    "StringWithError* ParseJWKAndSign(char* key, char* data);",
+    "StringWithError* ParsePEMAndSign(char* key, char* data);",
+    "BoolWithError* ParsePublicJWKAndVerify(char* key, char* data, char* signature);",
+    "BoolWithError* ParsePublicPEMAndVerify(char* key, char* data, char* signature);",
+    "void ExampleGo(int n);",
+    "StringWithError* MaybeError(int n);",
+    "void FreeString(char* data);",
+    "void FreeStringWithError(StringWithError* object);",
+    "void FreeBoolWithError(BoolWithError* object);"
+  ]
+}

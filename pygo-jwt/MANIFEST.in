@@ -6,4 +6,4 @@ include pygo_jwt/go/go.mod
 include pygo_jwt/go/Makefile
 include pygo_jwt/lib/*.so
 include readme.md
-prune **/local
+include config.json
