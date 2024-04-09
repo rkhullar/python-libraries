@@ -1,3 +1,7 @@
+[0.1.8] - 2024-04-09
+- bugfix for install sdist built from `pyproject.toml`
+- updates `inject_file` to require `wheel_path`
+
 [0.1.7] - 2024-04-09
 - workaround to simplify wheel structure when building with `pyproject.toml`
 - marks distribution as having extension module

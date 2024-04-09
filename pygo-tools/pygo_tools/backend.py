@@ -32,10 +32,7 @@ def build_wheel(wheel_directory, config_settings=None, metadata_directory=None):
         wheel_path = find_wheel(config, dist_path=Path(wheel_directory))
         if not wheel_path:
             raise FileNotFoundError(f'could not find wheel to patch')
-        print('=/'*100)
-        print('injecting file', wheel_path, source_ffi_path)
         inject_file(wheel_path=wheel_path, path=source_ffi_path)
-        print('=/'*100)
         if config.platform == 'darwin':
             patch_wheel_darwin(config, wheel_path=wheel_path)
     return result
