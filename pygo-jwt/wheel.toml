@@ -4,7 +4,7 @@ skip = ["*-musllinux*"]
 
 [tool.cibuildwheel.linux]
 before-all = [
-    "yum install -y make"
+    "yum install -y make zip"
 ]
 before-build = [
     "uname -a",
@@ -21,7 +21,7 @@ environment.ASDF_DIR = "/opt/asdf"
 [[tool.cibuildwheel.overrides]]
 select = "*-musllinux*"
 before-all = [
-    "apk add make",
+    "apk add make zip",
 ]
 
 [tool.cibuildwheel.macos]
