@@ -15,6 +15,7 @@ class custom_bdist_wheel(bdist_wheel):
     def finalize_options(self):
         # NOTE: self.distribution -> setuptools.dist.Distribution
         self.root_is_pure = False
+        self.distribution.has_ext_modules = lambda: True
         install_requires: list[str] = self.distribution.install_requires
         for dep in ['cffi']:
             if dep not in install_requires:

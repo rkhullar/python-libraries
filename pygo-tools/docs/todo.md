@@ -33,3 +33,5 @@
 ### Revisit Custom Backend
 - [ ] try `finalize_distribution_options`
   - https://setuptools.pypa.io/en/latest/userguide/extension.html#customizing-distribution-options
+- [ ] try adding extension dynamically like `cffi`:
+  - [cffi/setuptools_ext.py#L115](https://github.com/python-cffi/cffi/blob/56f760955c85592b0594895ca626c29174fe8078/src/cffi/setuptools_ext.py#L115)
