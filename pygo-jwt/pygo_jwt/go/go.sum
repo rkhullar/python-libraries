@@ -2,5 +2,7 @@ github.com/google/go-cmp v0.6.0 h1:ofyhxvXcZhMsU5ulbFiLKl/XBFqE1GSq7atu8tAmTRI=
 github.com/google/go-cmp v0.6.0/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
+github.com/rkhullar/python-libraries/pygo-tools-lib/pygo_tools_lib/go v0.0.0-20250509011650-8576105652ea h1:uiRZBeyg4/hm6KQV4ZsS6LmyiaxrEB7R6EgDqQqM6nA=
+github.com/rkhullar/python-libraries/pygo-tools-lib/pygo_tools_lib/go v0.0.0-20250509011650-8576105652ea/go.mod h1:VpBK1miUJyfwVLzWisW49m7kgijW7fSpVuNlUKCdwJs=
 gotest.tools v2.2.0+incompatible h1:VsBPFP1AI068pPrMxtb/S8Zkgf9xEmTLJjfM+P5UIEo=
 gotest.tools v2.2.0+incompatible/go.mod h1:DsYFclhRJ6vuDpmuTbkuFWG+y2sxOXAzmJt81HFBacw=
